@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "findme"
+    }
+  },
+  "defaultProject": "findme",
+  "cli": {
+    "analytics": false
+  }
 }
