@@ -1,0 +1,97 @@
+<mat-toolbar color="primary">
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()"
+  >
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span>findme</span>
+  <div class="spacer"></div>
+  <mat-icon>favorite</mat-icon>
+  <!-- for make menu icon  -->
+
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <!-- for make menu items  -->
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>publish</mat-icon>
+      <span>Share</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>mode_comment</mat-icon>
+      <span>Comment</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list class="side-nav-list">
+      <button
+        mat-button
+        color="primary"
+        routerLink="admin/"
+        routerLinkActive="active"
+      >
+        <mat-icon>dashboard</mat-icon>Dashboard
+      </button>
+      <button
+        mat-button
+        color="primary"
+        routerLink="admin/users"
+        routerLinkActive="active"
+      >
+        <mat-icon>account_box</mat-icon>Users
+      </button>
+      <button
+        mat-button
+        color="primary"
+        routerLink="admin/categories"
+        routerLinkActive="active"
+      >
+        <mat-icon>category</mat-icon>Categories
+      </button>
+      <button
+        mat-button
+        color="primary"
+        routerLink="admin/subcategories"
+        routerLinkActive="active"
+      >
+        <mat-icon>dns</mat-icon>Sub-Categories
+      </button>
+      <button
+        mat-button
+        color="primary"
+        routerLink="admin/tags"
+        routerLinkActive="active"
+      >
+        <mat-icon>local_offer</mat-icon>Tags
+      </button>
+      <button
+        mat-button
+        color="primary"
+        routerLink="admin/inputs"
+        routerLinkActive="active"
+      >
+        <mat-icon>input</mat-icon>Inputs
+      </button>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content> <ng-content> </ng-content> </mat-sidenav-content>
+</mat-sidenav-container>

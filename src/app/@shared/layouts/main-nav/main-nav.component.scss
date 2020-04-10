@@ -1,0 +1,40 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  margin-top: 65px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: fixed;
+  top: 0;
+  z-index: 1000000000;
+}
+.side-nav-list button {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.side-nav-list button {
+  display: block;
+  margin: 5px;
+}
+.side-nav-list .mat-icon {
+  padding: 10px;
+  margin: 5px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.mat-sidenav-content {
+  margin-top: 65px;
+  height: 100%;
+  padding: 20px;
+  margin-left: 15px;
+}

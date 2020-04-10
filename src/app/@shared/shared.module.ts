@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './material/material.module';
+
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SharedRoutingModule } from './shared-routing.module';
 import { FooterComponent } from './layouts/footer/footer.component';
-import { HeaderComponent } from './layouts/header/header.component';
+import { MainNavComponent } from './layouts/main-nav/main-nav.component';
 
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent],
+  declarations: [FooterComponent, MainNavComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MaterialModule,
   ],
   exports: [
     CommonModule,
@@ -22,8 +25,9 @@ import { HeaderComponent } from './layouts/header/header.component';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    HeaderComponent,
     FooterComponent,
+    MaterialModule,
+    MainNavComponent,
   ],
 })
 export class SharedModule {}
