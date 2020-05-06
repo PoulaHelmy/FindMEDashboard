@@ -8,9 +8,18 @@ import { RouterModule } from '@angular/router';
 import { SharedRoutingModule } from './shared-routing.module';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { MainNavComponent } from './layouts/main-nav/main-nav.component';
+import { Nav1Component } from './nav1/nav1.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 
 @NgModule({
-  declarations: [FooterComponent, MainNavComponent],
+  declarations: [
+    FooterComponent,
+    MainNavComponent,
+    Nav1Component,
+    NotFoundComponent,
+    FilterPipePipe,
+  ],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -28,6 +37,8 @@ import { MainNavComponent } from './layouts/main-nav/main-nav.component';
     FooterComponent,
     MaterialModule,
     MainNavComponent,
+    NotFoundComponent,
+    FilterPipePipe,
   ],
 })
 export class SharedModule {}

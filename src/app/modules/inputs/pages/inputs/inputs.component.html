@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="justify-content-center">
+    <h1 class="my-3">
+      <mat-icon class="example-tab-icon">table_chart</mat-icon>
+      All Inputs
+      <a
+        mat-flat-button
+        color="primary"
+        class="mx-2 float-right"
+        [routerLink]="['/inputs/create']"
+        matTooltip="Add Inputs "
+        matTooltipPosition="left"
+        ><mat-icon>add</mat-icon> Add Input</a
+      >
+    </h1>
+    <app-input-list></app-input-list>
+    <!-- <app-input-details></app-input-details> -->
+  </div>
+</div>
