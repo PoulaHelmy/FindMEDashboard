@@ -1,0 +1,107 @@
+<div class="example-container mat-elevation-z8">
+  <div
+    class="example-loading-shade"
+    *ngIf="isLoadingResults || isRateLimitReached"
+  >
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      BACKEND API rate limit has been reached. It will be reset in one minute.
+    </div>
+  </div>
+  <mat-form-field class="m-3 w-75">
+    <mat-label>Filter</mat-label>
+    <input matInput placeholder="Ex..." #input />
+    <mat-hint align="end" style="font-size: 14px;"
+      >Total Results : {{ resultsLength }}</mat-hint
+    >
+  </mat-form-field>
+  <div class="example-table-container">
+    <table
+      mat-table
+      [dataSource]="data"
+      class="example-table table-hover"
+      matSort
+      matSortActive="id"
+      matSortDisableClear
+      matSortDirection="asc"
+    >
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            class="matBtn"
+            color="primary"
+            mat-flat-button
+            aria-label="Show Item"
+            matTooltip="Show Item"
+            matTooltipPosition="right"
+            [routerLink]="['/subcategories/view', row.id]"
+            fragment="subcategories"
+            routerLinkActive="router-link-active"
+          >
+            {{ row.id }}
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="category_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+        <td mat-cell *matCellDef="let row">{{ row.category_id }}</td>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let row">{{ row.created_at | date }}</td>
+      </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="example-flex-container">
+            <button
+              class="matBtn"
+              color="accent"
+              mat-icon-button
+              aria-label="Delete Item"
+              matTooltip="Delete Item"
+              matTooltipPosition="left"
+              (click)="deleteItem(row.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button
+              class="matBtn"
+              mat-icon-button
+              color="primary"
+              aria-label="Update Item"
+              matTooltip="Update Item"
+              matTooltipPosition="right"
+              [routerLink]="['/subcategories/update', row.id]"
+              fragment="subcategories"
+              routerLinkActive="router-link-active"
+            >
+              <mat-icon>settings</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <mat-paginator
+    [length]="resultsLength"
+    [pageSizeOptions]="[5, 10, 25, 50, 75, 100, 500]"
+    [pageSize]="5"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

@@ -1,65 +1,158 @@
-import { Component, OnInit } from '@angular/core';
-import { TagsService } from '@@core/services/tags.service';
-import { Tag } from '../../../../@shared/models/tag';
-import { Router } from '@angular/router';
-import { Subscription, Observable } from 'rxjs';
-
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy,
+  ElementRef,
+} from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import {
+  merge,
+  Observable,
+  of as observableOf,
+  fromEvent,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  startWith,
+  switchMap,
+  debounceTime,
+  distinctUntilChanged,
+  tap,
+} from 'rxjs/operators';
+import { Tag } from '@@shared/models/tag';
+import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
+import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
+import { ApiService } from '@@core/http/api.service';
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
 })
-export class TagListComponent implements OnInit {
-  allTags$: Observable<any>;
+export class TagListComponent implements OnInit, AfterViewInit, OnDestroy {
+  displayedColumns: string[] = ['id', 'name', 'created_at', 'actions'];
+  inputsDatabase: Observable<Tag[]> | null;
+  data: Tag[] = [];
 
-  displayedColumns: string[] = ['id', 'name', 'status'];
-  datasource: Tag[] = [];
+  resultsLength = 0;
   isLoadingResults = true;
-
-  constructor(private tagService: TagsService, private router: Router) {} //end of constructor
-
-  ngOnInit(): void {
-    // this.tagService.getAllTags().subscribe((ress) => {
-    //   this.allTags$ = ress['data'];
-    // });
-    this.tagService.getAllTags().subscribe(
-      (res: any) => {
-        this.datasource = res;
-        console.log(this.datasource);
-        this.isLoadingResults = false;
-      },
-      (err) => {
-        console.log('error :   ', err);
-        this.isLoadingResults = false;
-      }
-    );
-  } //end of nginit
-  showItem(id) {
-    console.log('ID : ', id);
-  } //end of show
+  isRateLimitReached = false;
+  options = {
+    title: 'Are Sure To Delete This Item',
+    message: 'Please Take An Action { You Press Esc or Enter to the Action }',
+    cancelText: 'Cancel',
+    confirmText: 'Confirm',
+  };
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('input') inputSearch: ElementRef;
+  constructor(
+    private dialogService: ConfirmDialogService,
+    private snackbarService: SnackbarService,
+    private apiserv: ApiService
+  ) {}
+  ngOnInit() {
+    this.apiserv
+      .getAllInputs('', 'id', 'asc', 0, 0, 'tags')
+      .subscribe((res) => {
+        this.resultsLength = res['meta']['total'];
+        this.data = res['data'];
+      });
+  }
   deleteItem(id: number) {
-    this.tagService.deleteTag(id).subscribe((res) => {
-      this.router.navigate(['tags']);
-      console.log(res);
+    this.dialogService.open(this.options);
+    this.dialogService.confirmed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.apiserv.deleteItem(id, 'tags').subscribe(
+          (res) => {
+            this.snackbarService.show('Item Deleted Successfully', 'success');
+            setTimeout(() => {
+              this.isLoadingResults = false;
+            }, 500);
+
+            this.apiserv
+              .getAllInputs(
+                this.inputSearch.nativeElement.value,
+                this.sort.active,
+                this.sort.direction,
+                this.paginator.pageIndex,
+                this.paginator.pageSize,
+                'tags'
+              )
+              .subscribe((res) => {
+                this.resultsLength = res['meta']['total'];
+                this.data = res['data'];
+              });
+            this.isLoadingResults = true;
+          },
+          (err) => {
+            this.snackbarService.show(err['statusText'], 'danger');
+          }
+        );
+      }
     });
-  } //end of delete
-  updateItem(id: number) {
-    console.log('ID : ', id);
-  } //end of update
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    if (filterValue == '') {
-      return this.datasource;
-    }
-    console.log('Key : ', filterValue);
-    // this.datasource.pop() = filterValue.trim().toLowerCase();
-    //  this.datasource.filter((tag) => {
-    //   tag.name.includes(filterValue);
-    //   console.log()
-    // });
-    this.datasource = this.datasource['data'].filter((tag) => {
-      return tag.name.includes(filterValue);
-    });
-    console.log('results', this.datasource);
+  }
+
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.inputSearch.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.apiserv
+            .getAllInputs(
+              this.inputSearch.nativeElement.value,
+              this.sort.active,
+              this.sort.direction,
+              this.paginator.pageIndex,
+              this.paginator.pageSize,
+              'tags'
+            )
+            .subscribe((res) => {
+              this.data = res['data'];
+              this.resultsLength = res['meta']['total'];
+            });
+        })
+      )
+      .subscribe();
+    // If the user changes the sort order, reset back to the first page.
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.apiserv.getAllInputs(
+            this.inputSearch.nativeElement.value,
+            this.sort.active,
+            this.sort.direction,
+            this.paginator.pageIndex,
+            this.paginator.pageSize,
+            'tags'
+          );
+        }),
+        map((data) => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          return data['data'];
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      )
+      .subscribe((data) => (this.data = data));
+  }
+
+  ngOnDestroy() {
+    this.sort.sortChange.complete();
   }
 } //end of class

@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from './@shared/shared.module';
-import { AdminModule } from './admin/admin.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from 'app/@auth/auth.module';
 import { TagsModule } from 'app/modules/tags/tags.module';
 import { InputsModule } from 'app/modules/inputs/inputs.module';

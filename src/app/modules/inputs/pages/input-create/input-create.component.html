@@ -13,7 +13,7 @@
                 <input
                   matInput
                   formControlName="inputName"
-                  placeholder="Enter Category Name"
+                  placeholder="Enter Input Name"
                 />
                 <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                 <mat-hint
@@ -26,24 +26,6 @@
                 >
               </mat-form-field>
             </p>
-            <div class="selece-option">
-              <mat-form-field class="w-75">
-                <mat-label>Sub-Category</mat-label>
-                <mat-select formControlName="sub_category" name="category">
-                  <mat-option
-                    *ngFor="let subcat of subcats"
-                    [value]="subcat.id"
-                  >
-                    {{ subcat.name }}
-                  </mat-option>
-                </mat-select>
-                <mat-hint
-                  align="end"
-                  *ngIf="getsubcategory?.errors && getsubcategory.touched"
-                  >This Field Is Required</mat-hint
-                >
-              </mat-form-field>
-            </div>
 
             <mat-card-actions>
               <button

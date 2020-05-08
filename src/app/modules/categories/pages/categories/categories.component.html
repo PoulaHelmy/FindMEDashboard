@@ -1,104 +1,18 @@
 <div class="container">
-  <mat-tab-group>
-    <mat-tab class="mat-tab">
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">table_chart</mat-icon>
-        All Categories
-      </ng-template>
-      <div class="cat-table">
-        <mat-form-field>
-          <mat-label>Filter</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
-        </mat-form-field>
-
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-          <!-- Position Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-          </ng-container>
-          <!-- Name Column -->
-          <ng-container matColumnDef="meta_desc">
-            <th mat-header-cell *matHeaderCellDef> Description </th>
-            <td mat-cell *matCellDef="let element"> {{element.meta_desc}} </td>
-          </ng-container>
-          <!-- Name Column -->
-          <ng-container matColumnDef="meta_keywords">
-            <th mat-header-cell *matHeaderCellDef> Meta Keywords </th>
-            <td mat-cell *matCellDef="let element"> {{element.meta_keywords}} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-
-
-        <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator>
-      </div>
-    </mat-tab>
-
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">note_add</mat-icon>
-        Add Categories
-      </ng-template>
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title>Categories Control</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="tags-form">
-            <form [formGroup]="catForm" (ngSubmit)="onSubmit()">
-              <p>
-                <mat-form-field appearance="outline">
-                  <mat-label>Name</mat-label>
-                  <input matInput formControlName="catName"  placeholder="Enter Category Name" />
-                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                  <mat-hint align="end" *ngIf="getcatName.errors?.required&&getcatName.touched">This Field Is Required</mat-hint>
-                  <mat-hint align="end" *ngIf="getcatName.errors?.minlength">Min Length Is 3 Characters</mat-hint>
-                </mat-form-field>
-              </p>
-              <p>
-                <mat-form-field appearance="outline">
-                  <mat-label>Description</mat-label>
-                  <input matInput formControlName="meta_des"  placeholder="Enter Category Description" />
-                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                  <mat-hint align="end" *ngIf="getdesc.errors?.required&&getdesc.touched">This Field Is Required</mat-hint>
-                  <mat-hint align="end" *ngIf="getdesc.errors?.minlength">Min Length Is 3 Characters</mat-hint>
-                </mat-form-field>
-              </p>
-              <p>
-                <mat-form-field appearance="outline">
-                  <mat-label>Meta Keywords</mat-label>
-                  <input matInput formControlName="meta_keywords"  placeholder="Enter Category KeyWords" />
-                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                  <mat-hint align="end" *ngIf="getkeywords.errors?.required&&getkeywords.touched">This Field Is Required</mat-hint>
-                  <mat-hint align="end" *ngIf="getkeywords.errors?.minlength">Min Length Is 3 Characters</mat-hint>
-
-                </mat-form-field>
-              </p>
-
-              <mat-card-actions>
-
-                <button mat-button type="submit" color="accent" [disabled]="catForm.invalid">Submit</button>
-              </mat-card-actions>
-            </form>
-          </div>
-        </mat-card-content>
-
-      </mat-card>
-
-    </mat-tab>
-
-
-  </mat-tab-group>
-
+  <div class="justify-content-center">
+    <h1 class="my-3">
+      <mat-icon class="example-tab-icon">table_chart</mat-icon>
+      All Categories
+      <a
+        mat-flat-button
+        color="primary"
+        class="mx-2 float-right"
+        [routerLink]="['/categories/create']"
+        matTooltip="Add Category "
+        matTooltipPosition="left"
+        ><mat-icon>add</mat-icon> Add Category</a
+      >
+    </h1>
+    <app-cat-list></app-cat-list>
+  </div>
 </div>

@@ -1,37 +1,43 @@
-<div class="tags-table w-100">
-  <div class="example-loading-shade" *ngIf="isLoadingResults">
+<div class="example-container mat-elevation-z8">
+  <div
+    class="example-loading-shade"
+    *ngIf="isLoadingResults || isRateLimitReached"
+  >
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      BACKEND API rate limit has been reached. It will be reset in one minute.
+    </div>
   </div>
-
-  <div class="my-3">
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input
-        class="filter-input"
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Ex. ium"
-        #searchValue
-      />
-    </mat-form-field>
-
-    <table mat-table [dataSource]="datasource['data']">
-      <!-- matSort
-      matSortActive="name"
+  <mat-form-field class="m-3 w-75">
+    <mat-label>Filter</mat-label>
+    <input matInput placeholder="Ex..." #input />
+    <mat-hint align="end" style="font-size: 14px;"
+      >Total Results : {{ resultsLength }}</mat-hint
+    >
+  </mat-form-field>
+  <div class="example-table-container">
+    <table
+      mat-table
+      [dataSource]="data"
+      class="example-table table-hover"
+      matSort
+      matSortActive="id"
       matSortDisableClear
-      matSortDirection="asc" -->
-      <!-- Cases Name Column -->
+      matSortDirection="asc"
+    >
+      <!-- ID Column -->
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
         <td mat-cell *matCellDef="let row">
           <button
             class="matBtn"
             color="primary"
-            mat-button
+            mat-flat-button
             aria-label="Show Item"
             matTooltip="Show Item"
-            matTooltipPosition="above"
+            matTooltipPosition="right"
             [routerLink]="['/tags/view', row.id]"
+            fragment="tags"
             routerLinkActive="router-link-active"
           >
             {{ row.id }}
@@ -39,15 +45,19 @@
         </td>
       </ng-container>
 
-      <!-- Cases Age Column -->
+      <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
         <td mat-cell *matCellDef="let row">{{ row.name }}</td>
       </ng-container>
-
-      <!-- Cases Status Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
+      <!-- Name Column -->
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let row">{{ row.created_at | date }}</td>
+      </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let row">
           <div class="example-flex-container">
             <button
@@ -68,7 +78,9 @@
               aria-label="Update Item"
               matTooltip="Update Item"
               matTooltipPosition="right"
-              (click)="updateItem(row.id)"
+              [routerLink]="['/tags/update', row.id]"
+              fragment="tags"
+              routerLinkActive="router-link-active"
             >
               <mat-icon>settings</mat-icon>
             </button>
@@ -76,10 +88,15 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
-    <mat-paginator [length]="10" [pageSize]="15"></mat-paginator>
   </div>
+
+  <mat-paginator
+    [length]="resultsLength"
+    [pageSizeOptions]="[5, 10, 25, 50, 75, 100, 500]"
+    [pageSize]="5"
+    showFirstLastButtons
+  ></mat-paginator>
 </div>

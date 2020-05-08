@@ -3,4 +3,5 @@ export interface Category {
   name: string;
   meta_des: string;
   meta_keywords: string;
+  created_at: string;
 }

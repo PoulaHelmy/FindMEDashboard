@@ -1,37 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tag } from '@@shared/models/tag';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TagsService } from '@@core/services/tags.service';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '@@core/http/api.service';
+
 @Component({
   selector: 'app-tag-details',
   templateUrl: './tag-details.component.html',
   styleUrls: ['./tag-details.component.scss'],
 })
-export class TagDetailsComponent implements OnInit {
-  tagDetails: Tag = { id: null, name: '' };
-  isLoadingResults = true;
+export class TagDetailsComponent implements OnInit, OnDestroy {
+  itemDetails: Tag = { id: null, name: '', created_at: '' };
+
   constructor(
-    private tagService: TagsService,
-    private router: Router,
+    private apiserv: ApiService,
     private activatedRoute: ActivatedRoute
   ) {}
-
-  ngOnInit(): void {
-    console.log(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.getTagDetails(this.activatedRoute.snapshot.paramMap.get('id'));
-  }
-
-  getTagDetails(id: string) {
-    this.tagService.getTag(id).subscribe((data: any) => {
-      this.tagDetails = data.data;
-      console.log(this.tagDetails);
-      this.isLoadingResults = false;
+  ngOnInit() {
+    this.activatedRoute.data.subscribe((res) => {
+      this.itemDetails = res['item']['data'];
     });
   }
+
   deleteItem(id: number) {
-    console.log(id);
+    this.apiserv.deleteCheck(id, 'tags');
   }
-  updateItem(id: number) {
-    console.log(id);
-  }
-} //end of Class
+
+  ngOnDestroy() {}
+} //end of class

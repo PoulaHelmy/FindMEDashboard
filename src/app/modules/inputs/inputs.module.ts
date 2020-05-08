@@ -12,7 +12,6 @@ import { InputCreateComponent } from './pages/input-create/input-create.componen
 import { InputDetailsComponent } from './pages/input-details/input-details.component';
 import { InputListComponent } from './pages/input-list/input-list.component';
 import { InputsComponent } from './pages/inputs/inputs.component';
-import { TestinputsComponent } from './pages/testinputs/testinputs.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { TestinputsComponent } from './pages/testinputs/testinputs.component';
     InputUpdateComponent,
     InputCreateComponent,
     InputDetailsComponent,
-    TestinputsComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +37,6 @@ import { TestinputsComponent } from './pages/testinputs/testinputs.component';
     InputCreateComponent,
     InputDetailsComponent,
     InputListComponent,
-    TestinputsComponent,
   ],
   providers: [
     {

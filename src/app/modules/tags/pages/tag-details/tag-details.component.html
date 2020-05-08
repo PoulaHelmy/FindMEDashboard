@@ -15,14 +15,21 @@
             <td>
               ID
             </td>
-            <td>{{ tagDetails["id"] }}</td>
+            <td>{{ itemDetails["id"] }}</td>
           </tr>
           <tr>
             <th scope="row">2</th>
             <td>
               Name
             </td>
-            <td>{{ tagDetails["name"] }}</td>
+            <td>{{ itemDetails["name"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>
+              Created_AT
+            </td>
+            <td>{{ itemDetails["created_at"] | date }}</td>
           </tr>
           <tr>
             <th scope="row">3</th>
@@ -38,7 +45,7 @@
                   aria-label="Delete Item"
                   matTooltip="Delete Item"
                   matTooltipPosition="left"
-                  (click)="deleteItem(tagDetails['id'])"
+                  (click)="deleteItem(itemDetails['id'])"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -49,7 +56,9 @@
                   aria-label="Update Item"
                   matTooltip="Update Item"
                   matTooltipPosition="right"
-                  (click)="updateItem(tagDetails['id'])"
+                  [routerLink]="['/tags/update', itemDetails['id']]"
+                  fragment="tags"
+                  routerLinkActive="router-link-active"
                 >
                   <mat-icon>settings</mat-icon>
                 </button>

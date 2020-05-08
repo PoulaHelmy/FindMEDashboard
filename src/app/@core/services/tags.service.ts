@@ -13,52 +13,70 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class TagsService {
-  constructor(private http: HttpClient) {}
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+  endPoint: string = 'tags';
 
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-  getTag(id: string): Observable<Tag> {
-    return this.http.get<Tag>(`${env.apiRoot}/tags/${id}`).pipe(
+  constructor(private http: HttpClient) {}
+  getItem(id: string): Observable<Tag> {
+    return this.http.get<Tag>(`${env.apiRoot}/${this.endPoint}/${id}`).pipe(
       map((response) => {
         return response;
       })
     );
   }
-  getAllTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(`${env.apiRoot}/tags`).pipe(
-      // map((data) => {
-      //   return data;
-      // })
-      tap((tags) => console.log('fetched tags', tags)),
-      catchError(this.handleError('getTags', []))
-    );
-  }
-  deleteTag(id: number) {
-    return this.http.delete(`${env.apiRoot}/tags/${id}`, httpOptions).pipe(
-      map((res) => {
-        return res;
+  getAllItems(): Observable<Tag[]> {
+    return this.http.get<Tag[]>(`${env.apiRoot}/${this.endPoint}`).pipe(
+      map((data) => {
+        return data;
       })
     );
   }
-  addTag(value: string) {
+  deleteItem(id: number) {
     return this.http
-      .post(`${env.apiRoot}/tags`, { name: value }, httpOptions)
+      .delete(`${env.apiRoot}/${this.endPoint}/${id}`, httpOptions)
       .pipe(
         map((res) => {
           return res;
         })
       );
   }
-  // updateTag(data) {
-  //   return this.http.post(`${env.apiRoot}/tags`, data).pipe(map(response => {
-  //       return response;
-  //     })
-  //   );
-  // }
+  getAllInputs(
+    filter: string = '',
+    order: string = 'id',
+    sort: string = 'asc',
+    page: number = 0,
+    pageSize: number = 0
+  ): Observable<Tag[]> {
+    const requestUrl = `${env.apiRoot}/filter/${this.endPoint}`;
+
+    return this.http.get<Tag[]>(requestUrl, {
+      params: new HttpParams()
+        .set('filter', filter)
+        .set('order', order)
+        .set('sort', sort)
+        .set('page', page.toString())
+        .set('pageSize', pageSize.toString()),
+    });
+  }
+  addItem(value: string) {
+    return this.http
+      .post(`${env.apiRoot}/${this.endPoint}`, { name: value }, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+  updateItem(id: number, value: string) {
+    return this.http
+      .patch(
+        `${env.apiRoot}/${this.endPoint}/${id}`,
+        { name: value },
+        httpOptions
+      )
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
 } //end of class

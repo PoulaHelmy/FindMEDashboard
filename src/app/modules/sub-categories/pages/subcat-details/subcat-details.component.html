@@ -1,0 +1,94 @@
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="table-tag w-100">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>
+              ID
+            </td>
+            <td>{{ itemDetails["id"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>
+              Name
+            </td>
+            <td>{{ itemDetails["name"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>
+              Category
+            </td>
+            <td>{{ itemDetails["category_id"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>
+              Description
+            </td>
+            <td>{{ itemDetails["meta_des"] }}</td>
+          </tr>
+          <tr></tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>
+              Key-Words
+            </td>
+            <td>{{ itemDetails["meta_keywords"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>
+              Created_AT
+            </td>
+            <td>{{ itemDetails["created_at"] | date }}</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>
+              Actions
+            </td>
+            <td>
+              <div class="example-flex-container">
+                <button
+                  class="matBtn"
+                  color="accent"
+                  mat-icon-button
+                  aria-label="Delete Item"
+                  matTooltip="Delete Item"
+                  matTooltipPosition="left"
+                  (click)="deleteItem(itemDetails['id'])"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button
+                  class="matBtn"
+                  mat-icon-button
+                  color="primary"
+                  aria-label="Update Item"
+                  matTooltip="Update Item"
+                  matTooltipPosition="right"
+                  [routerLink]="['/subcategories/update', itemDetails['id']]"
+                  fragment="subcategories"
+                  routerLinkActive="router-link-active"
+                >
+                  <mat-icon>settings</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

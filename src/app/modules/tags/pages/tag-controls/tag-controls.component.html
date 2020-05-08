@@ -1,41 +1,45 @@
-<mat-card class="example-card container my-5">
-  <mat-card-header>
-    <mat-card-title>Tags Control</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="tags-form">
-      <form [formGroup]="tagForm" (ngSubmit)="onSubmit()">
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Tag Name</mat-label>
-            <input
-              matInput
-              formControlName="tagName"
-              placeholder="Enter Tag Name"
-            />
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            <mat-hint
-              align="end"
-              *ngIf="
-                tagForm.controls['tagName'].invalid &&
-                tagForm.controls['tagName'].touched
-              "
-              >This Field Is Required & Min Length 3 Character</mat-hint
-            >
-            <mat-hint></mat-hint>
-          </mat-form-field>
-        </p>
-        <mat-card-actions>
-          <button
-            mat-button
-            type="submit"
-            color="accent"
-            [disabled]="tagForm.invalid"
-          >
-            Add
-          </button>
-        </mat-card-actions>
-      </form>
-    </div>
-  </mat-card-content>
-</mat-card>
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <mat-card class="example-card w-100">
+      <mat-card-header>
+        <mat-card-title>Tags Control</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="tags-form">
+          <form [formGroup]="tagsForm" (ngSubmit)="onSubmit()">
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>Name</mat-label>
+                <input
+                  matInput
+                  formControlName="inputName"
+                  placeholder="Enter Tag Name"
+                />
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint
+                  align="end"
+                  *ngIf="getinput.errors?.required && getinput.touched"
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint align="end" *ngIf="getinput.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+
+            <mat-card-actions>
+              <button
+                mat-button
+                type="submit"
+                color="accent"
+                [disabled]="tagsForm.invalid"
+              >
+                Add
+              </button>
+            </mat-card-actions>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

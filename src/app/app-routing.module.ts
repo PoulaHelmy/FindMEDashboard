@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminModule } from './admin/admin.module';
 import { AuthGuard } from './@core/guards/auth.guard';
 import { IsAdminGuard } from './@core/guards/isAdmin.guard';
 
@@ -17,7 +16,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () =>
-      import('app/home/home.module').then((m) => m.HomeModule),
+      import('app/modules/home/home.module').then((m) => m.HomeModule),
     pathMatch: 'full',
   },
   {
@@ -30,7 +29,7 @@ const routes: Routes = [
     path: 'admin',
     canActivateChild: [IsAdminGuard],
     loadChildren: () =>
-      import('app/admin/admin.module').then((m) => m.AdminModule),
+      import('app/modules/admin/admin.module').then((m) => m.AdminModule),
   },
   {
     path: 'tags',
@@ -47,6 +46,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('app/modules/categories/categories.module').then(
         (m) => m.CategoriesModule
+      ),
+  },
+  {
+    path: 'subcategories',
+    loadChildren: () =>
+      import('app/modules/sub-categories/sub-categories.module').then(
+        (m) => m.SubCategoriesModule
       ),
   },
   {

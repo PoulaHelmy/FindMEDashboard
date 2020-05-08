@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { InputsService } from '@@core/services/inputs.service';
 
 @Component({
   selector: 'app-inputs',
@@ -7,8 +6,7 @@ import { InputsService } from '@@core/services/inputs.service';
   styleUrls: ['./inputs.component.scss'],
 })
 export class InputsComponent implements OnInit {
-  constructor(private inputService: InputsService) {
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 } //end of class

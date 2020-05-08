@@ -58,10 +58,10 @@
       <mat-list-item routerLink="admin/users" routerLinkActive="active"
         ><mat-icon>account_box</mat-icon>Users</mat-list-item
       >
-      <mat-list-item routerLink="admin/categories" routerLinkActive="active"
+      <mat-list-item routerLink="/categories" routerLinkActive="active"
         ><mat-icon>category</mat-icon>Categories</mat-list-item
       >
-      <mat-list-item routerLink="admin/subcategories" routerLinkActive="active"
+      <mat-list-item routerLink="/subcategories" routerLinkActive="active"
         ><mat-icon>dns</mat-icon>Sub-Categories</mat-list-item
       >
       <mat-list-item routerLink="tags" routerLinkActive="active"
@@ -74,6 +74,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
+    <app-snackbar></app-snackbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

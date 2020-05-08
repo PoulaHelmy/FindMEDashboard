@@ -8,17 +8,20 @@ import { RouterModule } from '@angular/router';
 import { SharedRoutingModule } from './shared-routing.module';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { MainNavComponent } from './layouts/main-nav/main-nav.component';
-import { Nav1Component } from './nav1/nav1.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';
+import { ConfirmDialogComponent } from '@@shared/pages/dialogs/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
+import { SnackbarComponent } from './pages/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
     FooterComponent,
     MainNavComponent,
-    Nav1Component,
     NotFoundComponent,
     FilterPipePipe,
+    ConfirmDialogComponent,
+    SnackbarComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +42,9 @@ import { FilterPipePipe } from './pipes/filter-pipe.pipe';
     MainNavComponent,
     NotFoundComponent,
     FilterPipePipe,
+    ConfirmDialogComponent,
+    SnackbarComponent,
   ],
+  providers: [ConfirmDialogService],
 })
 export class SharedModule {}

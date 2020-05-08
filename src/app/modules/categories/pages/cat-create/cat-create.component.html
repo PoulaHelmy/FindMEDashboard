@@ -1,1 +1,84 @@
-<p>cat-create works!</p>
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <mat-card class="example-card w-100">
+      <mat-card-header>
+        <mat-card-title>Category Control</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="tags-form">
+          <form [formGroup]="catsForm" (ngSubmit)="onSubmit()">
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>Name</mat-label>
+                <input
+                  matInput
+                  formControlName="inputName"
+                  placeholder="Enter Category Name"
+                />
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint
+                  align="end"
+                  *ngIf="getinput.errors?.required && getinput.touched"
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint align="end" *ngIf="getinput.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>Description</mat-label>
+                <input
+                  matInput
+                  formControlName="inputdes"
+                  placeholder="Enter Category Description"
+                />
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint
+                  align="end"
+                  *ngIf="getdes.errors?.required && getdes.touched"
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint align="end" *ngIf="getdes.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>KeyWords</mat-label>
+                <input
+                  matInput
+                  formControlName="inputkeywords"
+                  placeholder="Enter Category Meta KeyWords"
+                />
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint
+                  align="end"
+                  *ngIf="getkeywords.errors?.required && getkeywords.touched"
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint align="end" *ngIf="getkeywords.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+
+            <mat-card-actions>
+              <button
+                mat-button
+                type="submit"
+                color="accent"
+                [disabled]="catsForm.invalid"
+              >
+                Add
+              </button>
+            </mat-card-actions>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

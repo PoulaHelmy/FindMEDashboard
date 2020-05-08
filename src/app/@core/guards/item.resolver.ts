@@ -9,7 +9,7 @@ export class ItemResolver implements Resolve<any> {
   resolve(next: ActivatedRouteSnapshot): Observable<any> {
     const pageId = next.paramMap.get('id');
     return pageId
-      ? this.tagService.getTag(pageId).pipe(
+      ? this.tagService.getItem(pageId).pipe(
           catchError(() => {
             return of('No Data');
           })

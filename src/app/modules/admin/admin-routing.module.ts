@@ -3,9 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
 import { AdminComponent } from './pages/admin.component';
-import { SubCategoriesComponent } from './pages/sub-categories/sub-categories.component';
-import { LoadingGuard } from '../@core/guards/loading.guard';
-import { ItemResolver } from '../@core/guards/item.resolver';
 
 const routes: Routes = [
   {
@@ -15,12 +12,6 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
-  },
-
-  {
-    path: 'subcategories',
-    component: SubCategoriesComponent,
-    canDeactivate: [LoadingGuard],
   },
   {
     path: 'admin',
