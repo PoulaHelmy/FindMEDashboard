@@ -12,7 +12,6 @@ import { AuthModule } from 'app/@auth/auth.module';
 import { TagsModule } from 'app/modules/tags/tags.module';
 import { InputsModule } from 'app/modules/inputs/inputs.module';
 import { CategoriesModule } from './modules/categories/categories.module';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [

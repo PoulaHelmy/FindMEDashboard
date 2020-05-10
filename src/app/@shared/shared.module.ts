@@ -13,6 +13,8 @@ import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 import { ConfirmDialogComponent } from '@@shared/pages/dialogs/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
 import { SnackbarComponent } from './pages/snackbar/snackbar.component';
+import { TopBarComponent } from './layouts/top-bar/top-bar.component';
+import { SideBarComponent } from './layouts/side-bar/side-bar.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { SnackbarComponent } from './pages/snackbar/snackbar.component';
     FilterPipePipe,
     ConfirmDialogComponent,
     SnackbarComponent,
+    TopBarComponent,
+    SideBarComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +48,8 @@ import { SnackbarComponent } from './pages/snackbar/snackbar.component';
     FilterPipePipe,
     ConfirmDialogComponent,
     SnackbarComponent,
+    TopBarComponent,
+    SideBarComponent,
   ],
   providers: [ConfirmDialogService],
 })

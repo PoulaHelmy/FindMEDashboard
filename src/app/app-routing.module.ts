@@ -6,24 +6,29 @@ import { IsAdminGuard } from './@core/guards/isAdmin.guard';
 import { FooterComponent } from './@shared';
 import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
 import { ItemsModule } from './modules/items/items.module';
+import { GuestGuardService } from '@@core/guards/guest.guard';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+    canActivate: [AuthGuard],
   },
+
   {
     path: 'home',
     loadChildren: () =>
       import('app/modules/home/home.module').then((m) => m.HomeModule),
     pathMatch: 'full',
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth',
     loadChildren: () =>
       import('app/@auth/auth.module').then((m) => m.AuthModule),
-    pathMatch: 'full',
+    canActivateChild: [GuestGuardService],
+    outlet: 'authOutlet',
   },
   {
     path: 'admin',

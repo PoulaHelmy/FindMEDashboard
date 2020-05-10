@@ -1,4 +1,7 @@
-<app-main-nav> </app-main-nav>
+<app-main-nav>
+  <router-outlet></router-outlet>
+</app-main-nav>
+<router-outlet name="authOutlet"> </router-outlet>
 <!-- <button (click)="isLog()" style="margin: 50px;">Toggle</button>
 <div class="test-ani" [@fade] *ngIf="isLogged">
   Hello World
