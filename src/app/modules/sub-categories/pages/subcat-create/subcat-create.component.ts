@@ -70,4 +70,4 @@ export class SubcatCreateComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.catSubscription.unsubscribe();
   }
-} //end of Classconsole.log('')
+} //end of Class

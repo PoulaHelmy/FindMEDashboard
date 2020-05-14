@@ -1,72 +1,168 @@
-<div class="container my-4">
-  <div class="row justify-content-center">
-    <div class="table-tag w-100">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              ID
-            </td>
-            <td>{{ itemDetails["id"] }}</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>
-              Name
-            </td>
-            <td>{{ itemDetails["name"] }}</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>
-              Created_AT
-            </td>
-            <td>{{ itemDetails["created_at"] | date }}</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>
-              Actions
-            </td>
-            <td>
-              <div class="example-flex-container">
-                <button
-                  class="matBtn"
-                  color="accent"
-                  mat-icon-button
-                  aria-label="Delete Item"
-                  matTooltip="Delete Item"
-                  matTooltipPosition="left"
-                  (click)="deleteItem(itemDetails['id'])"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-                <button
-                  class="matBtn"
-                  mat-icon-button
-                  color="primary"
-                  aria-label="Update Item"
-                  matTooltip="Update Item"
-                  matTooltipPosition="right"
-                  [routerLink]="['/inputs/update', itemDetails['id']]"
-                  fragment="inputs"
-                  routerLinkActive="router-link-active"
-                >
-                  <mat-icon>settings</mat-icon>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Input Details</mat-card-title>
+    <mat-card-subtitle
+      >here all data for this Category and all actions</mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content>
+    <div class="container my-4">
+      <div class="row justify-content-center">
+        <div class="table-tag w-100">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>
+                  ID
+                </td>
+                <td>{{ itemDetails["id"] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>
+                  Name
+                </td>
+                <td>{{ itemDetails["name"] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>
+                  Type
+                </td>
+                <td>{{ itemDetails["type"] }}</td>
+              </tr>
+
+              <tr>
+                <th scope="row">4</th>
+                <td>
+                  Label
+                </td>
+                <td>{{ itemDetails["label"] }}</td>
+              </tr>
+              <tr
+                *ngFor="let item of itemDetails['AllValidators']; let i = index"
+              >
+                <th scope="row">{{ i + 5 }}</th>
+                <td>Validator # {{ i + 1 }}</td>
+                <td>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>
+                          V-Name
+                        </td>
+                        <td>{{ item["validatorName"] }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>
+                          V-Options
+                        </td>
+                        <td>{{ item["validatorOptions"] }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>
+                          V-Message
+                        </td>
+                        <td>{{ item["validatorMessage"] }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr *ngFor="let item of itemDetails['AllOptions']; let i = index">
+                <th scope="row">{{ i + 6 }}</th>
+                <td>Option # {{ i + 1 }}</td>
+                <td>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>
+                          O-Name
+                        </td>
+                        <td>{{ item["optionName"] }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">#</th>
+                <td>
+                  Input Type
+                </td>
+                <td>{{ itemDetails["inputType"] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">#</th>
+                <td>
+                  Created_AT
+                </td>
+                <td>{{ itemDetails["created_at"] | date }}</td>
+              </tr>
+              <tr>
+                <th scope="row">#</th>
+                <td>
+                  Actions
+                </td>
+                <td>
+                  <div class="example-flex-container">
+                    <button
+                      class="matBtn"
+                      color="accent"
+                      mat-icon-button
+                      aria-label="Delete Item"
+                      matTooltip="Delete Item"
+                      matTooltipPosition="left"
+                      (click)="deleteItem(itemDetails['id'])"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <button
+                      class="matBtn"
+                      mat-icon-button
+                      color="primary"
+                      aria-label="Update Item"
+                      matTooltip="Update Item"
+                      matTooltipPosition="right"
+                      [routerLink]="['/inputs/update', itemDetails['id']]"
+                      fragment="inputs"
+                      routerLinkActive="router-link-active"
+                    >
+                      <mat-icon>settings</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

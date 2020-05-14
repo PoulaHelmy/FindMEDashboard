@@ -16,30 +16,37 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    this.authService.isLoggedIn.pipe(
-      take(1),
-      map((isLoggedIn: boolean) => {
-        if (isLoggedIn) {
-          // {3}
-          isLoggedIn = true;
-          console.log('IN GUARD : true');
-          return true;
-        }
-        localStorage.removeItem('access_token');
-        localStorage.setItem('isAuth', 'false');
-        localStorage.setItem('Poula', 'true');
-        console.log('IN GUARD : false');
-        this.router.navigateByUrl('/auth');
-        return false;
-      })
-    );
+    // this.authService..pipe(
+    //   take(1),
+    //   map((isLoggedIn: boolean) => {
+    //     if (isLoggedIn) {
+    //       // {3}
+    //       isLoggedIn = true;
+    //       console.log('IN GUARD : true');
+    //       return true;
+    //     }
+    //     localStorage.removeItem('access_token');
+    //     localStorage.setItem('isAuth', 'false');
+    //     localStorage.setItem('Poula', 'true');
+    //     console.log('IN GUARD : false');
+    //     this.router.navigateByUrl('/auth');
+    //     return false;
+    //   })
+    // );
+    // console.log('IN GUARD finsh: false');
+    // return false;
+    if (
+      localStorage.getItem('access_token') != '' &&
+      localStorage.getItem('access_token') != null &&
+      localStorage.getItem('isAuth') == 'true'
+    ) {
+      console.log('IN GUARD : true');
+      return true;
+    }
+    localStorage.removeItem('access_token');
+    localStorage.setItem('isAuth', 'false');
+    this.router.navigateByUrl('/auth/login');
     console.log('IN GUARD finsh: false');
     return false;
-    // if (localStorage.getItem('access_token')) {
-    //   return true;
-    // }
-    // localStorage.removeItem('access_token');
-    // this.router.navigateByUrl('/auth');
-    // return false;
   } //end of can activate
 } //end of class

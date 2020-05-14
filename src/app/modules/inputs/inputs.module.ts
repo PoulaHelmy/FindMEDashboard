@@ -12,6 +12,7 @@ import { InputCreateComponent } from './pages/input-create/input-create.componen
 import { InputDetailsComponent } from './pages/input-details/input-details.component';
 import { InputListComponent } from './pages/input-list/input-list.component';
 import { InputsComponent } from './pages/inputs/inputs.component';
+import { InputsUpdateDynamcallyComponent } from './pages/inputs-update-dynamcally/inputs-update-dynamcally.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { InputsComponent } from './pages/inputs/inputs.component';
     InputUpdateComponent,
     InputCreateComponent,
     InputDetailsComponent,
+    InputsUpdateDynamcallyComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,7 @@ import { InputsComponent } from './pages/inputs/inputs.component';
     InputCreateComponent,
     InputDetailsComponent,
     InputListComponent,
+    InputsUpdateDynamcallyComponent
   ],
   providers: [
     {

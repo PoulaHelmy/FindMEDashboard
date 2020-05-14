@@ -1,10 +1,12 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'app/@auth/services/auth.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { ThemeService } from '@@core/services/theme-service.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -12,8 +14,16 @@ import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
   styleUrls: ['./main-nav.component.scss'],
 })
 export class MainNavComponent implements OnInit {
+  @Input() themeColor = '';
+  // use this to set correct theme class on app holder
+  // eg: <div [class]="themeClass">...</div>
+  // 'my-dark-theme',
+  //     'my-light-theme',
+  //     'purple-green',
+  isDarkTheme: Observable<boolean>;
+
+  themeClass: string = 'findme-theme';
   logOutLoading = false;
-  isLoggedIn$: Observable<boolean>;
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -25,11 +35,29 @@ export class MainNavComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
     private router: Router,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private overlayContainer: OverlayContainer
   ) {}
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    // remove old theme class and add new theme class
+    // we're removing any css class that contains '-theme' string but your theme classes can follow any pattern
+    const overlayContainerClasses = this.overlayContainer.getContainerElement()
+      .classList;
+    const themeClassesToRemove = Array.from(
+      overlayContainerClasses
+    ).filter((item: string) => item.includes('-theme'));
+    if (themeClassesToRemove.length) {
+      overlayContainerClasses.remove(...themeClassesToRemove);
+    }
+    overlayContainerClasses.add('my-theme');
+  }
+  // toggleDarkTheme(checked: boolean) {
+  //   this.themeService.setDarkTheme(checked);
+  // }
+  changrTheme(value: string) {
+    this.themeClass = value;
+  }
   logout() {
     if (localStorage.getItem('isAuth') == 'false') {
       this.snackbar.show(
@@ -41,9 +69,10 @@ export class MainNavComponent implements OnInit {
         .logout()
         .toPromise()
         .then((res) => {
-          this.router.navigate(['/auth/login']);
           localStorage.removeItem('access_token');
           localStorage.setItem('isAuth', 'false');
+          this.snackbar.show('Logged Out Successfully', 'success');
+          this.router.navigate(['/auth/login']);
         })
         .catch((err) => {
           this.snackbar.show(err['error']['message'], 'danger');

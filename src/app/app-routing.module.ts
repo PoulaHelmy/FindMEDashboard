@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './@core/guards/auth.guard';
 import { IsAdminGuard } from './@core/guards/isAdmin.guard';
-
-import { FooterComponent } from './@shared';
 import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
 import { ItemsModule } from './modules/items/items.module';
 import { GuestGuardService } from '@@core/guards/guest.guard';
@@ -28,7 +26,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('app/@auth/auth.module').then((m) => m.AuthModule),
     canActivateChild: [GuestGuardService],
-    outlet: 'authOutlet',
+    // outlet: 'authOutlet',
   },
   {
     path: 'admin',

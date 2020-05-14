@@ -1,5 +1,6 @@
 .mat-sidenav-container {
   height: 100%;
+  color: #eee;
 }
 .mat-sidenav {
   width: 250px;
@@ -11,4 +12,13 @@
 
 .spacer {
   flex: 1 1 auto;
+}
+.sidenav-toolbar {
+  height: 150px;
+}
+.mat-sidenav-contentt {
+  height: 100vh;
+}
+button {
+  outline: none;
 }

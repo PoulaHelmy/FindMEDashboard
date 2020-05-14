@@ -1,0 +1,11 @@
+<div class="form dddd">
+  <div style="text-align: center;">
+    <h1>
+      Registration Form
+    </h1>
+  </div>
+  <app-dynamic-form [fields]="regConfig" (submit)="submit($event)">
+  </app-dynamic-form>
+  <div class="margin-top"></div>
+  {{regConfig|json}}
+</div>

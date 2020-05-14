@@ -15,6 +15,7 @@ export class SubcatDetailsComponent implements OnInit, OnDestroy {
     meta_des: '',
     meta_keywords: '',
     created_at: '',
+    category_name: '',
   };
 
   constructor(
@@ -27,8 +28,8 @@ export class SubcatDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteItem(id: number) {
-    this.apiserv.deleteCheck(id, 'subcategories');
+  deleteItem(id: number, value: string) {
+    this.apiserv.deleteCheck(id, value);
   }
 
   ngOnDestroy() {}

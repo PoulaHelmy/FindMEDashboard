@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
 import { toggleFade } from '@@shared/animation/toggle-fade';
-import { ApiService } from '@@core/http/api.service';
+
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,10 @@ import { ApiService } from '@@core/http/api.service';
   animations: [toggleFade],
 })
 export class AppComponent {
-  title = 'findme';
+  title = 'AngularMaterialDynamicThemes';
 
-  constructor(private apiSerivce: ApiService) {}
-} //end of class
+  constructor() {
+    // Set default theme here:
+  }
+  ngOnInit(): void {}
+}

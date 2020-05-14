@@ -1,107 +1,147 @@
-<div class="mmain-nav" *ngIf="isLoggedIn$ | async">
-  <mat-toolbar color="primary" class="main-toolbar">
-    <div class="left-options">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-      >
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-    </div>
-    <span>FindME</span>
-    <div class="spacer"></div>
-    <div class="right-options">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-      <!-- for smake menu items  -->
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>publish</mat-icon>
-          <span>Share</span>
-        </button>
-        <button mat-menu-item disabled>
-          <mat-icon>mode_comment</mat-icon>
-          <span>Comment</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
-        </button>
-      </mat-menu>
-      <button
-        mat-icon-button
-        [matMenuTriggerFor]="menu2"
-        aria-label="Example icon-button with a menu"
-      >
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu2="matMenu">
-        <button mat-menu-item>
-          <mat-icon>dialpad</mat-icon>
-          <span>Redial</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>voicemail</mat-icon>
-          <span>Check voice mail</span>
-        </button>
-        <button mat-menu-item (click)="logout()">
-          <span>Logout</span>
-        </button>
-      </mat-menu>
-    </div>
-    <div class="clearfix"></div>
-  </mat-toolbar>
+<mat-sidenav-container [class]="themeClass">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar class="sidenav-toolbar" color="primary">
+      <div>
+        <!-- <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button> -->
+        Menu
+      </div>
+    </mat-toolbar>
 
-  <mat-sidenav-container>
-    <mat-sidenav
-      #drawer
-      class="sidenav"
-      fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false"
-    >
-      <mat-toolbar>
-        <div class="">
-          <button
-            type="button"
-            aria-label="Toggle sidenav"
-            mat-icon-button
-            (click)="drawer.toggle()"
-          >
-            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    <mat-nav-list>
+      <mat-list-item routerLink="admin/" routerLinkActive="active"
+        ><mat-icon color="primary">dashboard</mat-icon
+        ><span class="mx-2">Dashboard</span></mat-list-item
+      >
+      <mat-list-item routerLink="admin/users" routerLinkActive="active"
+        ><mat-icon color="primary">account_box</mat-icon
+        ><span class="mx-2">Users</span></mat-list-item
+      >
+      <mat-list-item routerLink="/categories" routerLinkActive="active"
+        ><mat-icon color="primary">category</mat-icon
+        ><span class="mx-2">Categories</span></mat-list-item
+      >
+      <mat-list-item routerLink="/subcategories" routerLinkActive="active"
+        ><mat-icon color="primary">dns</mat-icon
+        ><span class="mx-2">Sub-Categories</span></mat-list-item
+      >
+      <mat-list-item routerLink="tags" routerLinkActive="active"
+        ><mat-icon color="primary">local_offer</mat-icon
+        ><span class="mx-2">Tags</span></mat-list-item
+      >
+      <mat-list-item routerLink="inputs" routerLinkActive="active"
+        ><mat-icon color="primary" class="mx-1">input</mat-icon
+        ><span class="mx-2">Inputs</span></mat-list-item
+      >
+      <mat-list-item routerLink="items" routerLinkActive="active"
+        ><mat-icon color="primary" class="mx-1">bookmarks</mat-icon
+        ><span class="mx-2">Items</span></mat-list-item
+      >
+      <mat-list-item routerLink="requests" routerLinkActive="active"
+        ><mat-icon color="primary">compare_arrows</mat-icon
+        ><span class="mx-2">Requests</span></mat-list-item
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="mat-sidenav-contentt">
+    <!-- [attr.color]="'primary'"
+    [attr.background-color]="'warn'" -->
+    <mat-toolbar class="main-toolbar" color="primary">
+      <div class="left-options">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      </div>
+      <span>FindME</span>
+      <div class="spacer"></div>
+      <div class="right-options">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <!--For Themeing  -->
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="themeMenu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>palette</mat-icon>
+        </button>
+        <mat-menu #themeMenu="matMenu">
+          <button mat-menu-item (click)="changrTheme('my-dark-theme')">
+            <mat-icon>opacity</mat-icon>
+            <span>Dark</span>
           </button>
-          Menu
-        </div>
-      </mat-toolbar>
-
-      <mat-nav-list>
-        <mat-list-item routerLink="admin/" routerLinkActive="active"
-          ><mat-icon>dashboard</mat-icon>Dashboard</mat-list-item
+          <button mat-menu-item (click)="changrTheme('my-light-theme')">
+            <mat-icon>invert_colors</mat-icon>
+            <span>Light</span>
+          </button>
+          <button mat-menu-item (click)="changrTheme('my-theme')">
+            <mat-icon>invert_colors_off</mat-icon>
+            <span>Default</span>
+          </button>
+          <button mat-menu-item (click)="changrTheme('findme-theme')">
+            <mat-icon>invert_colors_off</mat-icon>
+            <span>FindME</span>
+          </button>
+        </mat-menu>
+        <!-- for smake menu items  -->
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>publish</mat-icon>
+            <span>Share</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>mode_comment</mat-icon>
+            <span>Comment</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu2"
+          aria-label="Example icon-button with a menu"
         >
-        <mat-list-item routerLink="admin/users" routerLinkActive="active"
-          ><mat-icon>account_box</mat-icon>Users</mat-list-item
-        >
-        <mat-list-item routerLink="/categories" routerLinkActive="active"
-          ><mat-icon>category</mat-icon>Categories</mat-list-item
-        >
-        <mat-list-item routerLink="/subcategories" routerLinkActive="active"
-          ><mat-icon>dns</mat-icon>Sub-Categories</mat-list-item
-        >
-        <mat-list-item routerLink="tags" routerLinkActive="active"
-          ><mat-icon>local_offer</mat-icon>Tags</mat-list-item
-        >
-        <mat-list-item routerLink="inputs" routerLinkActive="active"
-          ><mat-icon>input</mat-icon>Inputs</mat-list-item
-        >
-      </mat-nav-list>
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-      <ng-template> </ng-template>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu2="matMenu">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voice mail</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+      <div class="clearfix"></div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+    <app-snackbar></app-snackbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>

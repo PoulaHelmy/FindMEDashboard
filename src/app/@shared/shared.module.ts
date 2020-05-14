@@ -15,6 +15,17 @@ import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/conf
 import { SnackbarComponent } from './pages/snackbar/snackbar.component';
 import { TopBarComponent } from './layouts/top-bar/top-bar.component';
 import { SideBarComponent } from './layouts/side-bar/side-bar.component';
+import { InputComponent } from './pages/dynamicForms/input.component';
+import { ButtonComponent } from './pages/dynamicForms/button.component';
+import { DateComponent } from './pages/dynamicForms/date.component';
+
+import { SelectComponent } from './pages/dynamicForms/select.component';
+
+import { RadiobuttonComponent } from './pages/dynamicForms/radiobutton.component';
+
+import { CheckboxComponent } from './pages/dynamicForms/checkbox.component';
+import { DynamicFieldDirective } from './directives/dynamic-field/dynamic-field.directive';
+import { DynamicFormComponent } from './pages/dynamicForms/dynamic-form/dynamic-form.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +37,14 @@ import { SideBarComponent } from './layouts/side-bar/side-bar.component';
     SnackbarComponent,
     TopBarComponent,
     SideBarComponent,
+    InputComponent,
+    ButtonComponent,
+    DateComponent,
+    SelectComponent,
+    RadiobuttonComponent,
+    CheckboxComponent,
+    DynamicFieldDirective,
+    DynamicFormComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +69,23 @@ import { SideBarComponent } from './layouts/side-bar/side-bar.component';
     SnackbarComponent,
     TopBarComponent,
     SideBarComponent,
+    InputComponent,
+    ButtonComponent,
+    DateComponent,
+    SelectComponent,
+    RadiobuttonComponent,
+    CheckboxComponent,
+    DynamicFieldDirective,
+    DynamicFormComponent,
   ],
   providers: [ConfirmDialogService],
+  entryComponents: [
+    InputComponent,
+    ButtonComponent,
+    SelectComponent,
+    DateComponent,
+    RadiobuttonComponent,
+    CheckboxComponent,
+  ],
 })
 export class SharedModule {}

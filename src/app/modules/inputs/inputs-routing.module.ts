@@ -4,6 +4,7 @@ import { InputsComponent } from './pages/inputs/inputs.component';
 import { InputCreateComponent } from './pages/input-create/input-create.component';
 import { InputUpdateComponent } from './pages/input-update/input-update.component';
 import { InputDetailsComponent } from './pages/input-details/input-details.component';
+import { InputsUpdateDynamcallyComponent } from './pages/inputs-update-dynamcally/inputs-update-dynamcally.component';
 import { ApiResolver } from '@@core/guards/resolvers/api.resolver';
 
 const routes: Routes = [
@@ -17,6 +18,11 @@ const routes: Routes = [
   {
     path: 'update/:id',
     component: InputUpdateComponent,
+    resolve: { item: ApiResolver },
+  },
+  {
+    path: 'test',
+    component: InputsUpdateDynamcallyComponent,
     resolve: { item: ApiResolver },
   },
 ];

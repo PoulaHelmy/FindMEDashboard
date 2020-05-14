@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Category } from '@@shared/models/category';
+import { CategoryDetails } from '@@shared/models/category';
 import { ApiService } from '@@core/http/api.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cat-details',
@@ -9,27 +10,23 @@ import { ApiService } from '@@core/http/api.service';
   styleUrls: ['./cat-details.component.scss'],
 })
 export class CatDetailsComponent implements OnInit, OnDestroy {
-  itemDetails: Category = {
-    id: null,
-    name: '',
-    meta_des: '',
-    meta_keywords: '',
-    created_at: '',
-  };
-
+  itemDetails: CategoryDetails;
+  subscription: Subscription;
   constructor(
     private apiserv: ApiService,
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit() {
-    this.activatedRoute.data.subscribe((res) => {
+    this.subscription = this.activatedRoute.data.subscribe((res) => {
       this.itemDetails = res['item']['data'];
     });
   }
 
-  deleteItem(id: number) {
-    this.apiserv.deleteCheck(id, 'categories');
+  deleteItem(id: number, value: string) {
+    this.apiserv.deleteCheck(id, value);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 } //end of class

@@ -9,3 +9,27 @@
 .mat-hint {
   font-size: 14px;
 }
+.inputs-validators{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  
+}
+.inputs-validators-content {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+}
+.inputs-options {
+  border: 0.5px solid black;
+  border-radius: 10px;
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 5px auto;
+}
+.inputs-options-content {
+  width: 50%;
+}

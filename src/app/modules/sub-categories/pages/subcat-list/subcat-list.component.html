@@ -51,9 +51,23 @@
         <td mat-cell *matCellDef="let row">{{ row.name }}</td>
       </ng-container>
       <!-- Name Column -->
-      <ng-container matColumnDef="category_id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-        <td mat-cell *matCellDef="let row">{{ row.category_id }}</td>
+      <ng-container matColumnDef="category_name">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            class="matBtn"
+            color="primary"
+            mat-button
+            aria-label="Show Item"
+            matTooltip="Show Item"
+            matTooltipPosition="right"
+            [routerLink]="['/categories/view', row.category_id]"
+            fragment="categories"
+            routerLinkActive="router-link-active"
+          >
+            {{ row.category_name }}
+          </button>
+        </td>
       </ng-container>
       <!-- Name Column -->
       <ng-container matColumnDef="created_at">

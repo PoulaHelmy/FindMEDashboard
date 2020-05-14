@@ -1,0 +1,128 @@
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <mat-card class="example-card w-100">
+      <mat-card-header>
+        <mat-card-title>SubCategory Control</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="tags-form">
+          <form [formGroup]="inputsForm" (ngSubmit)="onSubmit()">
+            <p>
+              <mat-form-field class="w-75">
+                <mat-label>Sub-Category</mat-label>
+                <mat-select
+                  formControlName="subcat"
+                  placeholder="Select SubCategory"
+                >
+                  <mat-option
+                    *ngFor="let item of subCatsList"
+                    [value]="item.id"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-icon matSuffix *ngIf="!inputsForm.controls.subcat.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon matSuffix *ngIf="inputsForm.controls.subcat.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    inputsForm.controls.subcat.errors?.required &&
+                    inputsForm.controls.subcat.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+              </mat-form-field>
+            </p>
+            <div
+              class="inputs-validators"
+              formArrayName="subcatInputs"
+              *ngIf="getinputs().controls.length"
+            >
+              <ng-container
+                *ngFor="
+                  let item of getinputs().controls;
+                  let inputIndex = index
+                "
+              >
+                <div
+                  class="inputs-validators-content"
+                  [formGroupName]="inputIndex"
+                >
+                  <p>
+                    <mat-form-field class="w-75">
+                      <mat-label>Input Name</mat-label>
+                      <mat-select formControlName="input_id">
+                        <mat-option
+                          *ngFor="let item of inputList"
+                          [value]="item.id"
+                        >
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-icon
+                        matSuffix
+                        *ngIf="!getOneInput(inputIndex).get('input_id').errors"
+                        >sentiment_very_satisfied</mat-icon
+                      >
+                      <mat-icon
+                        matSuffix
+                        *ngIf="getOneInput(inputIndex).get('input_id').errors"
+                        >sentiment_dissatisfied</mat-icon
+                      >
+                      <mat-hint
+                        align="end"
+                        *ngIf="
+                          getOneInput(inputIndex).get('input_id').errors
+                            ?.required &&
+                          getOneInput(inputIndex).get('input_id').touched
+                        "
+                        >This Field Is Required</mat-hint
+                      >
+                    </mat-form-field>
+                  </p>
+
+                  <button
+                    class="float-right"
+                    mat-raised-button
+                    type="button"
+                    color="warn"
+                    class="btn-operations"
+                    (click)="removeInput(inputIndex)"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+            <button
+              mat-raised-button
+              type="button"
+              color="primary"
+              class="btn-operations"
+              (click)="addInput()"
+            >
+              Add Input
+            </button>
+
+            <mat-card-actions>
+              <button
+                mat-button
+                type="submit"
+                color="accent"
+                [disabled]="inputsForm.invalid"
+              >
+                Add
+              </button>
+            </mat-card-actions>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

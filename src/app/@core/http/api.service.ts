@@ -106,4 +106,13 @@ export class ApiService {
       }
     });
   }
+  inputsSubcats(data: object) {
+    return this.http
+      .post(`${env.apiRoot}/subcategories/inputs`, data, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
 } //end of class

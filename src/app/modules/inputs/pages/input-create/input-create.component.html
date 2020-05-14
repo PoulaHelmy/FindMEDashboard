@@ -12,20 +12,393 @@
                 <mat-label>Name</mat-label>
                 <input
                   matInput
-                  formControlName="inputName"
+                  formControlName="name"
                   placeholder="Enter Input Name"
                 />
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-icon matSuffix *ngIf="!inputsForm.controls.name.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon matSuffix *ngIf="inputsForm.controls.name.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
                 <mat-hint
                   align="end"
-                  *ngIf="getinput.errors?.required && getinput.touched"
+                  *ngIf="
+                    inputsForm.controls.name.errors?.required &&
+                    inputsForm.controls.name.touched
+                  "
                   >This Field Is Required</mat-hint
                 >
-                <mat-hint align="end" *ngIf="getinput.errors?.minlength"
+                <mat-hint
+                  align="end"
+                  *ngIf="inputsForm.controls.name.errors?.minlength"
                   >Min Length Is 3 Characters</mat-hint
                 >
               </mat-form-field>
             </p>
+            <p>
+              <mat-form-field class="w-75">
+                <mat-label>Type</mat-label>
+                <mat-select
+                  formControlName="inputType"
+                  placeholder="Enter Input Type"
+                  [(ngModel)]="isInput"
+                >
+                  <mat-option
+                    *ngFor="let item of inputsTypes"
+                    [value]="item.dataStored"
+                  >
+                    {{ item.dataView }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-icon
+                  matSuffix
+                  *ngIf="!inputsForm.controls.inputType.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon matSuffix *ngIf="inputsForm.controls.inputType.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    inputsForm.controls.inputType.errors?.required &&
+                    inputsForm.controls.inputType.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="inputsForm.controls.inputType.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+            <ng-container *ngIf="isInput === 'input'">
+              <mat-form-field class="w-75">
+                <mat-label>Type OF Input</mat-label>
+                <mat-select
+                  formControlName="inputOptionsInput"
+                  placeholder="Enter Input Type"
+                >
+                  <mat-option
+                    *ngFor="let item of htmlInputTypes"
+                    [value]="item.dataStored"
+                  >
+                    {{ item.dataView }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-icon
+                  matSuffix
+                  *ngIf="!inputsForm.controls.inputOptionsInput.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon
+                  matSuffix
+                  *ngIf="inputsForm.controls.inputOptionsInput.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    inputsForm.controls.inputOptionsInput.errors?.required &&
+                    inputsForm.controls.inputOptionsInput.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    inputsForm.controls.inputOptionsInput.errors?.minlength
+                  "
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </ng-container>
+            <ng-container
+              *ngIf="
+                isInput === 'radiobutton' ||
+                isInput === 'select' ||
+                isInput === 'checkbox'
+              "
+            >
+              <div
+                class="inputs-options"
+                formArrayName="inputOptions"
+                *ngIf="getArrayedOptions().controls.length"
+              >
+                <ng-container
+                  *ngFor="
+                    let item of getArrayedOptions().controls;
+                    let optionIndex = index
+                  "
+                >
+                  <div
+                    class="inputs-options-content"
+                    [formGroupName]="optionIndex"
+                  >
+                    <p>
+                      <mat-form-field appearance="outline" class="w-75">
+                        <mat-label>Option Value</mat-label>
+                        <input
+                          matInput
+                          formControlName="optionName"
+                          placeholder="Enter Option Value"
+                        />
+                        <mat-icon
+                          matSuffix
+                          *ngIf="
+                            !getOneOption(optionIndex).get('optionName').errors
+                          "
+                          >sentiment_very_satisfied</mat-icon
+                        >
+                        <mat-icon
+                          matSuffix
+                          *ngIf="
+                            getOneOption(optionIndex).get('optionName').errors
+                          "
+                          >sentiment_dissatisfied</mat-icon
+                        >
+
+                        <mat-hint
+                          align="end"
+                          *ngIf="
+                            getOneOption(optionIndex).get('optionName').errors
+                              ?.required &&
+                            getOneOption(optionIndex).get('optionName').touched
+                          "
+                          >This Field Is Required</mat-hint
+                        >
+                      </mat-form-field>
+                      <button
+                        mat-icon-button
+                        type="button"
+                        color="warn"
+                        class="btn-operations"
+                        (click)="removeOptionFromArrayedInPuts(optionIndex)"
+                      >
+                        <mat-icon class="mat-18">delete</mat-icon>
+                      </button>
+                    </p>
+                  </div>
+                </ng-container>
+              </div>
+              <button
+                mat-raised-button
+                type="button"
+                color="primary"
+                class="btn-operations"
+                (click)="addItemToArrayedInputs()"
+              >
+                Add Option
+              </button>
+            </ng-container>
+
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>Label</mat-label>
+                <input
+                  matInput
+                  formControlName="label"
+                  placeholder="Enter Input label"
+                />
+                <mat-icon matSuffix *ngIf="!inputsForm.controls.label.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon matSuffix *ngIf="inputsForm.controls.label.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    inputsForm.controls.label.errors?.required &&
+                    inputsForm.controls.label.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="inputsForm.controls.label.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+            <div
+              class="inputs-validators"
+              formArrayName="inputsValidators"
+              *ngIf="getValidators().controls.length"
+            >
+              <ng-container
+                *ngFor="
+                  let item of getValidators().controls;
+                  let validatoerIndex = index
+                "
+              >
+                <div
+                  class="inputs-validators-content"
+                  [formGroupName]="validatoerIndex"
+                >
+                  <p>
+                    <mat-form-field class="w-75">
+                      <mat-label>Validator Name</mat-label>
+                      <mat-select formControlName="validatorName">
+                        <mat-option
+                          *ngFor="let item of validatorsTypes"
+                          [value]="item.dataStored"
+                        >
+                          {{ item.dataView }}
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-icon
+                        matSuffix
+                        *ngIf="
+                          !getOneValidator(validatoerIndex).get('validatorName')
+                            .errors
+                        "
+                        >sentiment_very_satisfied</mat-icon
+                      >
+                      <mat-icon
+                        matSuffix
+                        *ngIf="
+                          getOneValidator(validatoerIndex).get('validatorName')
+                            .errors
+                        "
+                        >sentiment_dissatisfied</mat-icon
+                      >
+                      <mat-hint
+                        align="end"
+                        *ngIf="
+                          getOneValidator(validatoerIndex).get('validatorName')
+                            .errors?.required &&
+                          getOneValidator(validatoerIndex).get('validatorName')
+                            .touched
+                        "
+                        >This Field Is Required</mat-hint
+                      >
+                      <mat-hint
+                        align="end"
+                        *ngIf="
+                          getOneValidator(validatoerIndex).get('validatorName')
+                            .errors?.minlength
+                        "
+                        >Min Length Is 3 Characters</mat-hint
+                      >
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="outline" class="w-75">
+                      <mat-label>Validator Message</mat-label>
+                      <input
+                        matInput
+                        formControlName="validatorMessage"
+                        placeholder="Enter Validator Message"
+                      />
+                      <mat-icon
+                        matSuffix
+                        *ngIf="
+                          !getOneValidator(validatoerIndex).get(
+                            'validatorMessage'
+                          ).errors
+                        "
+                        >sentiment_very_satisfied</mat-icon
+                      >
+                      <mat-icon
+                        matSuffix
+                        *ngIf="
+                          getOneValidator(validatoerIndex).get(
+                            'validatorMessage'
+                          ).errors
+                        "
+                        >sentiment_dissatisfied</mat-icon
+                      >
+                      <mat-hint
+                        align="end"
+                        *ngIf="
+                          getOneValidator(validatoerIndex).get(
+                            'validatorMessage'
+                          ).errors?.required &&
+                          getOneValidator(validatoerIndex).get(
+                            'validatorMessage'
+                          ).touched
+                        "
+                        >This Field Is Required</mat-hint
+                      >
+                      <mat-hint
+                        align="end"
+                        *ngIf="
+                          getOneValidator(validatoerIndex).get(
+                            'validatorMessage'
+                          ).errors?.minlength
+                        "
+                        >Min Length Is 6 Characters</mat-hint
+                      >
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="outline" class="w-75">
+                      <mat-label>Validator Options</mat-label>
+                      <input
+                        matInput
+                        formControlName="validatorOptions"
+                        placeholder="Ex, if minLength 6 type 6,if pattern type it...etc"
+                      />
+                      <mat-icon
+                        matSuffix
+                        *ngIf="
+                          !getOneValidator(validatoerIndex).get(
+                            'validatorOptions'
+                          ).errors
+                        "
+                        >sentiment_very_satisfied</mat-icon
+                      >
+                      <mat-icon
+                        matSuffix
+                        *ngIf="
+                          getOneValidator(validatoerIndex).get(
+                            'validatorOptions'
+                          ).errors
+                        "
+                        >sentiment_dissatisfied</mat-icon
+                      >
+                      <mat-hint
+                        align="end"
+                        *ngIf="
+                          getOneValidator(validatoerIndex).get(
+                            'validatorOptions'
+                          ).errors?.required &&
+                          getOneValidator(validatoerIndex).get(
+                            'validatorOptions'
+                          ).touched
+                        "
+                        >This Field Is Required</mat-hint
+                      >
+                    </mat-form-field>
+                  </p>
+                  <button
+                    class="float-right"
+                    mat-raised-button
+                    type="button"
+                    color="warn"
+                    class="btn-operations"
+                    (click)="removeInputsValidator(validatoerIndex)"
+                  >
+                    Remove Validator
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+            <button
+              mat-raised-button
+              type="button"
+              color="primary"
+              class="btn-operations"
+              (click)="addInputsValidator()"
+            >
+              Add Validator
+            </button>
 
             <mat-card-actions>
               <button

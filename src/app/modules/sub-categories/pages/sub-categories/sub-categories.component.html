@@ -1,7 +1,7 @@
 <div class="container">
   <div class="justify-content-center">
-    <h1 class="my-3">
-      <mat-icon class="example-tab-icon">table_chart</mat-icon>
+    <h1 class="my-3" color="'primary'">
+      <mat-icon class="example-tab-icon" color="primary">table_chart</mat-icon>
       All SubCategories
       <a
         mat-flat-button
@@ -9,10 +9,20 @@
         class="mx-2 float-right"
         [routerLink]="['/subcategories/create']"
         matTooltip="Add Sub-Category "
-        matTooltipPosition="left"
+        matTooltipPosition="above"
         ><mat-icon>add</mat-icon>Add SubCategory</a
       >
+      <a
+        mat-flat-button
+        color="primary"
+        class="mx-2 float-right"
+        [routerLink]="['/items/inputscats']"
+        matTooltip="Assign Inputs To SubCategories "
+        matTooltipPosition="above"
+        ><mat-icon>add</mat-icon>Format Sub-Categories</a
+      >
     </h1>
+
     <app-subcat-list></app-subcat-list>
   </div>
 </div>
