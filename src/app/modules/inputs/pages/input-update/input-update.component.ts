@@ -126,6 +126,10 @@ export class InputUpdateComponent implements OnInit, OnDestroy {
       inputOptionsInput: ['', []],
       inputOptions: this.fb.array([]),
       inputsValidators: this.fb.array([]),
+      placeholder: [
+        this.data['placeholder'],
+        [Validators.required, Validators.minLength(3)],
+      ],
     });
     for (let i = 0; i < this.data['AllValidators'].length; i++) {
       this.addInputsValidator();
@@ -202,6 +206,7 @@ export class InputUpdateComponent implements OnInit, OnDestroy {
       inputsValidators: this.inputsForm.get('inputsValidators').value,
       inputOptions: this.inputsForm.get('inputOptions').value,
       inputOptionsInput: this.inputsForm.get('inputOptionsInput').value,
+      placeholder: ['', [Validators.required, Validators.minLength(3)]],
     };
     if (oldName !== newName) {
       this.data['name'] = this.inputsForm.get('name').value;

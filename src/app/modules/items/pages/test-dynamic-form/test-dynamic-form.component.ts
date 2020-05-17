@@ -24,6 +24,7 @@ export class TestDynamicFormComponent implements OnInit {
       label: 'Username',
       inputType: 'text',
       name: 'firstName',
+      value: 'poula',
       validations: [
         {
           name: 'required',
@@ -46,6 +47,7 @@ export class TestDynamicFormComponent implements OnInit {
       label: 'Email Address',
       inputType: 'email',
       name: 'email',
+      value: 'poula@gmail.com',
       validations: [
         {
           name: 'required',
@@ -66,6 +68,7 @@ export class TestDynamicFormComponent implements OnInit {
       label: 'Password',
       inputType: 'password',
       name: 'password',
+      value: 'poulapoulapoula',
       validations: [
         {
           name: 'required',
@@ -97,7 +100,7 @@ export class TestDynamicFormComponent implements OnInit {
       type: 'select',
       label: 'Country',
       name: 'country',
-      value: 'UK',
+      value: 'India',
       options: ['India', 'UAE', 'UK', 'US'],
     },
     {

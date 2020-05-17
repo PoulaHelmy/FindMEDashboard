@@ -4,16 +4,31 @@ import { FieldConfig } from '../../models/field.interface';
 @Component({
   selector: 'app-radiobutton',
   template: `
-    <div class="demo-full-width margin-top" [formGroup]="group">
-      <label class="radio-label-padding">{{ field.label }}:</label>
-      <mat-radio-group [formControlName]="field.name">
-        <mat-radio-button *ngFor="let item of field.options" [value]="item">{{
-          item
-        }}</mat-radio-button>
+    <div [formGroup]="group" class="w-75">
+      <label id="example-radio-group-label">{{ field.label }}:</label>
+      <mat-radio-group [formControlName]="field.name" [value]="field.value">
+        <mat-radio-button
+          class="example-radio-button"
+          *ngFor="let item of field.options"
+          [value]="item"
+          >{{ item }}</mat-radio-button
+        >
       </mat-radio-group>
     </div>
   `,
-  styles: [],
+  styles: [
+    `
+      .example-radio-group {
+        display: flex;
+        flex-direction: column;
+        margin: 15px 0;
+      }
+
+      .example-radio-button {
+        margin: 5px;
+      }
+    `,
+  ],
 })
 export class RadiobuttonComponent implements OnInit {
   field: FieldConfig;

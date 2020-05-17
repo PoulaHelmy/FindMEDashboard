@@ -8,7 +8,6 @@ import { stringify } from 'querystring';
 export class CoreService {
   constructor() {}
   mapControl(data: object): FieldConfig {
-    console.log('$$$: ', '' + data['name']);
     let result: FieldConfig;
     let options = [];
     let validations = [];
@@ -37,7 +36,8 @@ export class CoreService {
         name: '' + data['name'],
         options: options,
         validations: validations,
-        value: options[0],
+        placeholder: data['placeholder'] ? data['placeholder'] : '',
+        value: data['value'] ? data['value'] : '',
       };
       return result;
     }
@@ -47,6 +47,8 @@ export class CoreService {
       label: data['label'],
       inputType: data['inputType'],
       name: data['name'],
+      placeholder: data['placeholder'] ? data['placeholder'] : '',
+      value: data['value'] ? data['value'] : '',
       validations: validations,
     };
     return result;

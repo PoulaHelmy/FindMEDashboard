@@ -7,6 +7,7 @@ import {
   Validators,
   FormArray,
   FormControl,
+  FormGroupName,
 } from '@angular/forms';
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -22,14 +23,9 @@ import { CoreService } from '@@core/services/core-service.service';
 })
 export class InputsUpdateDynamcallyComponent implements OnInit {
   @ViewChild(DynamicFormComponent) formmmmm: DynamicFormComponent;
-  rerere = 'required';
   inputSubScription: Subscription;
   regConfig: FieldConfig[] = [];
-  inputsArr = [
-    { id: 49, name: 'colors' },
-    { id: 84, name: 'firstName' },
-  ];
-  wqwq: FieldConfig;
+  formChilds: FormGroup;
   constructor(
     private fb: FormBuilder,
     private apiserv: ApiService,
@@ -40,120 +36,22 @@ export class InputsUpdateDynamcallyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.apiserv.getItem('62', 'subcategories').subscribe((res) => {
-    //   this.inputsArr = res['data']['inputs'];
-    //   console.log('res :', this.inputsArr);
-    //   // this.regConfig=res['data']['inputs'];
-    // });
-    this.apiserv.getItem('85', 'inputs').subscribe((res) => {
-      let xx = this.coreService.mapControl(res['data']);
-      setTimeout(() => {
-        this.regConfig = this.cccc;
-        this.regConfig.push(xx);
-      }, 3000);
+    this.actRoute.data.subscribe((res) => {
+      const btn = {
+        type: 'button',
+        label: 'Save Data',
+      };
+      for (let i = 0; i < res['item'].length; i++) {
+        this.regConfig.push(res['item'][i]);
+      }
+      this.regConfig.push(btn);
+      console.log('this.regConfig : ', this.regConfig);
     });
   }
 
-  cccc = [
-    {
-      type: 'input',
-      label: 'Username',
-      inputType: 'text',
-      name: 'name',
-      validations: [
-        {
-          name: 'required',
-          message: 'Name Required',
-        },
-        {
-          name: 'pattern',
-          options: '^[a-zA-Z]+$',
-          message: 'Accept only text',
-        },
-        {
-          name: 'minlength',
-          options: '6',
-          message: 'min length 6 characters',
-        },
-      ],
-    },
-    {
-      type: 'input',
-      label: 'Email Address',
-      inputType: 'email',
-      name: 'email',
-      validations: [
-        {
-          name: 'required',
-          validator: Validators.required,
-          message: 'Email Required',
-        },
-        {
-          name: 'pattern',
-          validator: Validators.pattern(
-            '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'
-          ),
-          message: 'Invalid email',
-        },
-      ],
-    },
-    {
-      type: 'input',
-      label: 'Password',
-      inputType: 'password',
-      name: 'password',
-      validations: [
-        {
-          name: 'required',
-          validator: Validators.required,
-          message: 'Password Required',
-        },
-      ],
-    },
-    {
-      type: 'radiobutton',
-      label: 'Gender',
-      name: 'gender',
-      options: ['Male', 'Female'],
-      value: 'Male',
-    },
-    {
-      type: 'date',
-      label: 'DOB',
-      name: 'dob',
-      validations: [
-        {
-          name: 'required',
-          validator: Validators.required,
-          message: 'Date of Birth Required',
-        },
-      ],
-    },
-    {
-      type: 'select',
-      label: 'Country',
-      name: 'country',
-      value: 'UK',
-      options: ['India', 'UAE', 'UK', 'US'],
-    },
-    {
-      type: 'checkbox',
-      label: 'Accept Terms',
-      name: 'term',
-      value: true,
-    },
-    {
-      type: 'button',
-      label: 'Save',
-    },
-  ];
-
-  getData(data: object) {
-    for (let item in data) {
-      console.log(item);
-    }
-  }
   submit(value: any) {
+    console.log('form Is :  ', this.formmmmm);
+
     console.log('dsd', value);
   }
 }

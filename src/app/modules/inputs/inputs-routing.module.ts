@@ -6,6 +6,7 @@ import { InputUpdateComponent } from './pages/input-update/input-update.componen
 import { InputDetailsComponent } from './pages/input-details/input-details.component';
 import { InputsUpdateDynamcallyComponent } from './pages/inputs-update-dynamcally/inputs-update-dynamcally.component';
 import { ApiResolver } from '@@core/guards/resolvers/api.resolver';
+import { AllInputsResolver } from '@@core/guards/resolvers/allInptus.resolver';
 
 const routes: Routes = [
   { path: '', component: InputsComponent },
@@ -21,9 +22,9 @@ const routes: Routes = [
     resolve: { item: ApiResolver },
   },
   {
-    path: 'test',
+    path: 'test/:id',
     component: InputsUpdateDynamcallyComponent,
-    resolve: { item: ApiResolver },
+    resolve: { item: AllInputsResolver },
   },
 ];
 

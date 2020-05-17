@@ -75,6 +75,68 @@
                 >
               </mat-form-field>
             </p>
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>Label</mat-label>
+                <input
+                  matInput
+                  formControlName="label"
+                  placeholder="Enter Input label"
+                />
+                <mat-icon matSuffix *ngIf="!inputsForm.controls.label.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon matSuffix *ngIf="inputsForm.controls.label.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    inputsForm.controls.label.errors?.required &&
+                    inputsForm.controls.label.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="inputsForm.controls.label.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>PlaceHolder</mat-label>
+                <input
+                  matInput
+                  formControlName="placeholder"
+                  placeholder="Enter Placeholder..."
+                />
+                <mat-icon
+                  matSuffix
+                  *ngIf="!inputsForm.controls.placeholder.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon
+                  matSuffix
+                  *ngIf="inputsForm.controls.placeholder.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    inputsForm.controls.placeholder.errors?.required &&
+                    inputsForm.controls.placeholder.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="inputsForm.controls.placeholder.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
             <ng-container *ngIf="isInput === 'input'">
               <mat-form-field class="w-75">
                 <mat-label>Type OF Input</mat-label>
@@ -196,35 +258,6 @@
               </button>
             </ng-container>
 
-            <p>
-              <mat-form-field appearance="outline" class="w-75">
-                <mat-label>Label</mat-label>
-                <input
-                  matInput
-                  formControlName="label"
-                  placeholder="Enter Input label"
-                />
-                <mat-icon matSuffix *ngIf="!inputsForm.controls.label.errors"
-                  >sentiment_very_satisfied</mat-icon
-                >
-                <mat-icon matSuffix *ngIf="inputsForm.controls.label.errors"
-                  >sentiment_dissatisfied</mat-icon
-                >
-                <mat-hint
-                  align="end"
-                  *ngIf="
-                    inputsForm.controls.label.errors?.required &&
-                    inputsForm.controls.label.touched
-                  "
-                  >This Field Is Required</mat-hint
-                >
-                <mat-hint
-                  align="end"
-                  *ngIf="inputsForm.controls.label.errors?.minlength"
-                  >Min Length Is 3 Characters</mat-hint
-                >
-              </mat-form-field>
-            </p>
             <div
               class="inputs-validators"
               formArrayName="inputsValidators"

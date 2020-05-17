@@ -1,0 +1,52 @@
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <mat-card class="example-card w-100">
+      <mat-card-header>
+        <mat-card-title>Images</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="tags-form">
+          <form [formGroup]="myForm" (ngSubmit)="submit()">
+            <div class="form-group">
+              <label for="file" style="margin-right: 10px;">File</label>
+              <input
+                formControlName="file"
+                style="display: none;"
+                id="file"
+                type="file"
+                #inputFile
+                multiple=""
+                (change)="onFileChange($event)"
+              />
+              <button
+                mat-flat-button
+                type="button"
+                color="primary"
+                (click)="inputFile.click()"
+              >
+                Upload Images
+              </button>
+              <div
+                *ngIf="f.file.touched && f.file.invalid"
+                class="alert alert-danger"
+              >
+                <div *ngIf="f.file.errors.required">File is required.</div>
+              </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <ng-container *ngFor="let url of images">
+                <div class="col-md-4">
+                  <img [src]="url" class="img-fluid m-3" />
+                </div>
+              </ng-container>
+            </div>
+            <br />
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

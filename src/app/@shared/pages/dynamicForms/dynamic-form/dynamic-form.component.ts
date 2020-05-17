@@ -31,20 +31,18 @@ export class DynamicFormComponent implements OnInit {
     return this.form.value;
   }
   createControl() {
-    console.log('%%%%%%%%%: ', this.fields);
     const group = this.fb.group({});
-    this.fields.forEach((field) => {
-      // console.log('EEEE :', field);
-      if (field.type === 'button') return;
-
+    for (let i = 0; i < this.fields.length; i++) {
       const control = this.fb.control(
-        field.value,
-        this.bindValidations(field.validations || [])
+        this.fields[i]['value'] ? this.fields[i]['value'] : '',
+        this.bindValidations(this.fields[i]['validations'] || [])
       );
-      group.addControl(field.name, control);
-    });
+
+      group.addControl(this.fields[i]['name'], control);
+    }
     return group;
   }
+
   bindValidations(validations: any) {
     if (validations.length > 0) {
       const validList = [];

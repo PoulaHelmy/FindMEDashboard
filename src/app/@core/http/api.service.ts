@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
 import { Router } from '@angular/router';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
@@ -114,5 +115,21 @@ export class ApiService {
           return res;
         })
       );
+  }
+  getAllInputsBySubcategory(id: string) {
+    return this.http
+      .get(`${env.apiRoot}/subcatsinputs/${id}`, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+  getAllCatSubcats(id: string) {
+    return this.http.get(`${env.apiRoot}/catsubcats/${id}`, httpOptions).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 } //end of class

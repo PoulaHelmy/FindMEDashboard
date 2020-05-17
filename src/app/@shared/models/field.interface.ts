@@ -11,6 +11,7 @@ export interface FieldConfig {
   options?: string[];
   collections?: any;
   type: string;
+  placeholder?: string;
   value?: any;
   validations?: Validator[];
 }

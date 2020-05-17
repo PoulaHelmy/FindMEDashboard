@@ -1,10 +1,13 @@
-<div class="form">
-  <div style="text-align: center;">
-    <h1>
-      Registration Form
-    </h1>
-  </div>
-  <app-dynamic-form [fields]="regConfig" (submit)="submit($event)">
-  </app-dynamic-form>
-  <div class="margin-top"></div>
+<div class="container m-5">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Test Dynamic Form</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container">
+        <app-dynamic-form [fields]="regConfig" (submit)="submit($event)">
+        </app-dynamic-form>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -4,13 +4,13 @@ import { FieldConfig } from '../../models/field.interface';
 @Component({
   selector: 'app-button',
   template: `
-    <div class="demo-full-width margin-top" [formGroup]="group">
+    <div [formGroup]="group">
       <button type="submit" mat-raised-button color="primary">
         {{ field.label }}
       </button>
     </div>
   `,
-  styles: [],
+  styles: ['div:{margin-top:10px}'],
 })
 export class ButtonComponent implements OnInit {
   field: FieldConfig;
