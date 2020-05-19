@@ -1,27 +1,34 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TestDynamicFormComponent } from './pages/test-dynamic-form/test-dynamic-form.component';
-import { Test2Component } from './pages/test2/test2.component';
+
 import { InputsSubcatsComponent } from './pages/inputs-subcats/inputs-subcats.component';
-import { AllCategoriesResolver } from '@@core/guards/resolvers/allCats.resolver';
 import { ItemsCreateComponent } from './pages/items-create/items-create.component';
-import { AllSubCatResolver } from '@@core/guards/resolvers/allSubCats.resolver copy 2';
-import { ItemsImagesComponent } from './pages/items-images/items-images.component';
 import { ItemsOptionsComponent } from './pages/items-options/items-options.component';
+import { ItemsListComponent } from './pages/items-list/items-list.component';
+import { ItemsUpdateComponent } from './pages/items-update/items-update.component';
+import { UpdateOptionsComponent } from './pages/update-options/update-options.component';
+import { ItemDetailsComponent } from './pages/item-details/item-details.component';
+import { ItemsQuestionsComponent } from './pages/items-questions/items-questions.component';
+import { UpadteQuestionsComponent } from './pages/upadte-questions/upadte-questions.component';
+import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
+
+import { AllSubCatResolver } from '@@core/guards/resolvers/allSubCats.resolver copy 2';
 import { AllInputsResolver } from '@@core/guards/resolvers/allInptus.resolver';
+import { AllCategoriesResolver } from '@@core/guards/resolvers/allCats.resolver';
+import { ItemUpdateResolver } from '@@core/guards/resolvers/ItemsResolvers/item-update.resolver';
+import { ItemUpdateOtpionsResolver } from '@@core/guards/resolvers/ItemsResolvers/items-update-options.resolver';
+import { ItemUpdateQuestionsResolver } from '@@core/guards/resolvers/ItemsResolvers/items-upqestions.resolver';
+import { ItemDetailsResolver } from '@@core/guards/resolvers/ItemsResolvers/item-details.resolver';
 
 const routes: Routes = [
   {
-    path: 'test',
-    component: TestDynamicFormComponent,
-    pathMatch: 'full',
+    path: '',
+    component: ItemsListComponent,
   },
-
   {
-    path: 'options',
-    component: ItemsOptionsComponent,
-    pathMatch: 'full',
-    resolve: { item: AllInputsResolver },
+    path: 'view/:id',
+    component: ItemDetailsComponent,
+    resolve: { item: ItemDetailsResolver },
   },
   {
     path: 'create',
@@ -29,18 +36,44 @@ const routes: Routes = [
     pathMatch: 'full',
     resolve: { item: AllCategoriesResolver },
   },
-
+  {
+    path: 'options',
+    component: ItemsOptionsComponent,
+    pathMatch: 'full',
+    resolve: { item: AllInputsResolver },
+  },
+  {
+    path: 'questions/:id',
+    component: ItemsQuestionsComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'update/:id',
+    component: ItemsUpdateComponent,
+    pathMatch: 'full',
+    resolve: { item: ItemUpdateResolver },
+  },
+  {
+    path: 'upoptions',
+    component: UpdateOptionsComponent,
+    pathMatch: 'full',
+    resolve: { item: ItemUpdateOtpionsResolver },
+  },
+  {
+    path: 'upquestions/:id',
+    component: UpadteQuestionsComponent,
+    pathMatch: 'full',
+    resolve: { item: ItemUpdateQuestionsResolver },
+  },
   {
     path: 'inputscats',
     component: InputsSubcatsComponent,
     pathMatch: 'full',
     resolve: { allSubCats: AllSubCatResolver },
   },
-
   {
-    path: 'images',
-    component: ItemsImagesComponent,
-    pathMatch: 'full',
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 

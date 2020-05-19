@@ -5,20 +5,29 @@
         <mat-card-title>Item Control</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div
-          class="example-loading-shade"
-          *ngIf="isLoadingResults || isRateLimitReached"
-        >
+        <div class="example-loading-shade" *ngIf="isLoadingResults">
           <mat-spinner *ngIf="isLoadingResults">
             Uploadind....
           </mat-spinner>
-          <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-            BACKEND API rate limit has been reached. It will be reset in one
-            minute.
-          </div>
         </div>
         <div class="tags-form">
           <form [formGroup]="itemsForm" (ngSubmit)="onSubmit()">
+            <!------------------------ IS Found-------------------------->
+
+            <div>
+              <mat-radio-group
+                class="radio-found"
+                aria-labelledby="example-radio-group-label"
+                formControlName="is_found"
+              >
+                <mat-radio-button class="example-radio-button" [value]="1">
+                  Found
+                </mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="0">
+                  Lost
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
             <!------------------------ Name-------------------------->
             <p>
               <mat-form-field appearance="outline" class="w-75">
@@ -148,43 +157,38 @@
             </p>
             <!------------------------ Date-------------------------->
             <p>
-              <mat-form-field appearance="outline" class="w-75">
-                <mat-label>Name</mat-label>
+              <mat-form-field>
+                <mat-label>When : </mat-label>
                 <input
                   matInput
+                  [matDatepicker]="picker"
                   formControlName="date"
-                  placeholder="Enter Input Name"
                 />
-                <mat-icon matSuffix *ngIf="!itemsForm.controls.name.errors"
-                  >sentiment_very_satisfied</mat-icon
-                >
-                <mat-icon matSuffix *ngIf="itemsForm.controls.name.errors"
-                  >sentiment_dissatisfied</mat-icon
-                >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
                 <mat-hint
                   align="end"
                   *ngIf="
-                    itemsForm.controls.name.errors?.required &&
-                    itemsForm.controls.name.touched
+                    itemsForm.controls.date.errors?.required &&
+                    itemsForm.controls.date.touched
                   "
                   >This Field Is Required</mat-hint
-                >
-                <mat-hint
-                  align="end"
-                  *ngIf="itemsForm.controls.name.errors?.minlength"
-                  >Min Length Is 3 Characters</mat-hint
                 >
               </mat-form-field>
             </p>
             <!------------------------ Description-------------------------->
             <p>
               <mat-form-field appearance="outline" class="w-75">
-                <mat-label>Name</mat-label>
-                <input
+                <mat-label>Description : </mat-label>
+                <textarea
                   matInput
                   formControlName="des"
                   placeholder="Enter Item Description"
-                />
+                ></textarea>
+
                 <mat-icon matSuffix *ngIf="!itemsForm.controls.des.errors"
                   >sentiment_very_satisfied</mat-icon
                 >
@@ -206,42 +210,14 @@
                 >
               </mat-form-field>
             </p>
-            <!------------------------ IS Found-------------------------->
-            <p>
-              <mat-form-field appearance="outline" class="w-75">
-                <mat-label>Name</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  formControlName="is_found"
-                  placeholder="Enter Input Name"
-                />
-                <mat-icon matSuffix *ngIf="!itemsForm.controls.is_found.errors"
-                  >sentiment_very_satisfied</mat-icon
-                >
-                <mat-icon matSuffix *ngIf="itemsForm.controls.is_found.errors"
-                  >sentiment_dissatisfied</mat-icon
-                >
-                <mat-hint
-                  align="end"
-                  *ngIf="
-                    itemsForm.controls.is_found.errors?.required &&
-                    itemsForm.controls.is_found.touched
-                  "
-                  >This Field Is Required</mat-hint
-                >
-                <mat-hint
-                  align="end"
-                  *ngIf="itemsForm.controls.is_found.errors?.minlength"
-                  >Min Length Is 3 Characters</mat-hint
-                >
-              </mat-form-field>
-            </p>
+
             <!------------------------ Images-------------------------->
-            <div class="example-parent-bar">
-              <div class="example-child-bar" *ngIf="isLoadingImages">
-                <mat-progress-bar mode="query"></mat-progress-bar>
-              </div>
+            <div class="parent-images">
+              <mat-progress-bar
+                *ngIf="isLoadingImages"
+                mode="indeterminate"
+              ></mat-progress-bar>
+
               <label for="file" style="margin-right: 10px;">File</label>
               <input
                 formControlName="file"
@@ -282,14 +258,10 @@
                 </div>
               </div>
             </div>
+            <!-- [disabled]="itemsForm.valid" -->
 
             <mat-card-actions>
-              <button
-                mat-raised-button
-                type="submit"
-                color="accent"
-                [disabled]="itemsForm.invalid"
-              >
+              <button mat-raised-button type="submit" color="accent">
                 Uplaod
               </button>
             </mat-card-actions>

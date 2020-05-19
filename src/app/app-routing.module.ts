@@ -63,6 +63,13 @@ const routes: Routes = [
       import('app/modules/items/items.module').then((m) => m.ItemsModule),
   },
   {
+    path: 'requests',
+    loadChildren: () =>
+      import('app/modules/requests/requests.module').then(
+        (m) => m.RequestsModule
+      ),
+  },
+  {
     path: '**',
     component: NotFoundComponent,
   },

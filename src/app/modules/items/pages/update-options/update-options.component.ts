@@ -1,48 +1,42 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from '@@core/http/api.service';
-import { ItemsService } from '@@core/services/items.service';
 import { DynamicFormComponent } from '@@shared/pages/dynamicForms/dynamic-form/dynamic-form.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FieldConfig } from '@@shared/models/field.interface';
-import { HttpClient } from '@angular/common/http';
-import { environment as env } from '../../../../../environments/environment';
+import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ItemsService } from '@@core/services/items.service';
+
 @Component({
-  selector: 'app-items-options',
-  templateUrl: './items-options.component.html',
-  styleUrls: ['./items-options.component.scss'],
+  selector: 'app-update-options',
+  templateUrl: './update-options.component.html',
+  styleUrls: ['./update-options.component.scss'],
 })
-export class ItemsOptionsComponent implements OnInit, OnDestroy {
+export class UpdateOptionsComponent implements OnInit, OnDestroy {
   @ViewChild(DynamicFormComponent) formmmmm: DynamicFormComponent;
   itemsOptions: FormGroup;
   isLoadingResults = false;
-  inputSubScription: Subscription;
+  subcription1$: Subscription;
+  subcription2$: Subscription;
   regConfig: FieldConfig[] = [];
   item_id = 0;
   data: {};
-  subscription1$: Subscription;
-  subscription2$: Subscription;
 
   /****************** constructor Function************************/
   constructor(
-    private fb: FormBuilder,
     private snackbarService: SnackbarService,
     private router: Router,
-    private apiserv: ApiService,
     private actRoute: ActivatedRoute,
-    private itemService: ItemsService,
-    private http: HttpClient
+    private itemService: ItemsService
   ) {}
 
   /****************** ngOnInit Function************************/
   ngOnInit(): void {
-    this.subscription1$ = this.actRoute.data.subscribe((res) => {
+    this.subcription1$ = this.actRoute.data.subscribe((res) => {
       this.item_id = res['item'][0]['item_id'];
       const btn = {
         type: 'button',
-        label: 'Save Item Details',
+        label: 'Save Data',
       };
       for (let i = 0; i < res['item'][0]['data'].length; i++) {
         this.regConfig.push(res['item'][0]['data'][i]);
@@ -66,32 +60,28 @@ export class ItemsOptionsComponent implements OnInit, OnDestroy {
       this.data[Object.entries(value)[i][0]] = Object.entries(value)[i][1];
     }
     this.isLoadingResults = true;
-    this.subscription2$ = this.http
-      .post(`${env.apiRoot}/auth/items/values`, this.data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
-      })
+    this.subcription2$ = this.itemService
+      .updateItemOptions(this.item_id, this.data)
       .subscribe(
-        (next) => {
+        () => {
           this.isLoadingResults = false;
           this.snackbarService.show(
-            'Item Details Created successfully',
+            'Item Details Updated successfully',
             'success'
           );
-          this.router.navigate(['items/questions/' + this.item_id]);
+          this.router.navigate(['items/upquestions/' + this.item_id]);
         },
         (err) => {
           console.log('err :', err);
+          this.isLoadingResults = false;
           this.snackbarService.show(err['error']['errors']['name'], 'danger');
         }
       );
   } //end of submit
 
-  /****************** Destroy Function************************/
+  /****************** ngOnDestroy Function************************/
   ngOnDestroy(): void {
-    this.subscription1$.unsubscribe();
-    this.subscription2$.unsubscribe();
-  } //end of destroy
-} //end of  Class
+    this.subcription1$.unsubscribe();
+    this.subcription2$.unsubscribe();
+  } //end of ngOnDestroy
+} //end of Calss
