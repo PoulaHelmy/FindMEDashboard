@@ -11,7 +11,13 @@ import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemsService } from '@@core/services/items.service';
 import { Subscription } from 'rxjs';
-
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'X-Algolia-Application-Id': 'plBIPOQ7X7HA',
+    'X-Algolia-API-Key': 'ce287ed40c8a6f4d8579799492461dd7',
+  }),
+};
 @Component({
   selector: 'app-items-update',
   templateUrl: './items-update.component.html',
@@ -20,6 +26,7 @@ import { Subscription } from 'rxjs';
 export class ItemsUpdateComponent implements OnInit, OnDestroy {
   subscription1$: Subscription;
   subscription2$: Subscription;
+  subscription5$: Subscription;
   images = [];
   old_images = [];
   itemsForm: FormGroup;
@@ -35,6 +42,10 @@ export class ItemsUpdateComponent implements OnInit, OnDestroy {
     cancelText: 'Cancel And Review this Data',
     confirmText: 'Confirm And Continue',
   };
+  date = new Date(2020, 1, 1);
+  minDate = new Date(2000, 0, 1);
+  maxDate = new Date();
+  filteredOptions;
   /****************** constructor Function************************/
   constructor(
     private fb: FormBuilder,
@@ -43,7 +54,8 @@ export class ItemsUpdateComponent implements OnInit, OnDestroy {
     public datepipe: DatePipe,
     private router: Router,
     private actRoute: ActivatedRoute,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    private http: HttpClient
   ) {}
 
   /****************** ngOnInit Function************************/
@@ -58,16 +70,32 @@ export class ItemsUpdateComponent implements OnInit, OnDestroy {
       name: [this.data['name'], [Validators.required, Validators.minLength(3)]],
       location: [
         this.data['location'],
-        [Validators.required, Validators.minLength(10)],
+        [Validators.required, Validators.minLength(5)],
       ],
       des: [
         this.data['description'],
         [Validators.required, Validators.minLength(30)],
       ],
       date: [this.data['date'], [Validators.required]],
-      file: new FormControl('', [Validators.required]),
-      fileSource: new FormControl('', [Validators.required]),
+      file: new FormControl(''),
+      fileSource: new FormControl(''),
     });
+    this.subscription5$ = this.itemsForm.controls.location.valueChanges.subscribe(
+      (res) => {
+        if (res !== '' && res !== null && res !== ' ') {
+          let data = { query: res, type: 'address' };
+          this.http
+            .post(
+              'https://places-dsn.algolia.net/1/places/query',
+              data,
+              httpOptions
+            )
+            .subscribe((locations) => {
+              this.filteredOptions = locations['hits'];
+            });
+        }
+      }
+    );
   }
 
   /****************** onFileChange Function************************/
@@ -154,5 +182,6 @@ export class ItemsUpdateComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription1$.unsubscribe();
     this.subscription2$.unsubscribe();
+    this.subscription5$.unsubscribe();
   } //end of ngOnDestroy
 } //end of Class

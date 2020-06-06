@@ -125,6 +125,25 @@ export class ApiService {
         })
       );
   }
+  getItemOptionsValues(id: string) {
+    return this.http
+      .get(`${env.apiRoot}/auth/items/upoptions/${id}`, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+  getItemSubcatsAllData(data: object) {
+    return this.http
+      .post(`${env.apiRoot}/subcatalldata`, data, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+
   getAllCatSubcats(id: string) {
     return this.http.get(`${env.apiRoot}/catsubcats/${id}`, httpOptions).pipe(
       map((res) => {

@@ -1,12 +1,16 @@
 import { Component, ElementRef, OnInit, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, startWith } from 'rxjs/operators';
 import { AuthService } from 'app/@auth/services/auth.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ThemeService } from '@@core/services/theme-service.service';
+import { FormControl } from '@angular/forms';
+import { Item } from '@@shared/models/item';
+import { HttpClient } from '@angular/common/http';
+import { ItemsService } from '@@core/services/items.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -20,6 +24,7 @@ export class MainNavComponent implements OnInit {
   // 'my-dark-theme',
   //     'my-light-theme',
   //     'purple-green',
+
   isDarkTheme: Observable<boolean>;
 
   themeClass: string = 'findme-theme';
@@ -36,9 +41,13 @@ export class MainNavComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private snackbar: SnackbarService,
-    private overlayContainer: OverlayContainer
+    private overlayContainer: OverlayContainer,
+    private itemServ: ItemsService
   ) {}
-
+  //-----------------------------------------------------------
+  myControl = new FormControl();
+  filteredOptions: Observable<any>;
+  //-----------------------------------------------------------
   ngOnInit(): void {
     // remove old theme class and add new theme class
     // we're removing any css class that contains '-theme' string but your theme classes can follow any pattern
@@ -51,6 +60,19 @@ export class MainNavComponent implements OnInit {
       overlayContainerClasses.remove(...themeClassesToRemove);
     }
     overlayContainerClasses.add('my-theme');
+    //////////////////////////////////////////////////////////
+    this.myControl.valueChanges.subscribe((res) => {
+      console.log('res of input : ', res);
+
+      if (res !== '' && res !== null && res !== ' ') {
+        this.filteredOptions = this.itemServ.getFilters(
+          res !== '' ? res : 'nosearch'
+        );
+        console.log(' this.filteredOptions ', this.filteredOptions);
+      }
+    });
+
+    //////////////////////////////////////////////////////////
   }
   // toggleDarkTheme(checked: boolean) {
   //   this.themeService.setDarkTheme(checked);

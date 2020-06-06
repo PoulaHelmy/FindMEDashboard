@@ -17,6 +17,18 @@
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button> -->
+<!--        <div class="user-details m-auto text-center py-2">-->
+<!--          <div class="avatar-img">-->
+<!--            <img-->
+<!--              [src]="userDetails['photo'] | imgDefualt: defImg"-->
+<!--              class="img-fluid rounded-circle"-->
+<!--              alt="userDetails['name'] photo"-->
+<!--              height="75px"-->
+<!--              width="75px"-->
+<!--            />-->
+<!--          </div>-->
+<!--          <h3>{{ userDetails["name"] }}</h3>-->
+<!--        </div>-->
         Menu
       </div>
     </mat-toolbar>
@@ -73,6 +85,41 @@
       </div>
       <span>FindME</span>
       <div class="spacer"></div>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            placeholder="Pick one"
+            aria-label="Number"
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of filteredOptions | async"
+              [value]="option['name']"
+            >
+              <button
+                mat-button
+                color="primary"
+                aria-label="Make Request"
+                matTooltip="Claim This Item"
+                matTooltipPosition="right"
+                [routerLink]="['/items/view', option['id']]"
+                routerLinkActive="router-link-active"
+              >
+                <img
+                  [src]="option['images'][0][0]['src']"
+                  width="30px"
+                  height="30px"
+                />
+                {{ option["name"] }}
+              </button>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
       <div class="right-options">
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>account_circle</mat-icon>

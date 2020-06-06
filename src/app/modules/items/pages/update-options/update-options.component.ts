@@ -33,6 +33,7 @@ export class UpdateOptionsComponent implements OnInit, OnDestroy {
   /****************** ngOnInit Function************************/
   ngOnInit(): void {
     this.subcription1$ = this.actRoute.data.subscribe((res) => {
+      console.log('rererer', res);
       this.item_id = res['item'][0]['item_id'];
       const btn = {
         type: 'button',

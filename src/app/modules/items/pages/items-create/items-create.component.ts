@@ -12,7 +12,15 @@ import { Category } from '@@shared/models/category';
 import { ItemsService } from '@@core/services/items.service';
 import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
 import { DatePipe } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'X-Algolia-Application-Id': 'plBIPOQ7X7HA',
+    'X-Algolia-API-Key': 'ce287ed40c8a6f4d8579799492461dd7',
+  }),
+};
 @Component({
   selector: 'app-items-create',
   templateUrl: './items-create.component.html',
@@ -23,6 +31,7 @@ export class ItemsCreateComponent implements OnInit, OnDestroy {
   subscription2$: Subscription;
   subscription4$: Subscription;
   subscription3$: Subscription;
+  subscription5$: Subscription;
   images = [];
   itemsForm: FormGroup;
   categories: Category[] = [];
@@ -37,7 +46,10 @@ export class ItemsCreateComponent implements OnInit, OnDestroy {
     cancelText: 'Cancel And Review this Data',
     confirmText: 'Confirm And Continue',
   };
-
+  date = new Date(2020, 1, 1);
+  minDate = new Date(2000, 0, 1);
+  maxDate = new Date();
+  filteredOptions;
   /****************** constructor Function************************/
   constructor(
     private fb: FormBuilder,
@@ -47,7 +59,8 @@ export class ItemsCreateComponent implements OnInit, OnDestroy {
     private router: Router,
     private apiserv: ApiService,
     private actRoute: ActivatedRoute,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    private http: HttpClient
   ) {}
 
   /****************** ngOnInit Function************************/
@@ -59,7 +72,7 @@ export class ItemsCreateComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required, Validators.minLength(3)]],
       itemCategory: ['', [Validators.required]],
       itemsubCategory: ['', [Validators.required]],
-      location: ['', [Validators.required, Validators.minLength(10)]],
+      location: ['', [Validators.required, Validators.minLength(5)]],
       is_found: ['', [Validators.required]],
       des: ['', [Validators.required, Validators.minLength(30)]],
       date: ['', [Validators.required]],
@@ -74,6 +87,22 @@ export class ItemsCreateComponent implements OnInit, OnDestroy {
           .subscribe((data) => {
             this.subCategories = data['data'];
           });
+      }
+    );
+    this.subscription5$ = this.itemsForm.controls.location.valueChanges.subscribe(
+      (res) => {
+        if (res !== '' && res !== null && res !== ' ') {
+          let data = { query: res, type: 'address' };
+          this.http
+            .post(
+              'https://places-dsn.algolia.net/1/places/query',
+              data,
+              httpOptions
+            )
+            .subscribe((locations) => {
+              this.filteredOptions = locations['hits'];
+            });
+        }
       }
     );
   } //end of ngOnInit
@@ -102,6 +131,7 @@ export class ItemsCreateComponent implements OnInit, OnDestroy {
 
   /****************** Submit Function************************/
   onSubmit() {
+    // console.log('loaction : ', this.itemsForm.controls.location.value);
     let newDate = this.itemsForm.get('date').value;
     newDate = this.datepipe.transform(newDate, 'yyyy-MM-dd');
 
@@ -152,5 +182,16 @@ export class ItemsCreateComponent implements OnInit, OnDestroy {
     this.subscription2$.unsubscribe();
     this.subscription3$.unsubscribe();
     this.subscription4$.unsubscribe();
+    this.subscription5$.unsubscribe();
   } //end of destroy
+
+  // https://places-dsn.algolia.net
+  // $ curl -X POST 'https://places-dsn.algolia.net/1/places/query' --data '{"query": "Paris"}'
 } //end of Class
+// this.http
+// .post('https://places-dsn.algolia.net/1/places/query', data, {
+//   headers: {
+//     'X-Algolia-Application-Id': 'VNP1XYFNSF',
+//     'X-Algolia-API-Key: YourAPIKey': '43313045a7a3e98b65b0cb53cdc3cfcc',
+//   },
+// })

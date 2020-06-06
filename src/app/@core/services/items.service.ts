@@ -85,4 +85,12 @@ export class ItemsService {
         })
       );
   }
+  getFilters(value: string) {
+    return this.http.get(`${env.apiRoot}/testpola/${value}`).pipe(
+      map((res) => {
+        console.log('res :data :', res['data']);
+        return res['data'];
+      })
+    );
+  }
 } //end of class

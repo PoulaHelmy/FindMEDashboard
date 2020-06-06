@@ -45,13 +45,35 @@
 
             <!------------------------ Location-------------------------->
             <p>
-              <mat-form-field appearance="outline" class="w-75">
-                <mat-label>Location</mat-label>
+              <mat-form-field class="example-full-width">
                 <input
                   matInput
+                  #inputLocation
                   formControlName="location"
                   placeholder="Choose Location..."
+                  [matAutocomplete]="auto"
                 />
+
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let hits of filteredOptions; let hitIndex = index"
+                    [value]="
+                      hits['country']['default'] +
+                      ' ' +
+                      hits['administrative'][0] +
+                      ' ' +
+                      hits['locale_names']['default']
+                    "
+                  >
+                    <span>
+                      {{ hits["country"]["default"] }}
+                      {{ hits["administrative"][0] }}
+
+                      {{ hits["locale_names"]["default"] }}
+                    </span>
+                  </mat-option>
+                </mat-autocomplete>
+
                 <mat-icon matSuffix *ngIf="!itemsForm.controls.location.errors"
                   >sentiment_very_satisfied</mat-icon
                 >
@@ -69,10 +91,11 @@
                 <mat-hint
                   align="end"
                   *ngIf="itemsForm.controls.location.errors?.minlength"
-                  >Min Length Is 10 Characters</mat-hint
+                  >Min Length Is 5 Characters</mat-hint
                 >
               </mat-form-field>
             </p>
+
             <!------------------------ Date-------------------------->
             <p>
               <mat-form-field>
@@ -81,6 +104,8 @@
                   matInput
                   [matDatepicker]="picker"
                   formControlName="date"
+                  [min]="minDate"
+                  [max]="maxDate"
                 />
                 <mat-datepicker-toggle
                   matSuffix
@@ -198,8 +223,13 @@
             <!-- [disabled]="itemsForm.valid" -->
 
             <mat-card-actions>
-              <button mat-raised-button type="submit" color="accent">
-                Uplaod
+              <button
+                mat-raised-button
+                type="submit"
+                color="accent"
+                [disabled]="itemsForm.invalid"
+              >
+                Update
               </button>
             </mat-card-actions>
           </form>
