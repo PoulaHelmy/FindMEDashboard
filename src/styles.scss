@@ -1,3 +1,5 @@
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
 @import "~@angular/material/theming";
 
 @include mat-core();
@@ -37,5 +39,42 @@ body {
   color: black !important;
 }
 
-/* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
+.spacer {
+  flex: 1 1 auto;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner 0.8s linear infinite;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 90%;
+  margin: 15px;
+}
+.mat-form-field-flex {
+  width: 80% !important;
+}
+.mat-hint {
+  font-size: 14px;
+}
+.login-btn {
+  font-size: 18px !important;
+}

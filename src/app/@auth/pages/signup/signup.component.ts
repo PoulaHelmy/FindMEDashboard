@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       ]),
       phone: new FormControl(null, [
         Validators.required,
-        Validators.pattern('[0-9 ]{12}'),
+        Validators.pattern('[0-9 ]{11}'),
         // Validators.minLength(11),
       ]),
       password: new FormControl(null, [
@@ -64,7 +64,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     return this.registerForm.get('password');
   }
   onSubmit() {
-    console.log('submit', this.registerForm.controls);
     this.loading = true;
     this.data = {
       name: this.registerForm.get('inputName').value,
@@ -75,7 +74,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.subscription = this.authService
       .register(this.data)
       .subscribe((res: any) => {
-        console.log('res', res);
         this.dialogService.open(this.options);
         this.dialogService
           .confirmed()

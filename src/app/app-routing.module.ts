@@ -4,21 +4,21 @@ import { AuthGuard } from './@core/guards/auth.guard';
 import { IsAdminGuard } from './@core/guards/isAdmin.guard';
 import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
 import { GuestGuardService } from '@@core/guards/guest.guard';
+import { UserDetailsResolver } from '@@core/guards/resolvers/UserAuthResolvers/user-details.resolver';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
 
   {
     path: 'home',
     loadChildren: () =>
       import('app/modules/home/home.module').then((m) => m.HomeModule),
-    pathMatch: 'full',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'auth',
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivateChild: [IsAdminGuard],
+    // canActivateChild: [IsAdminGuard],
     loadChildren: () =>
       import('app/modules/admin/admin.module').then((m) => m.AdminModule),
   },
@@ -68,6 +68,11 @@ const routes: Routes = [
       import('app/modules/requests/requests.module').then(
         (m) => m.RequestsModule
       ),
+  },
+  {
+    path: 'humans',
+    loadChildren: () =>
+      import('app/modules/humans/humans.module').then((m) => m.HumansModule),
   },
   {
     path: '**',

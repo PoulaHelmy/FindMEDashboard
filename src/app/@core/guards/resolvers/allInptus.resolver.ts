@@ -24,11 +24,7 @@ export class AllInputsResolver implements Resolve<any> {
     state: RouterStateSnapshot
   ): Observable<any> {
     let AllResults: FieldConfig[] = [];
-    console.log('next :', next);
-    console.log(
-      'private router: Router :',
-      this.router.getCurrentNavigation().extras
-    );
+
     let subCatId = this.router.getCurrentNavigation().extras.state.id;
     let item_id = this.router.getCurrentNavigation().extras.state.item_id;
     return this.apiService.getAllInputsBySubcategory(subCatId).pipe(

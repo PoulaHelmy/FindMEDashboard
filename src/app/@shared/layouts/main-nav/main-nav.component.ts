@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay, startWith } from 'rxjs/operators';
 import { AuthService } from 'app/@auth/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ThemeService } from '@@core/services/theme-service.service';
@@ -11,6 +11,7 @@ import { FormControl } from '@angular/forms';
 import { Item } from '@@shared/models/item';
 import { HttpClient } from '@angular/common/http';
 import { ItemsService } from '@@core/services/items.service';
+import { NotificationsService } from '@@core/services/notifications.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -24,7 +25,10 @@ export class MainNavComponent implements OnInit {
   // 'my-dark-theme',
   //     'my-light-theme',
   //     'purple-green',
-
+  userDetails;
+  defImg = '../../../../assets/imgs/undraw_profile_pic_ic5t.svg';
+  notificationsNumber = '';
+  AllNotifications = [];
   isDarkTheme: Observable<boolean>;
 
   themeClass: string = 'findme-theme';
@@ -35,6 +39,10 @@ export class MainNavComponent implements OnInit {
       map((result) => result.matches),
       shareReplay()
     );
+  //-----------------------------------------------------------
+  myControl = new FormControl();
+  filteredOptions: Observable<any>;
+  //-----------------------------------------------------------
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -42,12 +50,10 @@ export class MainNavComponent implements OnInit {
     private router: Router,
     private snackbar: SnackbarService,
     private overlayContainer: OverlayContainer,
-    private itemServ: ItemsService
+    private itemServ: ItemsService,
+    private actRoute: ActivatedRoute,
+    private notificationServ: NotificationsService
   ) {}
-  //-----------------------------------------------------------
-  myControl = new FormControl();
-  filteredOptions: Observable<any>;
-  //-----------------------------------------------------------
   ngOnInit(): void {
     // remove old theme class and add new theme class
     // we're removing any css class that contains '-theme' string but your theme classes can follow any pattern
@@ -62,18 +68,37 @@ export class MainNavComponent implements OnInit {
     overlayContainerClasses.add('my-theme');
     //////////////////////////////////////////////////////////
     this.myControl.valueChanges.subscribe((res) => {
-      console.log('res of input : ', res);
-
       if (res !== '' && res !== null && res !== ' ') {
         this.filteredOptions = this.itemServ.getFilters(
           res !== '' ? res : 'nosearch'
         );
-        console.log(' this.filteredOptions ', this.filteredOptions);
       }
     });
-
-    //////////////////////////////////////////////////////////
+    this.authService.getDetails().subscribe((res) => {
+      this.userDetails = res['data'];
+    });
+    this.notificationServ.getAllNotifictions().subscribe((res) => {
+      this.notificationsNumber = res.length;
+      res.forEach((element) => {
+        let elementData = [];
+        elementData['body'] = element['data']['body'];
+        elementData['id'] = element['id'];
+        if (element['type'].includes('RequestChangeStatus')) {
+          elementData['url'] = 'requests/view/' + element['data']['request_id'];
+        }
+        if (element['type'].includes('CreateRequest')) {
+          elementData['url'] =
+            'increquests/view/' + element['data']['request_id'];
+        }
+        this.AllNotifications.push(elementData);
+      });
+    });
   }
+  markAsReaded(id: string) {
+    this.notificationServ.MakeNotifictionReaded(id);
+  }
+  //////////////////////////////////////////////////////////
+
   // toggleDarkTheme(checked: boolean) {
   //   this.themeService.setDarkTheme(checked);
   // }
@@ -92,9 +117,10 @@ export class MainNavComponent implements OnInit {
         .toPromise()
         .then((res) => {
           localStorage.removeItem('access_token');
+          this.authService.setIsAuthenticated(false);
           localStorage.setItem('isAuth', 'false');
           this.snackbar.show('Logged Out Successfully', 'success');
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/home']);
         })
         .catch((err) => {
           this.snackbar.show(err['error']['message'], 'danger');

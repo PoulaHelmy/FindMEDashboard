@@ -76,7 +76,6 @@ export class ResetPasswordComponent implements OnInit {
       password: this.resetForm.get('password').value,
       password_confirmation: this.resetForm.get('confirmPassword').value,
     };
-    console.log('data', this.data);
     this.authService
       .resetPassword(this.data)
       .toPromise()

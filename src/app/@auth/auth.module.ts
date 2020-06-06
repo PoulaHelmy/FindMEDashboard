@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MaterialModule } from 'app/@shared/material/material.module';
 import { SharedModule } from '@@shared/shared.module';
 
 import { authRoutingModule } from './auth-routing.module';
@@ -25,13 +24,12 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
     authRoutingModule,
     HttpClientModule,
     SharedModule,
-    MaterialModule,
     FormsModule,
     ReactiveFormsModule,
   ],
   exports: [
-    SignupComponent,
     LoginComponent,
+    SignupComponent,
     ResetPasswordComponent,
     ActivateAccountComponent,
     ForgetPasswordComponent,

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment as env } from '../../../environments/environment';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
 import { Router } from '@angular/router';
@@ -37,14 +37,16 @@ export class ApiService {
     return this.http.get<any>(`${env.apiRoot}/${endPoint}/${id}`).pipe(
       map((response) => {
         return response;
-      })
+      }),
+      catchError((e) => throwError(e))
     );
   }
   getAllItems(endPoint: string): Observable<any[]> {
     return this.http.get<any[]>(`${env.apiRoot}/${endPoint}`).pipe(
       map((data) => {
         return data;
-      })
+      }),
+      catchError((e) => throwError(e))
     );
   }
   deleteItem(id: number, endPoint: string) {
@@ -53,7 +55,8 @@ export class ApiService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   getAllInputs(
@@ -79,7 +82,8 @@ export class ApiService {
     return this.http.post(`${env.apiRoot}/${endPoint}`, data, httpOptions).pipe(
       map((res) => {
         return res;
-      })
+      }),
+      catchError((e) => throwError(e))
     );
   }
   updateItem(id: number, data: object, endPoint: string) {
@@ -88,7 +92,8 @@ export class ApiService {
       .pipe(
         map((response) => {
           return response;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   deleteCheck(id: number, apiEndpoint: string) {
@@ -113,7 +118,8 @@ export class ApiService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   getAllInputsBySubcategory(id: string) {
@@ -122,7 +128,8 @@ export class ApiService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   getItemOptionsValues(id: string) {
@@ -131,7 +138,8 @@ export class ApiService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   getItemSubcatsAllData(data: object) {
@@ -140,7 +148,8 @@ export class ApiService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
 
@@ -148,7 +157,19 @@ export class ApiService {
     return this.http.get(`${env.apiRoot}/catsubcats/${id}`, httpOptions).pipe(
       map((res) => {
         return res;
-      })
+      }),
+      catchError((e) => throwError(e))
     );
   }
 } //end of class
+// export class ApiService {
+//   constructor(http) {
+//     this.http = http;
+//   }
+
+//   get(path) {
+//     return this.http
+//       .get(path)
+//       .pipe(catchError((e) => throwError(e)));
+//   }
+// }

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import { take, map } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -50,15 +49,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (res: any) => {
+          this.authService.setIsAuthenticated(true);
           localStorage.setItem('access_token', res['data']['token']);
           localStorage.setItem('isAuth', 'true');
-          this.authService.isLoggedIn.pipe(
-            take(1),
-            map((isLoggedIn: boolean) => {
-              // {3}
-              isLoggedIn = true;
-            })
-          );
           this.snackbarService.show(res['message'], 'success');
           this.loading = false;
           this.router.navigate(['']);

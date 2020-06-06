@@ -17,19 +17,20 @@
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button> -->
-<!--        <div class="user-details m-auto text-center py-2">-->
-<!--          <div class="avatar-img">-->
-<!--            <img-->
-<!--              [src]="userDetails['photo'] | imgDefualt: defImg"-->
-<!--              class="img-fluid rounded-circle"-->
-<!--              alt="userDetails['name'] photo"-->
-<!--              height="75px"-->
-<!--              width="75px"-->
-<!--            />-->
-<!--          </div>-->
-<!--          <h3>{{ userDetails["name"] }}</h3>-->
-<!--        </div>-->
-        Menu
+        <!-- <div class="user-details m-auto text-center py-2">
+          <div class="avatar-img">
+            <img
+              [src]="userDetails['photo'] | imgDefualt: defImg"
+              class="img-fluid rounded-circle"
+              alt="userDetails['name'] photo"
+              height="75px"
+              width="75px"
+            />
+          </div>
+          <h3>{{ userDetails["name"] }}</h3>
+        </div>
+      -->
+        Admin DashBoard
       </div>
     </mat-toolbar>
 
@@ -66,6 +67,10 @@
         ><mat-icon color="primary">compare_arrows</mat-icon
         ><span class="mx-2">Requests</span></mat-list-item
       >
+      <mat-list-item routerLink="humans" routerLinkActive="active"
+        ><mat-icon color="primary">supervised_user_circle</mat-icon
+        ><span class="mx-2">Humans</span></mat-list-item
+      >
     </mat-nav-list>
   </mat-sidenav>
 
@@ -86,11 +91,10 @@
       <span>FindME</span>
       <div class="spacer"></div>
       <form class="example-form">
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" appearance="legacy">
           <input
             type="text"
-            placeholder="Pick one"
-            aria-label="Number"
+            placeholder="Search..."
             matInput
             [formControl]="myControl"
             [matAutocomplete]="auto"
@@ -106,7 +110,7 @@
                 aria-label="Make Request"
                 matTooltip="Claim This Item"
                 matTooltipPosition="right"
-                [routerLink]="['/items/view', option['id']]"
+                [routerLink]="['/dashboard/items/show', option['id']]"
                 routerLinkActive="router-link-active"
               >
                 <img
@@ -121,10 +125,32 @@
         </mat-form-field>
       </form>
       <div class="right-options">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>account_circle</mat-icon>
+        <!--------------------------For Notifications ------------------------ -->
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="notificationsMenu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon
+            [matBadge]="notificationsNumber != '0' ? notificationsNumber : ''"
+            matBadgeColor="warn"
+            >notifications</mat-icon
+          >
         </button>
-        <!--For Themeing  -->
+        <mat-menu #notificationsMenu="matMenu">
+          <ng-container *ngFor="let notification of AllNotifications">
+            <button
+              mat-menu-item
+              [routerLink]="[notification['url']]"
+              routerLinkActive="router-link-active"
+              (click)="markAsReaded(notification['id'])"
+            >
+              {{ notification["body"] }}
+            </button>
+          </ng-container>
+        </mat-menu>
+        <!--------------------------For Notifications ------------------------ -->
+        <!--------------------------For Themeing ------------------------ -->
         <button
           mat-icon-button
           [matMenuTriggerFor]="themeMenu"
@@ -150,21 +176,8 @@
             <span>FindME</span>
           </button>
         </mat-menu>
-        <!-- for smake menu items  -->
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>publish</mat-icon>
-            <span>Share</span>
-          </button>
-          <button mat-menu-item disabled>
-            <mat-icon>mode_comment</mat-icon>
-            <span>Comment</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>delete</mat-icon>
-            <span>Delete</span>
-          </button>
-        </mat-menu>
+        <!--------------------------For Themeing ------------------------ -->
+        <!--------------------------For Account Setting And Loged-Out ------------------------ -->
         <button
           mat-icon-button
           [matMenuTriggerFor]="menu2"
@@ -173,19 +186,16 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu2="matMenu">
-          <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voice mail</span>
+          <button mat-menu-item [routerLink]="['/dashboard/account']">
+            <span>Account</span>
           </button>
           <button mat-menu-item (click)="logout()">
             <span>Logout</span>
           </button>
         </mat-menu>
+        <!--------------------------For Account Setting And Loged-Out ------------------------ -->
       </div>
+
       <div class="clearfix"></div>
     </mat-toolbar>
     <router-outlet></router-outlet>

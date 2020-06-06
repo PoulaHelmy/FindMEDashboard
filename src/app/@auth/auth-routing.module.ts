@@ -18,31 +18,24 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    //   outlet: 'authOutlet',
   },
   {
     path: 'signup',
     component: SignupComponent,
-    pathMatch: 'full',
-    //   outlet: 'authOutlet',
   },
   {
     path: 'resetpassword',
     component: ResetPasswordComponent,
     resolve: { item: RequestPasswordResolver },
-    //   outlet: 'authOutlet',
   },
   {
     path: 'forgetpassword',
     component: ForgetPasswordComponent,
-    pathMatch: 'full',
-    //   outlet: 'authOutlet',
   },
   {
     path: 'activate',
     component: ActivateAccountComponent,
     resolve: { item: AcountActivatedResolver },
-    //   outlet: 'authOutlet',
   },
 
   {

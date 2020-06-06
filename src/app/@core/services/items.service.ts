@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment as env } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,7 +20,8 @@ export class ItemsService {
     return this.http.get(`${env.apiRoot}/auth/${endPoint}`, httpOptions).pipe(
       map((res) => {
         return res;
-      })
+      }),
+      catchError((e) => throwError(e))
     );
   }
   addItem(data: object, endPoint: string) {
@@ -28,7 +30,8 @@ export class ItemsService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   getItem(id: string, endPoint: string) {
@@ -37,7 +40,8 @@ export class ItemsService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   getItemQuestions(id: string) {
@@ -55,7 +59,8 @@ export class ItemsService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   updateItemOptions(id: number, data: object) {
@@ -64,7 +69,8 @@ export class ItemsService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   getItemOptionsValues(id: string) {
@@ -73,7 +79,8 @@ export class ItemsService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   deleteItem(id: number, endPoint: string) {
@@ -82,7 +89,8 @@ export class ItemsService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
+        catchError((e) => throwError(e))
       );
   }
   getFilters(value: string) {
@@ -90,7 +98,8 @@ export class ItemsService {
       map((res) => {
         console.log('res :data :', res['data']);
         return res['data'];
-      })
+      }),
+      catchError((e) => throwError(e))
     );
   }
 } //end of class

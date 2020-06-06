@@ -13,7 +13,6 @@ export class ActivateAccountComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(
       (res) => {
-        console.log('activated data : ', res);
         this.message = 'Your Account Has Been Activated Successfully.';
       },
       (err) => {

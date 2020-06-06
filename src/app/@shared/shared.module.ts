@@ -26,6 +26,7 @@ import { RadiobuttonComponent } from './pages/dynamicForms/radiobutton.component
 import { CheckboxComponent } from './pages/dynamicForms/checkbox.component';
 import { DynamicFieldDirective } from './directives/dynamic-field/dynamic-field.directive';
 import { DynamicFormComponent } from './pages/dynamicForms/dynamic-form/dynamic-form.component';
+import { ImgDefualtPipe } from './pipes/img-defualt.pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DynamicFormComponent } from './pages/dynamicForms/dynamic-form/dynamic-
     CheckboxComponent,
     DynamicFieldDirective,
     DynamicFormComponent,
+    ImgDefualtPipe,
   ],
   imports: [
     CommonModule,
@@ -77,6 +79,7 @@ import { DynamicFormComponent } from './pages/dynamicForms/dynamic-form/dynamic-
     CheckboxComponent,
     DynamicFieldDirective,
     DynamicFormComponent,
+    ImgDefualtPipe,
   ],
   providers: [ConfirmDialogService],
   entryComponents: [
