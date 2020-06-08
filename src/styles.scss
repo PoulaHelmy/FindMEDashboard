@@ -9,7 +9,7 @@
 @import "./themes/my-dark-theme.scss";
 @import "./themes/custom-compontent.scss";
 @import "./themes/findme-theme.scss";
-
+@import "node_modules/angular2-toaster/src/toaster";
 .my-theme {
   @include angular-material-theme($my-theme);
   @include custom-components-theme($my-theme);
@@ -70,7 +70,7 @@ body {
   margin: 15px;
 }
 .mat-form-field-flex {
-  width: 80% !important;
+  width: 100% !important;
 }
 .mat-hint {
   font-size: 14px;

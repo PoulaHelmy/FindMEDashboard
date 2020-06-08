@@ -1,0 +1,123 @@
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <mat-card class="example-card w-75">
+      <mat-card-header>
+        <mat-card-title>Add Group Control</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="tags-form">
+          <form [formGroup]="addGroupForm" (ngSubmit)="onSubmit()">
+            <!------------------------ personGroupId-------------------------->
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>personGroupId</mat-label>
+                <input
+                  matInput
+                  formControlName="personGroupId"
+                  placeholder="Enter personGroupId you Can Enter any chars and any size"
+                />
+                <mat-icon
+                  matSuffix
+                  *ngIf="!addGroupForm.controls.personGroupId.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon
+                  matSuffix
+                  *ngIf="addGroupForm.controls.personGroupId.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    addGroupForm.controls.personGroupId.errors?.required &&
+                    addGroupForm.controls.personGroupId.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="addGroupForm.controls.personGroupId.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+            <!------------------------ Name-------------------------->
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>Name</mat-label>
+                <input
+                  matInput
+                  formControlName="name"
+                  placeholder="Enter Input Name"
+                />
+                <mat-icon matSuffix *ngIf="!addGroupForm.controls.name.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon matSuffix *ngIf="addGroupForm.controls.name.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    addGroupForm.controls.name.errors?.required &&
+                    addGroupForm.controls.name.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="addGroupForm.controls.name.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+            <!------------------------ Name-------------------------->
+            <p>
+              <mat-form-field appearance="outline" class="w-75">
+                <mat-label>User Data</mat-label>
+                <input
+                  matInput
+                  formControlName="userData"
+                  placeholder="Enter userData.. this is a description for this group"
+                />
+                <mat-icon
+                  matSuffix
+                  *ngIf="!addGroupForm.controls.userData.errors"
+                  >sentiment_very_satisfied</mat-icon
+                >
+                <mat-icon
+                  matSuffix
+                  *ngIf="addGroupForm.controls.userData.errors"
+                  >sentiment_dissatisfied</mat-icon
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="
+                    addGroupForm.controls.userData.errors?.required &&
+                    addGroupForm.controls.userData.touched
+                  "
+                  >This Field Is Required</mat-hint
+                >
+                <mat-hint
+                  align="end"
+                  *ngIf="addGroupForm.controls.userData.errors?.minlength"
+                  >Min Length Is 3 Characters</mat-hint
+                >
+              </mat-form-field>
+            </p>
+            <mat-card-actions>
+              <button
+                mat-raised-button
+                type="submit"
+                color="accent"
+                [disabled]="addGroupForm.invalid"
+              >
+                Submit
+              </button>
+            </mat-card-actions>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

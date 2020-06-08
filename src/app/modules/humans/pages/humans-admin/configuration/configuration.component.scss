@@ -1,0 +1,59 @@
+.img-container {
+  display: inline-block;
+  width: 140px;
+  height: 140px;
+  position: relative;
+}
+
+.img-person-face {
+  max-width: 140px;
+  max-height: 140px;
+  width: auto;
+  height: auto;
+  border: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.card-block-img-container {
+  text-align: center;
+}
+.card-container {
+  display: flex;
+  margin: 15px auto;
+  justify-content: center;
+}
+.main-card {
+  width: 100%;
+}
+.main-headers {
+  font-size: 18px;
+  margin-top: 15px 15px;
+}
+.main-content {
+  margin: 15px;
+  padding: 15px;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-rate-limit-reached {
+  color: #980000;
+  max-width: 360px;
+  text-align: center;
+}

@@ -1,0 +1,98 @@
+<div class="container my-4">
+  <mat-card class="my-4">
+    <mat-card-header>
+      <mat-card-title>All Person Groups</mat-card-title>
+      <mat-card-subtitle>All Of Groups and all Actions</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="example-loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      </div>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let group of allGroups; let i = index">
+            <th scope="row">#{{ i + 1 }}</th>
+            <td>
+              <tr>
+                <td>
+                  Pserson-Group-ID
+                </td>
+                <td>
+                  {{ group.personGroupId }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Name
+                </td>
+                <td>{{ group.name }}</td>
+              </tr>
+              <tr>
+                <td>
+                  User-Data
+                </td>
+                <td>{{ group.userData }}</td>
+              </tr>
+              <tr>
+                <td>
+                  Actions
+                </td>
+                <td>
+                  <div class="mx-2">
+                    <button
+                      class="mx-2"
+                      mat-raised-button
+                      color="warn"
+                      (click)="deletePersonGroup(group.personGroupId)"
+                    >
+                      Delete Group
+                    </button>
+                    <button
+                      class="mx-2"
+                      mat-raised-button
+                      color="primary"
+                      (click)="trainPersonGroup(group.personGroupId)"
+                    >
+                      Train Model
+                    </button>
+                    <button
+                      class="mx-2"
+                      mat-raised-button
+                      color="accent"
+                      (click)="getGroupTrainingStatus(group.personGroupId)"
+                    >
+                      Check Training Status
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- <mat-selection-list [multiple]="false">
+  <mat-list-option>
+    <div class="items-list-contanier">
+      Pserson-Group-ID :
+      <span color="warn"> {{ group.personGroupId }}</span>
+      <br />
+      Name :
+      <span color="primary">{{ group.name }}</span>
+      <br />
+      User-Data :
+      <span color="primary">{{ group.userData }}</span>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list-option>
+</mat-selection-list> -->

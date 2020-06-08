@@ -10,9 +10,30 @@ import { HumansRoutingModule } from './humans-routing.module';
 import { HumansMainComponent } from './pages/humans-main/humans-main.component';
 import { AdminMainComponent } from './pages/humans-admin/admin-main/admin-main.component';
 import { UserMainComponent } from './pages/humans-user/user-main/user-main.component';
-
+import { HomeComponent } from './components/home/home.component';
+import { FaceTesterComponent } from './components/face-tester/face-tester.component';
+import { FaceGroupingComponent } from './components/face-grouping/face-grouping.component';
+import { FindSimilarComponent } from './components/find-similar/find-similar.component';
+import { InputBoxComponent } from './components/input-box/input-box.component';
+import { Configuration2Component } from './components/configuration/configuration.component';
+import { ConfigurationComponent } from './pages/humans-admin/configuration/configuration.component';
+import { AddGroupComponent } from './pages/humans-admin/add-group/add-group.component';
+import { AllGroupsComponent } from './pages/humans-admin/all-groups/all-groups.component';
 @NgModule({
-  declarations: [HumansMainComponent, AdminMainComponent, UserMainComponent],
+  declarations: [
+    HumansMainComponent,
+    AdminMainComponent,
+    UserMainComponent,
+    HomeComponent,
+    FaceTesterComponent,
+    FaceGroupingComponent,
+    FindSimilarComponent,
+    InputBoxComponent,
+    Configuration2Component,
+    ConfigurationComponent,
+    AddGroupComponent,
+    AllGroupsComponent,
+  ],
   imports: [
     CommonModule,
     HumansRoutingModule,
