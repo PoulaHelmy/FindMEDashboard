@@ -17,8 +17,12 @@ import { FindSimilarComponent } from './components/find-similar/find-similar.com
 import { InputBoxComponent } from './components/input-box/input-box.component';
 import { Configuration2Component } from './components/configuration/configuration.component';
 import { ConfigurationComponent } from './pages/humans-admin/configuration/configuration.component';
-import { AddGroupComponent } from './pages/humans-admin/add-group/add-group.component';
-import { AllGroupsComponent } from './pages/humans-admin/all-groups/all-groups.component';
+import { AddGroupComponent } from './pages/humans-admin/groups/add-group/add-group.component';
+import { AllGroupsComponent } from './pages/humans-admin/groups/all-groups/all-groups.component';
+import { GroupControlComponent } from './pages/humans-admin/groups/group-control/group-control.component';
+import { PersonControlComponent } from './pages/humans-admin/persons/person-control/person-control.component';
+import { AddPersonComponent } from './pages/humans-admin/persons/add-person/add-person.component';
+import { AddFaceComponent } from './pages/humans-admin/persons/add-face/add-face.component';
 @NgModule({
   declarations: [
     HumansMainComponent,
@@ -33,6 +37,10 @@ import { AllGroupsComponent } from './pages/humans-admin/all-groups/all-groups.c
     ConfigurationComponent,
     AddGroupComponent,
     AllGroupsComponent,
+    GroupControlComponent,
+    PersonControlComponent,
+    AddPersonComponent,
+    AddFaceComponent,
   ],
   imports: [
     CommonModule,

@@ -161,17 +161,3 @@ export class ConfigurationComponent implements OnInit {
     //   });
   }
 }
-
-// deleteItem(id: number) {
-//   this.dialogService.open(this.options);
-//   this.dialogService.confirmed().subscribe((confirmed) => {
-//     if (confirmed) {
-//       this.itemService.deleteItem(id, 'items').subscribe((res) => {
-//         this.snackbarService.show('Item Deleted Successfully', 'success');
-//         setTimeout(() => {
-//           this.isLoadingResults = false;
-//         }, 500);
-//       });
-//     }
-//   });
-// }

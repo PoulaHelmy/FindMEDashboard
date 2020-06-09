@@ -32,7 +32,19 @@
                 <td>
                   Name
                 </td>
-                <td>{{ group.name }}</td>
+                <td>
+                  <button
+                    class="mx-2"
+                    mat-stroked-button
+                    color="warn"
+                    [routerLink]="['/humans/group', group.personGroupId]"
+                    routerLinkActive="router-link-active"
+                    matTooltip="GO To This Group"
+                    matTooltipPosition="right"
+                  >
+                    {{ group.name }}
+                  </button>
+                </td>
               </tr>
               <tr>
                 <td>
@@ -47,26 +59,32 @@
                 <td>
                   <div class="mx-2">
                     <button
-                      class="mx-2"
+                      class="m-2"
                       mat-raised-button
                       color="warn"
                       (click)="deletePersonGroup(group.personGroupId)"
+                      matTooltip="Delete This Group"
+                      matTooltipPosition="below"
                     >
                       Delete Group
                     </button>
                     <button
-                      class="mx-2"
+                      class="m-2"
                       mat-raised-button
                       color="primary"
                       (click)="trainPersonGroup(group.personGroupId)"
+                      matTooltip="Train This Group"
+                      matTooltipPosition="below"
                     >
                       Train Model
                     </button>
                     <button
-                      class="mx-2"
+                      class="m-2"
                       mat-raised-button
                       color="accent"
                       (click)="getGroupTrainingStatus(group.personGroupId)"
+                      matTooltip="Check The Training Status This Group"
+                      matTooltipPosition="below"
                     >
                       Check Training Status
                     </button>
@@ -80,19 +98,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
-<!-- <mat-selection-list [multiple]="false">
-  <mat-list-option>
-    <div class="items-list-contanier">
-      Pserson-Group-ID :
-      <span color="warn"> {{ group.personGroupId }}</span>
-      <br />
-      Name :
-      <span color="primary">{{ group.name }}</span>
-      <br />
-      User-Data :
-      <span color="primary">{{ group.userData }}</span>
-      <mat-divider></mat-divider>
-    </div>
-  </mat-list-option>
-</mat-selection-list> -->

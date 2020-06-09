@@ -1,0 +1,81 @@
+<div class="container my-4">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <mat-card class="my-4">
+    <mat-card-header>
+      <mat-card-title>Person Group Control</mat-card-title>
+      <mat-card-subtitle
+        >All Of Person Group Operation and all Actions</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="mx-2">
+        <button
+          class="mx-2"
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/humans/addperson', selectedGroupId]"
+          routerLinkActive="router-link-active"
+        >
+          addPerson
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="my-3">
+    <mat-card-header>
+      <mat-card-title>All Persons</mat-card-title>
+      <mat-card-subtitle
+        >Here All Persons & All Of Their Operations</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <mat-selection-list [multiple]="false">
+        <mat-list-option *ngFor="let item of personList">
+          <div class="list-container">
+            <div class="right-content">
+              <mat-chip-list aria-label="Fish selection">
+                <mat-chip color="primary" selected>{{ item.name }}</mat-chip>
+                <mat-chip color="accent" selected
+                  >Number Of Faces : {{ item.persistedFaceIds.length }}
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+            <div class="left-content">
+              <button
+                class="matBtn"
+                color="accent"
+                mat-icon-button
+                aria-label="Delete This Person"
+                matTooltip="Delete This Person"
+                matTooltipPosition="left"
+                (click)="deletePerson(item.personId)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button
+                class="matBtn"
+                mat-icon-button
+                color="primary"
+                aria-label="Person Setting"
+                matTooltip="Person Setting"
+                matTooltipPosition="right"
+                [routerLink]="[
+                  '/humans/person',
+                  item.personId,
+                  'group',
+                  selectedGroupId
+                ]"
+                routerLinkActive="router-link-active"
+              >
+                <mat-icon>settings</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FaceApiService } from '../../../services/face-api.service';
+import { FaceApiService } from '../../../../services/face-api.service';
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-group',
