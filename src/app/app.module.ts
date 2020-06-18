@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '@@shared/shared.module';
-import { AdminModule } from './modules/admin';
+import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from 'app/@auth/auth.module';
 import { TagsModule } from 'app/modules/tags/tags.module';
 import { InputsModule } from 'app/modules/inputs/inputs.module';
@@ -19,6 +19,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '@@env/environment';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { ChartsModule } from 'ng2-charts';
 import * as Sentry from '@sentry/browser';
 
 Sentry.init({
@@ -108,6 +109,7 @@ export class SentryErrorHandler implements ErrorHandler {
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     ToasterModule.forRoot(),
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

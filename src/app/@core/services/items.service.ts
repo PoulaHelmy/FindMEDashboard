@@ -24,6 +24,14 @@ export class ItemsService {
       catchError((e) => throwError(e))
     );
   }
+  getAllItemsAdmin() {
+    return this.http.get(`${env.apiRoot}/allitems`, httpOptions).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((e) => throwError(e))
+    );
+  }
   addItem(data: object, endPoint: string) {
     return this.http
       .post(`${env.apiRoot}/auth/${endPoint}`, data, httpOptions)
@@ -101,5 +109,25 @@ export class ItemsService {
       }),
       catchError((e) => throwError(e))
     );
+  }
+  uploadPersonFaces(data: object) {
+    return this.http
+      .post(`${env.apiRoot}/auth/persons/faces`, data, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError((e) => throwError(e))
+      );
+  }
+  getItemByName(data: object) {
+    return this.http
+      .post(`${env.apiRoot}/auth/getitembyname`, data, httpOptions)
+      .pipe(
+        map((res) => {
+          return res['data'];
+        }),
+        catchError((e) => throwError(e))
+      );
   }
 } //end of class

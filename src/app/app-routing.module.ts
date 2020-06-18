@@ -9,7 +9,7 @@ import { UserDetailsResolver } from '@@core/guards/resolvers/UserAuthResolvers/u
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
     // canActivate: [AuthGuard],
   },
@@ -28,7 +28,7 @@ const routes: Routes = [
     // outlet: 'authOutlet',
   },
   {
-    path: 'admin',
+    path: 'dashboard',
     // canActivateChild: [IsAdminGuard],
     loadChildren: () =>
       import('app/modules/admin/admin.module').then((m) => m.AdminModule),
@@ -73,6 +73,11 @@ const routes: Routes = [
     path: 'humans',
     loadChildren: () =>
       import('app/modules/humans/humans.module').then((m) => m.HumansModule),
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('app/modules/users/users.module').then((m) => m.UsersModule),
   },
   {
     path: '**',

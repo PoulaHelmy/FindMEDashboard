@@ -71,6 +71,15 @@
 
                       {{ hits["locale_names"]["default"] }}
                     </span>
+                    <!-- <span #locationSpan style="display: none;">{{
+                      hits | json
+                    }}</span> -->
+                    <span #locationSpanlat style="display: none;">{{
+                      hits["_geoloc"]["lat"]
+                    }}</span>
+                    <span #locationSpanlan style="display: none;">{{
+                      hits["_geoloc"]["lng"]
+                    }}</span>
                   </mat-option>
                 </mat-autocomplete>
 

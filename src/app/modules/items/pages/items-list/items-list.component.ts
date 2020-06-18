@@ -22,6 +22,7 @@ import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/conf
 import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
 import { Item } from '@@shared/models/item';
 import { ItemsService } from '@@core/services/items.service';
+import { ApiService } from '@@core/http/api.service';
 
 @Component({
   selector: 'app-items-list',
@@ -32,6 +33,7 @@ export class ItemsListComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = [
     'id',
     'name',
+    'user_id',
     'category',
     'subcat',
     'created_at',
@@ -55,17 +57,19 @@ export class ItemsListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private dialogService: ConfirmDialogService,
     private snackbarService: SnackbarService,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    private apiserv: ApiService
   ) {}
   ngOnInit() {
-    // this.apiserv
-    //   .getAllInputs('', 'id', 'asc', 0, 0, 'inputs')
-    //   .subscribe((res) => {
-    //     this.resultsLength = res['meta']['total'];
-    //     this.data = res['data'];
-    //   });
-    this.itemService.getAllItems('items').subscribe((res) => {
+    this.apiserv
+      .getAllInputs('', 'id', 'asc', 0, 0, 'items')
+      .subscribe((res) => {
+        this.resultsLength = res['meta']['total'];
+        this.data = res['data'];
+      });
+    this.itemService.getAllItemsAdmin().subscribe((res) => {
       this.data = res['data'];
+
       this.isLoadingResults = false;
     });
   }
@@ -83,82 +87,60 @@ export class ItemsListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  //       this.apiserv
-  //         .getAllInputs(
-  //           this.inputSearch.nativeElement.value,
-  //           this.sort.active,
-  //           this.sort.direction,
-  //           this.paginator.pageIndex,
-  //           this.paginator.pageSize,
-  //           'inputs'
-  //         )
-  //         .subscribe((res) => {
-  //           this.resultsLength = res['meta']['total'];
-  //           this.data = res['data'];
-  //         });
-  //       this.isLoadingResults = true;
-  //     },
-  //     (err) => {
-  //       this.snackbarService.show(err['statusText'], 'danger');
-  //     }
-  //   );
-  //   }
-  // });
-
   ngAfterViewInit() {
-    // server-side search
-    // fromEvent(this.inputSearch.nativeElement, 'keyup')
-    //   .pipe(
-    //     debounceTime(150),
-    //     distinctUntilChanged(),
-    //     tap(() => {
-    //       this.paginator.pageIndex = 0;
-    //       this.apiserv
-    //         .getAllInputs(
-    //           this.inputSearch.nativeElement.value,
-    //           this.sort.active,
-    //           this.sort.direction,
-    //           this.paginator.pageIndex,
-    //           this.paginator.pageSize,
-    //           'inputs'
-    //         )
-    //         .subscribe((res) => {
-    //           this.data = res['data'];
-    //           this.resultsLength = res['meta']['total'];
-    //         });
-    //     })
-    //   )
-    //   .subscribe();
-    // // If the user changes the sort order, reset back to the first page.
-    // this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    // merge(this.sort.sortChange, this.paginator.page)
-    //   .pipe(
-    //     startWith({}),
-    //     switchMap(() => {
-    //       this.isLoadingResults = true;
-    //       return this.apiserv.getAllInputs(
-    //         this.inputSearch.nativeElement.value,
-    //         this.sort.active,
-    //         this.sort.direction,
-    //         this.paginator.pageIndex,
-    //         this.paginator.pageSize,
-    //         'inputs'
-    //       );
-    //     }),
-    //     map((data) => {
-    //       // Flip flag to show that loading has finished.
-    //       this.isLoadingResults = false;
-    //       this.isRateLimitReached = false;
-    //       return data['data'];
-    //     }),
-    //     catchError(() => {
-    //       this.isLoadingResults = false;
-    //       // Catch if the GitHub API has reached its rate limit. Return empty data.
-    //       this.isRateLimitReached = true;
-    //       return observableOf([]);
-    //     })
-    //   )
-    //   .subscribe((data) => (this.data = data));
+    //server-side search
+    fromEvent(this.inputSearch.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.apiserv
+            .getAllInputs(
+              this.inputSearch.nativeElement.value,
+              this.sort.active,
+              this.sort.direction,
+              this.paginator.pageIndex,
+              this.paginator.pageSize,
+              'items'
+            )
+            .subscribe((res) => {
+              this.data = res['data'];
+              this.resultsLength = res['meta']['total'];
+            });
+        })
+      )
+      .subscribe();
+    // If the user changes the sort order, reset back to the first page.
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.apiserv.getAllInputs(
+            this.inputSearch.nativeElement.value,
+            this.sort.active,
+            this.sort.direction,
+            this.paginator.pageIndex,
+            this.paginator.pageSize,
+            'items'
+          );
+        }),
+        map((data) => {
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          return data['data'];
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          // Catch if the GitHub API has reached its rate limit. Return empty data.
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      )
+      .subscribe((data) => (this.data = data));
   }
 
   ngOnDestroy() {

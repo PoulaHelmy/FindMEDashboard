@@ -15,7 +15,6 @@ export class SubcatUpdateComponent implements OnInit, OnDestroy {
   subCatsForm: FormGroup;
   subCategory: object;
   categories: Category[];
-  catSubscription: Subscription;
   constructor(
     private fb: FormBuilder,
     private snackbarService: SnackbarService,
@@ -32,11 +31,9 @@ export class SubcatUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.catSubscription = this.apiserv
-      .getAllItems('categories')
-      .subscribe((res) => {
-        this.categories = res['data'];
-      });
+    this.apiserv.getAllItems('categories').subscribe((res) => {
+      this.categories = res['data'];
+    });
     this.activatedRoute.data.subscribe((res) => {
       this.subCatsForm.patchValue({
         inputName: res['item']['data']['name'],
@@ -83,7 +80,5 @@ export class SubcatUpdateComponent implements OnInit, OnDestroy {
         this.snackbarService.show(err['error']['errors']['name'], 'danger');
       });
   }
-  ngOnDestroy(): void {
-    this.catSubscription.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 } //end of Classconsole.log('')

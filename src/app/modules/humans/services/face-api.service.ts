@@ -11,6 +11,12 @@ const httpOptions = {
     'Ocp-Apim-Subscription-Key': 'b95add9ba99a4080909f2c648a091baa',
   }),
 };
+const httpOptionsOctet = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/octet-stream',
+    'Ocp-Apim-Subscription-Key': 'b95add9ba99a4080909f2c648a091baa',
+  }),
+};
 @Injectable({
   providedIn: 'root',
 })
@@ -103,7 +109,15 @@ export class FaceApiService {
       )
       .pipe(catchError((e) => throwError(e)));
   }
-
+  updatePerson(personGroupId, personId, data: object) {
+    return this.http
+      .patch(
+        `${env.azure.endpoint}/persongroups/${personGroupId}/persons/${personId}`,
+        data,
+        httpOptions
+      )
+      .pipe(catchError((e) => throwError(e)));
+  }
   // ***** Person Face Operations *****/
 
   getPersonFaces(personGroupId, personId) {
@@ -127,7 +141,6 @@ export class FaceApiService {
         catchError((e) => throwError(e))
       );
   }
-
   getPersonFace(personGroupId, personId, faceId) {
     return this.http
       .get(
@@ -136,8 +149,16 @@ export class FaceApiService {
       )
       .pipe(catchError((e) => throwError(e)));
   }
-
   addPersonFace(personGroupId, personId, url) {
+    return this.http
+      .post<any>(
+        `${env.azure.endpoint}/persongroups/${personGroupId}/persons/${personId}/persistedfaces?userData=dsdsdsdsdsdsd`,
+        url,
+        httpOptionsOctet
+      )
+      .pipe(catchError((e) => throwError(e)));
+  }
+  addPersonFaceByUrl(personGroupId, personId, url) {
     return this.http
       .post<any>(
         `${env.azure.endpoint}/persongroups/${personGroupId}/persons/${personId}/persistedfaces?userData=${url}`,
@@ -146,7 +167,6 @@ export class FaceApiService {
       )
       .pipe(catchError((e) => throwError(e)));
   }
-
   deletePersonFace(personGroupId, personId, faceId) {
     return this.http
       .delete(
@@ -158,11 +178,11 @@ export class FaceApiService {
 
   // ***** Face List Operations *****
 
-  createFaceList(faceListId) {
+  createFaceList(faceListId, userData, name) {
     return this.http
       .put(
         `${env.azure.endpoint}/facelists/${faceListId}`,
-        { name: faceListId },
+        { name: name, userData: userData },
         httpOptions
       )
       .pipe(catchError((e) => throwError(e)));
@@ -172,24 +192,51 @@ export class FaceApiService {
     return this.http
       .post(
         `${env.azure.endpoint}/facelists/${faceListId}/persistedFaces`,
-        { url: url },
+        { url: url, userData: url },
         httpOptions
       )
       .pipe(catchError((e) => throwError(e)));
   }
-
+  addFaceFromLocal(faceListId, url) {
+    return this.http
+      .post(
+        `${env.azure.endpoint}/facelists/${faceListId}/persistedFaces`,
+        url,
+        httpOptionsOctet
+      )
+      .pipe(catchError((e) => throwError(e)));
+  }
+  getAllLists() {
+    return this.http
+      .get<any>(`${env.azure.endpoint}/facelists`, httpOptions)
+      .pipe();
+  }
+  deleteFaceList(faceListId) {
+    return this.http
+      .delete(`${env.azure.endpoint}/facelists/${faceListId}`, httpOptions)
+      .pipe(catchError((e) => throwError(e)));
+  }
+  getFaceList(faceListId) {
+    return this.http
+      .get(`${env.azure.endpoint}/facelists/${faceListId}`, httpOptions)
+      .pipe(catchError((e) => throwError(e)));
+  }
   // ***** Face Operations *****
 
   detect(url) {
-    return this.http
-      .post<any[]>(
-        `${env.azure.endpoint}/detect?returnFaceLandmarks=false&returnFaceAttributes=age,gender,smile,glasses,emotion,facialHair`,
-        { url: url },
-        httpOptions
-      )
-      .pipe(catchError((e) => throwError(e)));
+    return this.http.post<any[]>(
+      `${env.azure.endpoint}/detect`,
+      url,
+      httpOptionsOctet
+    );
   }
-
+  detect2(url) {
+    return this.http.post<any[]>(
+      `${env.azure.endpoint}/detect?returnFaceLandmarks=false&returnFaceAttributes=age,gender,smile,glasses,emotion,facialHair`,
+      url,
+      httpOptionsOctet
+    );
+  }
   identify(personGroupId, faceIds) {
     let request = {
       personGroupId: personGroupId,

@@ -14,7 +14,6 @@ import { ItemsUpdateComponent } from './pages/items-update/items-update.componen
 import { ItemsListComponent } from './pages/items-list/items-list.component';
 import { ItemDetailsComponent } from './pages/item-details/item-details.component';
 import { ItemsOptionsComponent } from './pages/items-options/items-options.component';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DatePipe } from '@angular/common';
 import { UpdateOptionsComponent } from './pages/update-options/update-options.component';
 import { ItemsQuestionsComponent } from './pages/items-questions/items-questions.component';
@@ -45,15 +44,6 @@ import { UpadteQuestionsComponent } from './pages/upadte-questions/upadte-questi
   exports: [InputsSubcatsComponent],
   providers: [
     DatePipe,
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { floatLabel: 'always' },
-    },
-
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { floatLabel: 'always' },

@@ -7,6 +7,8 @@ import { UpdateRequestComponent } from './pages/update-request/update-request.co
 import { ApiResolver } from '@@core/guards/resolvers/api.resolver';
 import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
 import { ItemUpdateQuestionsResolver } from '@@core/guards/resolvers/ItemsResolvers/items-upqestions.resolver';
+import { RequestDetailsResolver } from '@@core/guards/resolvers/RequestsResolver/request-details.resolver';
+import { RequestUpdateResolver } from '@@core/guards/resolvers/RequestsResolver/request-update.resolver';
 
 const routes: Routes = [
   { path: '', component: RequestsComponent },
@@ -19,12 +21,12 @@ const routes: Routes = [
   {
     path: 'view/:id',
     component: RequestDetailsComponent,
-    resolve: { item: ApiResolver },
+    resolve: { item: RequestDetailsResolver },
   },
   {
     path: 'update/:id',
     component: UpdateRequestComponent,
-    resolve: { item: ApiResolver },
+    resolve: { item: RequestUpdateResolver },
   },
   {
     path: '**',

@@ -16,8 +16,7 @@ export class UpdateOptionsComponent implements OnInit, OnDestroy {
   @ViewChild(DynamicFormComponent) formmmmm: DynamicFormComponent;
   itemsOptions: FormGroup;
   isLoadingResults = false;
-  subcription1$: Subscription;
-  subcription2$: Subscription;
+
   regConfig: FieldConfig[] = [];
   item_id = 0;
   data: {};
@@ -32,7 +31,7 @@ export class UpdateOptionsComponent implements OnInit, OnDestroy {
 
   /****************** ngOnInit Function************************/
   ngOnInit(): void {
-    this.subcription1$ = this.actRoute.data.subscribe((res) => {
+    this.actRoute.data.subscribe((res) => {
       console.log('rererer', res);
       this.item_id = res['item'][0]['item_id'];
       const btn = {
@@ -61,28 +60,23 @@ export class UpdateOptionsComponent implements OnInit, OnDestroy {
       this.data[Object.entries(value)[i][0]] = Object.entries(value)[i][1];
     }
     this.isLoadingResults = true;
-    this.subcription2$ = this.itemService
-      .updateItemOptions(this.item_id, this.data)
-      .subscribe(
-        () => {
-          this.isLoadingResults = false;
-          this.snackbarService.show(
-            'Item Details Updated successfully',
-            'success'
-          );
-          this.router.navigate(['items/upquestions/' + this.item_id]);
-        },
-        (err) => {
-          console.log('err :', err);
-          this.isLoadingResults = false;
-          this.snackbarService.show(err['error']['errors']['name'], 'danger');
-        }
-      );
+    this.itemService.updateItemOptions(this.item_id, this.data).subscribe(
+      () => {
+        this.isLoadingResults = false;
+        this.snackbarService.show(
+          'Item Details Updated successfully',
+          'success'
+        );
+        this.router.navigate(['items/upquestions/' + this.item_id]);
+      },
+      (err) => {
+        console.log('err :', err);
+        this.isLoadingResults = false;
+        this.snackbarService.show(err['error']['errors']['name'], 'danger');
+      }
+    );
   } //end of submit
 
   /****************** ngOnDestroy Function************************/
-  ngOnDestroy(): void {
-    this.subcription1$.unsubscribe();
-    this.subcription2$.unsubscribe();
-  } //end of ngOnDestroy
+  ngOnDestroy(): void {} //end of ngOnDestroy
 } //end of Calss

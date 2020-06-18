@@ -1,0 +1,38 @@
+<div class="container my-4">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <mat-card class="my-4">
+    <mat-card-header>
+      <mat-card-title>Face List Name : {{ faceList?.name }}</mat-card-title>
+      <mat-card-subtitle>UserData : {{ faceList?.userData }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      Number OF Faces : {{ faceList?.persistedFaces.length }}
+    </mat-card-content>
+    <mat-card-actions class="d-flex" style="justify-content: space-between;">
+      <button
+        class="matBtn"
+        color="primary"
+        mat-stroked-button
+        aria-label="Add Face"
+        matTooltip="Add Face"
+        matTooltipPosition="left"
+        [routerLink]="['/humans/addurl', selectedListId]"
+      >
+        Add Face By Url
+      </button>
+      <button
+        class="matBtn"
+        color="primary"
+        mat-stroked-button
+        aria-label="Add Face"
+        matTooltip="Add Face"
+        matTooltipPosition="left"
+        [routerLink]="['/humans/addlocal', selectedListId]"
+      >
+        Add Face From Local
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

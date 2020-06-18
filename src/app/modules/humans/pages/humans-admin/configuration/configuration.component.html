@@ -1,149 +1,190 @@
 <div class="container card-container">
-  <div class="row justify-content-center">
+  <div class="row">
     <div class="example-loading-shade" *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
+    <div class="main-headers">
+      <h3>Face Api Control</h3>
+      <p>Configrations & All Operations</p>
+    </div>
     <div class="main-card">
-      <div class="main-headers">
-        <h3>Known Individuals - Groups</h3>
-        <p>Configrations & Add Group OF Persons</p>
-        <button
-          mat-raised-button
-          color="primary"
-          class="mx-2"
-          [routerLink]="['/humans/addgroup']"
-          routerLinkActive="router-link-active"
-        >
-          Add Group
-        </button>
-        <button
-          mat-flat-button
-          class="mx-2"
-          color="accent"
-          [routerLink]="['/humans/allgroups']"
-          routerLinkActive="router-link-active"
-        >
-          All Groups Data
-        </button>
-      </div>
-      <div class="main-content">
-        <mat-form-field>
-          <mat-label>Groups:</mat-label>
-          <mat-select
-            name="personGroups"
-            [(ngModel)]="selectedGroupId"
-            (change)="onGroupsChange()"
-          >
-            <mat-option
-              *ngFor="let group of personGroups"
-              [value]="group.personGroupId"
-            >
-              {{ group.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="mx-2">
-          <button
-            class="mx-2"
-            mat-raised-button
-            color="warn"
-            *ngIf="selectedGroupId"
-            (click)="deletePersonGroup()"
-          >
-            Delete Group
-          </button>
-          <button
-            class="mx-2"
-            mat-raised-button
-            color="primary"
-            *ngIf="selectedGroupId"
-            (click)="trainPersonGroup()"
-          >
-            Train Model
-          </button>
-          <button
-            class="mx-2"
-            mat-raised-button
-            color="accent"
-            *ngIf="selectedGroupId"
-            (click)="getGroupTrainingStatus()"
-          >
-            Check Training Status
-          </button>
-        </div>
-      </div>
-      <mat-card *ngIf="selectedGroupId">
+      <!-- Groups Control  -->
+      <mat-card class="my-4">
         <mat-card-header>
-          <mat-card-title>Individuals</mat-card-title>
-          <mat-card-subtitle>Individuals & Persons Controls</mat-card-subtitle>
+          <mat-card-title>Group Control</mat-card-title>
+          <mat-card-subtitle
+            >All Of Groups Operation and all Actions</mat-card-subtitle
+          >
         </mat-card-header>
         <mat-card-content>
           <button
             mat-raised-button
             color="primary"
             class="mx-2"
-            (click)="addPerson()"
+            [routerLink]="['/humans/addgroup']"
+            routerLinkActive="router-link-active"
           >
-            Add Person
+            Add Group
           </button>
-
-          <div class="list-group">
-            <a
-              *ngFor="let person of personList"
-              class="list-group-item list-group-item-action clickable"
-              (click)="personClick(person)"
-            >
-              {{ person.name }}
-            </a>
-          </div>
-
-          <!-- Main column (right-side) for Person section -->
-          <div class="col" *ngIf="selectedPerson">
-            <div class="card">
-              <h4 class="card-header">Individual: {{ selectedPerson.name }}</h4>
-              <div class="card-body">
-                <button
-                  class="btn btn-primary mr-sm-2"
-                  (click)="addPersonFace()"
-                >
-                  Add New Face
-                </button>
-                <button class="btn btn-danger">
-                  Delete Person
-                </button>
-                <hr />
-
-                <h5 class="card-title">Person Faces</h5>
-                <div class="row">
-                  <div class="col-md-3" *ngFor="let img of personFaces">
-                    <div class="card text-center">
-                      <div class="card-body card-block-img-container">
-                        <span class="img-container">
-                          <img
-                            class="img-person-face img-thumnail"
-                            [src]="img.userData"
-                            height="140"
-                            width="140"
-                          />
-                        </span>
-                      </div>
-                      <div class="card-body">
-                        <button
-                          type="button"
-                          class="btn btn-danger btn-sm"
-                          (click)="deletePersonFace(img.persistedFaceId)"
-                        >
-                          Delete Face
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <button
+            mat-flat-button
+            class="mx-2"
+            color="accent"
+            [routerLink]="['/humans/allgroups']"
+            routerLinkActive="router-link-active"
+          >
+            All Groups Data
+          </button>
+        </mat-card-content>
+      </mat-card>
+      <!-- Lists Control  -->
+      <mat-card class="my-4">
+        <mat-card-header>
+          <mat-card-title>List Control</mat-card-title>
+          <mat-card-subtitle
+            >All Of Lists Operation and all Actions</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <button
+            mat-raised-button
+            color="primary"
+            class="mx-2"
+            [routerLink]="['/humans/addlist']"
+            routerLinkActive="router-link-active"
+          >
+            Add List
+          </button>
+          <button
+            mat-flat-button
+            class="mx-2"
+            color="accent"
+            [routerLink]="['/humans/lists']"
+            routerLinkActive="router-link-active"
+          >
+            All Lists
+          </button>
         </mat-card-content>
       </mat-card>
     </div>
   </div>
 </div>
+
+<!-- 
+<div class="main-content">
+  <mat-form-field>
+    <mat-label>Groups:</mat-label>
+    <mat-select
+      name="personGroups"
+      [(ngModel)]="selectedGroupId"
+      (change)="onGroupsChange()"
+    >
+      <mat-option
+        *ngFor="let group of personGroups"
+        [value]="group.personGroupId"
+      >
+        {{ group.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="mx-2">
+    <button
+      class="mx-2"
+      mat-raised-button
+      color="warn"
+      *ngIf="selectedGroupId"
+      (click)="deletePersonGroup()"
+    >
+      Delete Group
+    </button>
+    <button
+      class="mx-2"
+      mat-raised-button
+      color="primary"
+      *ngIf="selectedGroupId"
+      (click)="trainPersonGroup()"
+    >
+      Train Model
+    </button>
+    <button
+      class="mx-2"
+      mat-raised-button
+      color="accent"
+      *ngIf="selectedGroupId"
+      (click)="getGroupTrainingStatus()"
+    >
+      Check Training Status
+    </button>
+  </div>
+</div>
+<mat-card *ngIf="selectedGroupId">
+  <mat-card-header>
+    <mat-card-title>Individuals</mat-card-title>
+    <mat-card-subtitle>Individuals & Persons Controls</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <button
+      mat-raised-button
+      color="primary"
+      class="mx-2"
+      (click)="addPerson()"
+    >
+      Add Person
+    </button>
+
+    <div class="list-group">
+      <a
+        *ngFor="let person of personList"
+        class="list-group-item list-group-item-action clickable"
+        (click)="personClick(person)"
+      >
+        {{ person.name }}
+      </a>
+    </div>
+
+    <div class="col" *ngIf="selectedPerson">
+      <div class="card">
+        <h4 class="card-header">Individual: {{ selectedPerson.name }}</h4>
+        <div class="card-body">
+          <button
+            class="btn btn-primary mr-sm-2"
+            (click)="addPersonFace()"
+          >
+            Add New Face
+          </button>
+          <button class="btn btn-danger">
+            Delete Person
+          </button>
+          <hr />
+
+          <h5 class="card-title">Person Faces</h5>
+          <div class="row">
+            <div class="col-md-3" *ngFor="let img of personFaces">
+              <div class="card text-center">
+                <div class="card-body card-block-img-container">
+                  <span class="img-container">
+                    <img
+                      class="img-person-face img-thumnail"
+                      [src]="img.userData"
+                      height="140"
+                      width="140"
+                    />
+                  </span>
+                </div>
+                <div class="card-body">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    (click)="deletePersonFace(img.persistedFaceId)"
+                  >
+                    Delete Face
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card> -->

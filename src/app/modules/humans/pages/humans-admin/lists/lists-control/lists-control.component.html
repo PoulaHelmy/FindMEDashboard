@@ -1,0 +1,50 @@
+<div class="container my-4">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <mat-card class="my-4">
+    <mat-card-header>
+      <mat-card-title>All Face Lists</mat-card-title>
+      <mat-card-subtitle>All Of Lists and all Actions</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content> </mat-card-content>
+  </mat-card>
+  <ng-container *ngFor="let list of allLists; let i = index">
+    <div class="face-card m-3">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>List #{{ i + 1 }}</mat-card-title>
+          <mat-card-subtitle>UserData : {{ list.userData }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content> ListName : {{ list.name }} </mat-card-content>
+        <mat-card-actions
+          class="d-flex"
+          style="justify-content: space-between;"
+        >
+          <button
+            class="matBtn"
+            color="accent"
+            mat-stroked-button
+            aria-label="Delete This List"
+            matTooltip="Delete This List"
+            matTooltipPosition="left"
+            (click)="deleteList(list.faceListId)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button
+            class="matBtn"
+            color="primary"
+            mat-stroked-button
+            aria-label="Show This List"
+            matTooltip="Show This List"
+            matTooltipPosition="left"
+            [routerLink]="['/humans/list', list.faceListId]"
+          >
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

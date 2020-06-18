@@ -23,7 +23,6 @@ import { CoreService } from '@@core/services/core-service.service';
 })
 export class InputsUpdateDynamcallyComponent implements OnInit {
   @ViewChild(DynamicFormComponent) formmmmm: DynamicFormComponent;
-  inputSubScription: Subscription;
   regConfig: FieldConfig[] = [];
   formChilds: FormGroup;
   constructor(

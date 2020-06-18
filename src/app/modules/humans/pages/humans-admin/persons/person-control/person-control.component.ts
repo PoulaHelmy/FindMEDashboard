@@ -19,11 +19,11 @@ export class PersonControlComponent implements OnInit {
   isLoadingResults = false;
   selectedGroupId;
   selectedPersonId;
-  personList = [];
-  selectedPerson = null;
+  selectedPerson: any;
   personFaces = [];
+  defImg = '../../../../assets/imgs/undraw_community_8nwl.svg';
   options = {
-    title: 'Are Sure To Delete This Person',
+    title: 'Are Sure To Delete This Face',
     message: 'Please Take An Action { You Press Esc or Enter to the Action }',
     cancelText: 'Cancel',
     confirmText: 'Confirm',
@@ -31,7 +31,6 @@ export class PersonControlComponent implements OnInit {
   constructor(
     private router: Router,
     private faceApi: FaceApiService,
-    private snackbarService: SnackbarService,
     private toasterService: ToasterService,
     private dialogService: ConfirmDialogService,
     private actRoute: ActivatedRoute
@@ -40,51 +39,62 @@ export class PersonControlComponent implements OnInit {
   ngOnInit(): void {
     this.selectedGroupId = this.actRoute.snapshot.paramMap.get('group');
     this.selectedPersonId = this.actRoute.snapshot.paramMap.get('person');
-
     this.faceApi
       .getPersonFaces(this.selectedGroupId, this.selectedPersonId)
       .subscribe((data) => {
         this.personFaces = data;
       });
+    this.faceApi
+      .getPerson(this.selectedGroupId, this.selectedPersonId)
+      .subscribe((res) => {
+        this.selectedPerson = res;
+      });
   }
   popToast(toast: Toast) {
     this.toasterService.pop(toast);
   }
-  addPersonFace() {
+  addPersonFaceByUrl() {
+    this.router.navigateByUrl(
+      `/humans/addfaceurl/${this.selectedPersonId}/group/${this.selectedGroupId}`
+    );
+  }
+  addPersonFaceFromLocal() {
     this.router.navigateByUrl(
       `/humans/addface/${this.selectedPersonId}/group/${this.selectedGroupId}`
     );
-    // let subCatId = this.router.getCurrentNavigation().extras.state.id;
-    // let item_id = this.router.getCurrentNavigation().extras.state.item_id;
-    // this.inputBox.show('Add Face', 'URL:').then((result) => {
-    //   this.faceApi
-    //     .addPersonFace(
-    //       this.selectedGroupId,
-    //       this.selectedPerson.personId,
-    //       result
-    //     )
-    //     .subscribe((data) => {
-    //       let newFace = {
-    //         persistedFaceId: data.persistedFaceId,
-    //         userData: result,
-    //       };
-    //       this.personFaces.push(newFace);
-    //     });
-    // });
   }
 
   deletePersonFace(persistedFaceId) {
-    // this.faceApi
-    //   .deletePersonFace(
-    //     this.selectedGroupId,
-    //     this.selectedPerson.personId,
-    //     persistedFaceId
-    //   )
-    //   .subscribe(() => {
-    //     _.remove(
-    //       this.personFaces,
-    //       (x) => x.persistedFaceId === persistedFaceId
-    //     );
-    //   });
+    this.dialogService.open(this.options);
+    this.dialogService.confirmed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.isLoadingResults = true;
+        this.faceApi
+          .deletePersonFace(
+            this.selectedGroupId,
+            this.selectedPersonId,
+            persistedFaceId
+          )
+          .subscribe(
+            (data) => {
+              this.popToast({
+                type: 'success',
+                title: 'Person Face Deleted Sussessfully',
+                showCloseButton: true,
+              });
+              this.isLoadingResults = false;
+              location.reload();
+            },
+            (err) => {
+              this.popToast({
+                type: 'error',
+                title: 'Some Thing Wrong Please Try Again',
+                showCloseButton: true,
+              });
+              this.isLoadingResults = false;
+            }
+          );
+      }
+    });
   }
 }

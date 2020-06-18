@@ -33,42 +33,35 @@ const routes: Routes = [
   {
     path: 'create',
     component: ItemsCreateComponent,
-    pathMatch: 'full',
     resolve: { item: AllCategoriesResolver },
   },
   {
     path: 'options',
     component: ItemsOptionsComponent,
-    pathMatch: 'full',
     resolve: { item: AllInputsResolver },
   },
   {
     path: 'questions/:id',
     component: ItemsQuestionsComponent,
-    pathMatch: 'full',
   },
   {
     path: 'update/:id',
     component: ItemsUpdateComponent,
-    pathMatch: 'full',
     resolve: { item: ItemUpdateResolver },
   },
   {
     path: 'upoptions',
     component: UpdateOptionsComponent,
-    pathMatch: 'full',
     resolve: { item: ItemUpdateOtpionsResolver },
   },
   {
     path: 'upquestions/:id',
     component: UpadteQuestionsComponent,
-    pathMatch: 'full',
     resolve: { item: ItemUpdateQuestionsResolver },
   },
   {
     path: 'inputscats',
     component: InputsSubcatsComponent,
-    pathMatch: 'full',
     resolve: { allSubCats: AllSubCatResolver },
   },
   {

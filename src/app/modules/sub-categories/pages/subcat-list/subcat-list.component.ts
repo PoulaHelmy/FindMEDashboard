@@ -43,7 +43,6 @@ export class SubcatListComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
   inputsDatabase: Observable<SubCategory[]> | null;
   data: SubCategory[] = [];
-  subscription: Subscription;
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -62,7 +61,7 @@ export class SubcatListComponent implements OnInit, AfterViewInit, OnDestroy {
     private apiserv: ApiService
   ) {}
   ngOnInit() {
-    this.subscription = this.apiserv
+    this.apiserv
       .getAllInputs('', 'id', 'asc', 0, 0, 'subcategories')
       .subscribe((res) => {
         this.resultsLength = res['meta']['total'];
@@ -160,6 +159,5 @@ export class SubcatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.sort.sortChange.complete();
-    this.subscription.unsubscribe();
   }
 } //end of class

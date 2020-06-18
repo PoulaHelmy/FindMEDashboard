@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
 export class CatUpdateComponent implements OnInit, OnDestroy {
   catsForm: FormGroup;
   category: object;
-  catSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +29,7 @@ export class CatUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.catSubscription = this.actRoute.data.subscribe((res) => {
+    this.actRoute.data.subscribe((res) => {
       this.catsForm.patchValue({
         inputName: res['item']['data']['name'],
         inputdes: res['item']['data']['meta_des'],
@@ -68,7 +67,5 @@ export class CatUpdateComponent implements OnInit, OnDestroy {
         this.snackbarService.show(err['error']['errors']['name'], 'danger');
       });
   }
-  ngOnDestroy() {
-    this.catSubscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 } //end of class

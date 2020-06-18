@@ -66,9 +66,11 @@
                   formControlName="itemCategory"
                   placeholder="Select Category"
                 >
-                  <mat-option *ngFor="let cat of categories" [value]="cat.id">
-                    {{ cat.name }}
-                  </mat-option>
+                  <ng-container *ngFor="let cat of categories">
+                    <mat-option [value]="cat.id" *ngIf="cat.id != 11">
+                      {{ cat.name }}
+                    </mat-option>
+                  </ng-container>
                 </mat-select>
                 <mat-icon
                   matSuffix
@@ -182,6 +184,15 @@
 
                       {{ hits["locale_names"]["default"] }}
                     </span>
+                    <!-- <span #locationSpan style="display: none;">{{
+                      hits | json
+                    }}</span> -->
+                    <span #locationSpanlat style="display: none;">{{
+                      hits["_geoloc"]["lat"]
+                    }}</span>
+                    <span #locationSpanlan style="display: none;">{{
+                      hits["_geoloc"]["lng"]
+                    }}</span>
                   </mat-option>
                 </mat-autocomplete>
 
@@ -315,14 +326,10 @@
             <!--  -->
 
             <mat-card-actions>
-              <button
-                mat-raised-button
-                type="submit"
-                color="accent"
-                [disabled]="itemsForm.invalid"
-              >
+              <button mat-raised-button type="submit" color="accent">
                 Submit
               </button>
+              <!-- [disabled]="itemsForm.invalid" -->
             </mat-card-actions>
           </form>
         </div>

@@ -11,13 +11,13 @@ import { Subscription } from 'rxjs';
 })
 export class CatDetailsComponent implements OnInit, OnDestroy {
   itemDetails: CategoryDetails;
-  subscription: Subscription;
+
   constructor(
     private apiserv: ApiService,
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit() {
-    this.subscription = this.activatedRoute.data.subscribe((res) => {
+    this.activatedRoute.data.subscribe((res) => {
       this.itemDetails = res['item']['data'];
     });
   }
@@ -26,7 +26,5 @@ export class CatDetailsComponent implements OnInit, OnDestroy {
     this.apiserv.deleteCheck(id, value);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 } //end of class

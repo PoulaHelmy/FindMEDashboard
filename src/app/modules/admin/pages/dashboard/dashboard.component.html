@@ -1,1 +1,256 @@
-<p>dashboard works!</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <mat-card class="my-3">
+        <mat-card-header>
+          <mat-card-title>Application Main Content</mat-card-title>
+          <mat-card-subtitle
+            >Here All Counts Of Categories, SubCategories, and ALl
+            Inputs</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart">
+            <canvas
+              baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [colors]="pieChartColors"
+              [legend]="pieChartLegend"
+            >
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-6">
+      <mat-card class="my-3">
+        <mat-card-header>
+          <mat-card-title
+            >Application Users And thier Interactions</mat-card-title
+          >
+          <mat-card-subtitle
+            >Here All Counts Of Users, Chats, and All
+            Messages</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart">
+            <canvas
+              baseChart
+              [data]="pieChartData2"
+              [labels]="pieChartLabels2"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [colors]="pieChartColors2"
+              [legend]="pieChartLegend"
+            >
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-6">
+      <mat-card class="my-3">
+        <mat-card-header>
+          <mat-card-title>Application Items & Persons</mat-card-title>
+          <mat-card-subtitle
+            >Here All Counts Of Items and Persons</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart">
+            <canvas
+              baseChart
+              [data]="pieChartData3"
+              [labels]="pieChartLabels3"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [colors]="pieChartColors3"
+              [legend]="pieChartLegend"
+            >
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-6">
+      <mat-card class="my-3">
+        <mat-card-header>
+          <mat-card-title>Application Requests</mat-card-title>
+          <mat-card-subtitle
+            >Here All Counts Of Requests and thier Status</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart">
+            <canvas
+              baseChart
+              [data]="pieChartData4"
+              [labels]="pieChartLabels4"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [colors]="pieChartColors4"
+              [legend]="pieChartLegend"
+            >
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="row justify-content-center">
+      <!-- ------------------- Last Items  ------------------------->
+      <div class="col-md-12">
+        <mat-card class="my-3">
+          <mat-card-header>
+            <mat-card-title>Last Items</mat-card-title>
+            <mat-card-subtitle
+              >Here Last Items Created By Users</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <mat-selection-list [multiple]="false">
+              <mat-list-option *ngFor="let item of items" class="my-3">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    <span class="mx-2"> {{ item.name }}</span>
+                    <span
+                      *ngIf="item.is_found == 1"
+                      class="badge badge-danger p-2"
+                      >Founded Item</span
+                    >
+                    <span
+                      *ngIf="item.is_found == 0"
+                      class="badge badge-info p-2"
+                      >Losted Item</span
+                    >
+                    <span
+                      *ngIf="item.is_found == -1"
+                      class="badge badge-warning p-2"
+                      >Returned to The Owner</span
+                    >
+                  </div>
+                  <div class="left-content">
+                    <button
+                      class="matBtn"
+                      mat-icon-button
+                      color="primary"
+                      aria-label="View Item"
+                      matTooltip="View Item"
+                      matTooltipPosition="left"
+                      [routerLink]="['/items/view', item.id]"
+                      routerLinkActive="router-link-active"
+                    >
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- ------------------- Last Persons ------------------------->
+
+      <div class="col-md-12">
+        <mat-card class="my-3">
+          <mat-card-header>
+            <mat-card-title>Last Persons</mat-card-title>
+            <mat-card-subtitle
+              >Here Last Persons Created By Users</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <mat-selection-list [multiple]="false">
+              <mat-list-option *ngFor="let person of persons" class="my-3">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    <span class="mx-2"> {{ person.name }}</span>
+
+                    <span
+                      *ngIf="person.is_found == 1"
+                      class="badge badge-danger p-2"
+                      >Founded Person</span
+                    >
+                    <span
+                      *ngIf="person.is_found == 0"
+                      class="badge badge-info p-2"
+                      >Losted Person</span
+                    >
+                    <span
+                      *ngIf="person.is_found == -1"
+                      class="badge badge-warning p-2"
+                      >Returned to Home</span
+                    >
+                  </div>
+                  <div class="left-content">
+                    <button
+                      class="matBtn"
+                      mat-icon-button
+                      color="primary"
+                      aria-label="View This Person"
+                      matTooltip="View This Person"
+                      matTooltipPosition="left"
+                      [routerLink]="['/items/view', person.id]"
+                      routerLinkActive="router-link-active"
+                    >
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- ------------------- Last Users ------------------------->
+
+      <div class="col-md-12">
+        <mat-card class="my-3">
+          <mat-card-header>
+            <mat-card-title>Last Users</mat-card-title>
+            <mat-card-subtitle
+              >Here Last Users In The Application</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <mat-selection-list [multiple]="false">
+              <mat-list-option *ngFor="let user of users" class="my-3">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    <img
+                      [src]="user.photo"
+                      class="rounded-circle m-2"
+                      width="50px"
+                      height="50px"
+                    />
+
+                    <span class="mx-2"> {{ user.name }}</span>
+
+                    <span class="badge badge-danger p-2">{{ user.email }}</span>
+                  </div>
+                  <div class="left-content">
+                    <button
+                      class="matBtn"
+                      mat-icon-button
+                      color="primary"
+                      aria-label="Request Item"
+                      matTooltip="Request Item"
+                      matTooltipPosition="left"
+                      [routerLink]="['/dashboard/increquests/view', user.id]"
+                      routerLinkActive="router-link-active"
+                    >
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </mat-list-option>
+            </mat-selection-list></mat-card-content
+          >
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

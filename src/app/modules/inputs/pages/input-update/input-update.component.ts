@@ -18,7 +18,6 @@ import { Subscription } from 'rxjs';
 })
 export class InputUpdateComponent implements OnInit, OnDestroy {
   inputsForm: FormGroup;
-  inputSubScription: Subscription;
   validatorItem: FormGroup;
   inputsTypedOptions: FormGroup;
   validatorsTypes = [
@@ -103,7 +102,7 @@ export class InputUpdateComponent implements OnInit, OnDestroy {
   ) {}
   /****************** Start ngOnInit************************/
   ngOnInit(): void {
-    this.inputSubScription = this.actRoute.data.subscribe((res) => {
+    this.actRoute.data.subscribe((res) => {
       this.isInput = res['item']['data']['type'];
       if (
         res['item']['data']['inputType'] !== 'input' ||
@@ -231,7 +230,5 @@ export class InputUpdateComponent implements OnInit, OnDestroy {
   }
   /****************** ngOnDestroy Function************************/
 
-  ngOnDestroy() {
-    this.inputSubScription.unsubscribe();
-  }
+  ngOnDestroy() {}
 } //end of class

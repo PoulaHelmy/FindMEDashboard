@@ -35,4 +35,12 @@ export class RequestsService {
         catchError((e) => throwError(e))
       );
   }
+  getAllRequestsAdmin() {
+    return this.http.get(`${env.apiRoot}/allrequests`, httpOptions).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((e) => throwError(e))
+    );
+  } //end of getAllRequests
 } //end of class

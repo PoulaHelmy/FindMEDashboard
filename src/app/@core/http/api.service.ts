@@ -161,15 +161,13 @@ export class ApiService {
       catchError((e) => throwError(e))
     );
   }
-} //end of class
-// export class ApiService {
-//   constructor(http) {
-//     this.http = http;
-//   }
 
-//   get(path) {
-//     return this.http
-//       .get(path)
-//       .pipe(catchError((e) => throwError(e)));
-//   }
-// }
+  getAllUsers() {
+    return this.http.get<any[]>(`${env.apiRoot}/allusers`).pipe(
+      map((data) => {
+        return data;
+      }),
+      catchError((e) => throwError(e))
+    );
+  }
+} //end of class

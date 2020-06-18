@@ -10,89 +10,72 @@
       >
     </mat-card-header>
     <mat-card-content>
+      <div class="faces-headers">
+        <h3>Name : {{ selectedPerson?.name }}</h3>
+        <p>
+          UserData :
+          {{ selectedPerson?.userData }}
+        </p>
+      </div>
+
       <div class="mx-2">
         <button
           class="mx-2"
           mat-raised-button
-          color="accent"
-          (click)="addPersonFace()"
+          color="primary"
+          (click)="addPersonFaceByUrl()"
+          aria-label="Add Face To This Person By Url"
+          matTooltip="Add Face To This Person By Url"
+          matTooltipPosition="below"
         >
-          Add Face
+          Add Face By URL
         </button>
-        <!-- <button
-            class="mx-2"
-            mat-raised-button
-            color="primary"
-            (click)="deletePerson(1)"
-          >
-            deletePerson
-          </button>
-       
-          <button
-            class="mx-2"
-            mat-raised-button
-            color="accent"
-            (click)="deletePersonFace(1)"
-          >
-            deletePersonFace
-          </button> -->
+        <button
+          class="mx-2"
+          mat-raised-button
+          color="accent"
+          (click)="addPersonFaceFromLocal()"
+          aria-label="Add Face From Local Machine"
+          matTooltip="Add Face This From Local Machine"
+          matTooltipPosition="below"
+        >
+          Add Face From Local Machine
+        </button>
       </div>
     </mat-card-content>
   </mat-card>
 
-  <mat-card class="my-3">
-    <mat-card-header>
-      <mat-card-title>All Faces</mat-card-title>
-      <mat-card-subtitle
-        >Here All Faces OF This Person & All Of Their
-        Operations</mat-card-subtitle
-      >
-    </mat-card-header>
-    <mat-card-content>
-      <mat-selection-list [multiple]="false">
-        <mat-list-option *ngFor="let item of personList">
-          <div class="list-container">
-            <div class="right-content">
-              <mat-chip-list aria-label="Fish selection">
-                <mat-chip color="primary" selected>{{ item.name }}</mat-chip>
-                <mat-chip color="accent" selected
-                  >Number Of Faces : {{ item.persistedFaceIds.length }}
-                </mat-chip>
-              </mat-chip-list>
-            </div>
-            <div class="left-content">
-              <button
-                class="matBtn"
-                color="accent"
-                mat-icon-button
-                aria-label="Delete This Person"
-                matTooltip="Delete This Person"
-                matTooltipPosition="left"
-                (click)="deletePersonFace(item.personId)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-              <button
-                class="matBtn"
-                mat-icon-button
-                color="primary"
-                aria-label="Person Setting"
-                matTooltip="Person Setting"
-                matTooltipPosition="right"
-                [routerLink]="[
-                  '/humans/person',
-                  item.personId,
-                  'group',
-                  selectedGroupId
-                ]"
-                routerLinkActive="router-link-active"
-              >
-                <mat-icon>settings</mat-icon>
-              </button>
-            </div>
-          </div>
-        </mat-list-option>
-      </mat-selection-list>
-    </mat-card-content>
-  </mat-card>
+  <ng-container *ngFor="let personFace of personFaces; let i = index">
+    <div class="face-card m-3">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Face #{{ i + 1 }}</mat-card-title>
+          <mat-card-subtitle
+            >Face ID : {{ personFace.persistedFaceId }}</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <!-- [src]="personFace.userData | imgDefualt: defImg" -->
+          <img
+            [src]="personFace.userData | imgDefualt: defImg"
+            height="150px"
+            width="150px"
+          />
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            class="matBtn"
+            color="accent"
+            mat-stroked-button
+            aria-label="Delete This Face"
+            matTooltip="Delete This Face"
+            matTooltipPosition="left"
+            (click)="deletePersonFace(personFace.persistedFaceId)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-container>
 </div>

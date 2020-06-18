@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { UsersComponent } from './pages/users/users.component';
-import { AdminComponent } from './pages/admin.component';
+
+import { AllSummeryResolver } from '@@core/guards/resolvers/Charts/all-summery.resolver';
+import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    resolve: { item: AllSummeryResolver },
   },
   {
-    path: 'users',
-    component: UsersComponent,
-  },
-  {
-    path: 'admin',
-    component: AdminComponent,
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 

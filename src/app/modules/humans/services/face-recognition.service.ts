@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../../environments/environment';
+import { FaceRecognitionResponse } from '../models/face.model';
 
 @Injectable()
 export class FaceRecognitionService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   scanImage(subscriptionKey: string, base64Image: string) {
     const headers = this.getHeaders(subscriptionKey);
@@ -12,11 +13,11 @@ export class FaceRecognitionService {
     const blob = this.makeblob(base64Image);
 
     return this.httpClient.post<FaceRecognitionResponse>(
-      environment.endpoint,
+      environment.azure.endpoint,
       blob,
       {
         params,
-        headers
+        headers,
       }
     );
   }
