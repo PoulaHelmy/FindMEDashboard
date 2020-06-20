@@ -15,6 +15,8 @@ import { AuthModule } from 'app/@auth/auth.module';
 import { TagsModule } from 'app/modules/tags/tags.module';
 import { InputsModule } from 'app/modules/inputs/inputs.module';
 import { CategoriesModule } from './modules/categories/categories.module';
+import { AccountModule } from './modules/account/account.module';
+import { MatchingModule } from './modules/matching/matching.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '@@env/environment';
@@ -110,6 +112,8 @@ export class SentryErrorHandler implements ErrorHandler {
     AngularFirestoreModule,
     ToasterModule.forRoot(),
     ChartsModule,
+    AccountModule,
+    MatchingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

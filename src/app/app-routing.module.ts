@@ -75,10 +75,18 @@ const routes: Routes = [
       import('app/modules/humans/humans.module').then((m) => m.HumansModule),
   },
   {
+    path: 'matching',
+    loadChildren: () =>
+      import('app/modules/matching/matching.module').then(
+        (m) => m.MatchingModule
+      ),
+  },
+  {
     path: 'users',
     loadChildren: () =>
       import('app/modules/users/users.module').then((m) => m.UsersModule),
   },
+
   {
     path: '**',
     component: NotFoundComponent,

@@ -25,14 +25,13 @@ export class MainNavComponent implements OnInit {
   // 'my-dark-theme',
   //     'my-light-theme',
   //     'purple-green',
-  userDetails;
+  /*-------------------User Details------------------------*/
+  userDetails = {};
   defImg = '../../../../assets/imgs/undraw_profile_pic_ic5t.svg';
+  /*-------------------AllNotifications------------------------*/
   notificationsNumber = '';
   AllNotifications = [];
-  isDarkTheme: Observable<boolean>;
-
-  themeClass: string = 'findme-theme';
-  logOutLoading = false;
+  /*---------------------BreakPoints Ratio---------------------------*/
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -43,7 +42,11 @@ export class MainNavComponent implements OnInit {
   myControl = new FormControl();
   filteredOptions: Observable<any>;
   //-----------------------------------------------------------
-
+  isDarkTheme: Observable<boolean>;
+  themeClass: string = localStorage.getItem('defaultTheme')
+    ? localStorage.getItem('defaultTheme')
+    : 'findme-theme';
+  logOutLoading = false;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
@@ -55,6 +58,7 @@ export class MainNavComponent implements OnInit {
     private notificationServ: NotificationsService
   ) {}
   ngOnInit(): void {
+    /*---------------- For Theming-------------------*/
     // remove old theme class and add new theme class
     // we're removing any css class that contains '-theme' string but your theme classes can follow any pattern
     const overlayContainerClasses = this.overlayContainer.getContainerElement()
@@ -66,7 +70,7 @@ export class MainNavComponent implements OnInit {
       overlayContainerClasses.remove(...themeClassesToRemove);
     }
     overlayContainerClasses.add('my-theme');
-    //////////////////////////////////////////////////////////
+    /*---------------- For Searching-------------------*/
     this.myControl.valueChanges.subscribe((res) => {
       if (res !== '' && res !== null && res !== ' ') {
         this.filteredOptions = this.itemServ.getFilters(
@@ -74,9 +78,11 @@ export class MainNavComponent implements OnInit {
         );
       }
     });
+    /*---------------- For UserDetails-------------------*/
     this.authService.getDetails().subscribe((res) => {
       this.userDetails = res['data'];
     });
+    /*---------------- For notification-------------------*/
     this.notificationServ.getAllNotifictions().subscribe((res) => {
       this.notificationsNumber = res.length;
       res.forEach((element) => {
@@ -93,18 +99,16 @@ export class MainNavComponent implements OnInit {
         this.AllNotifications.push(elementData);
       });
     });
-  }
+    /*----------------------------------------------------------*/
+  } //end Of NgONInit
   markAsReaded(id: string) {
     this.notificationServ.MakeNotifictionReaded(id);
   }
-  //////////////////////////////////////////////////////////
-
-  // toggleDarkTheme(checked: boolean) {
-  //   this.themeService.setDarkTheme(checked);
-  // }
-  changrTheme(value: string) {
+  changeTheme(value: string) {
     this.themeClass = value;
+    localStorage.setItem('defaultTheme', value);
   }
+  /*------------------LogOut------------------------ */
   logout() {
     if (localStorage.getItem('isAuth') == 'false') {
       this.snackbar.show(
@@ -119,6 +123,7 @@ export class MainNavComponent implements OnInit {
           localStorage.removeItem('access_token');
           this.authService.setIsAuthenticated(false);
           localStorage.setItem('isAuth', 'false');
+          localStorage.setItem('defaultTheme', '');
           this.snackbar.show('Logged Out Successfully', 'success');
           this.router.navigate(['/home']);
         })
@@ -128,4 +133,5 @@ export class MainNavComponent implements OnInit {
         .finally(() => {});
     }
   }
+  /*------------------------------------------------ */
 } //end of class

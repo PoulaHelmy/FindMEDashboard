@@ -1,0 +1,19 @@
+<div class="matching-main">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Matching Algorthim</mat-card-title>
+      <mat-card-subtitle
+        >Here You Can Do Automatic MAtching For All Items and
+        Persons</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-flat-button color="primary" (click)="matching()">
+        Start Matching
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

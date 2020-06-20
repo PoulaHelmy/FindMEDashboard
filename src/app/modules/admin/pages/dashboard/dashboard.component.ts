@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.actRoute.data.subscribe((res) => {
-      console.log('res', res);
       this.data = res['item'];
       this.persons = res['item']['lastPersons'];
       this.items = res['item']['lastItems'];

@@ -170,4 +170,12 @@ export class ApiService {
       catchError((e) => throwError(e))
     );
   }
+  MAtching() {
+    return this.http.get<any[]>(`${env.apiRoot}/matching`).pipe(
+      map((data) => {
+        return data;
+      }),
+      catchError((e) => throwError(e))
+    );
+  }
 } //end of class

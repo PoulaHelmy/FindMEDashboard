@@ -8,32 +8,20 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar class="sidenav-toolbar" color="primary">
-      <div>
-        <!-- <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-        >
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button> -->
-        <!-- <div class="user-details m-auto text-center py-2">
-          <div class="avatar-img">
-            <img
-              [src]="userDetails['photo'] | imgDefualt: defImg"
-              class="img-fluid rounded-circle"
-              alt="userDetails['name'] photo"
-              height="75px"
-              width="75px"
-            />
-          </div>
-          <h3>{{ userDetails["name"] }}</h3>
+      <div class="user-details m-auto text-center py-2">
+        <div class="avatar-img">
+          <img
+            [src]="userDetails['photo'] | imgDefualt: defImg"
+            class="img-fluid rounded-circle"
+            alt="userDetails['name'] photo"
+            height="75px"
+            width="75px"
+          />
         </div>
-      -->
-        Admin DashBoard
+        <h3>{{ userDetails["name"] }}</h3>
       </div>
     </mat-toolbar>
-
+    <!-------------- SideNav Content List -------------------------->
     <mat-nav-list>
       <mat-list-item routerLink="/dashboard" routerLinkActive="active"
         ><mat-icon color="primary">dashboard</mat-icon
@@ -70,6 +58,10 @@
       <mat-list-item routerLink="humans" routerLinkActive="active"
         ><mat-icon color="primary">supervised_user_circle</mat-icon
         ><span class="mx-2">Humans</span></mat-list-item
+      >
+      <mat-list-item routerLink="matching" routerLinkActive="active"
+        ><mat-icon color="primary">close_fullscreen</mat-icon
+        ><span class="mx-2">Matching</span></mat-list-item
       >
     </mat-nav-list>
   </mat-sidenav>
@@ -159,19 +151,19 @@
           <mat-icon>palette</mat-icon>
         </button>
         <mat-menu #themeMenu="matMenu">
-          <button mat-menu-item (click)="changrTheme('my-dark-theme')">
+          <button mat-menu-item (click)="changeTheme('my-dark-theme')">
             <mat-icon>opacity</mat-icon>
             <span>Dark</span>
           </button>
-          <button mat-menu-item (click)="changrTheme('my-light-theme')">
+          <button mat-menu-item (click)="changeTheme('my-light-theme')">
             <mat-icon>invert_colors</mat-icon>
             <span>Light</span>
           </button>
-          <button mat-menu-item (click)="changrTheme('my-theme')">
+          <button mat-menu-item (click)="changeTheme('my-theme')">
             <mat-icon>invert_colors_off</mat-icon>
             <span>Default</span>
           </button>
-          <button mat-menu-item (click)="changrTheme('findme-theme')">
+          <button mat-menu-item (click)="changeTheme('findme-theme')">
             <mat-icon>invert_colors_off</mat-icon>
             <span>FindME</span>
           </button>

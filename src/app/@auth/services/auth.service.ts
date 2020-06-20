@@ -91,13 +91,14 @@ export class AuthService {
       .get(`${env.apiRoot}/auth/userdata/${id}`, httpOptions)
       .pipe(catchError((e) => throwError(e)));
   }
+  changePassword(data: object) {
+    return this.http
+      .post(`${env.apiRoot}/auth/update/password`, data, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+          Accept: 'application/json',
+        },
+      })
+      .pipe(catchError((e) => throwError(e)));
+  }
 } //end of class
-// getDetails() {
-//   return this.http.get(`${env.apiRoot}/${this.endPoint}/user`, {
-//     headers: {
-//       Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-//       Accept: 'application/json',
-//       'X-Requested-With': 'XMLHttpRequest',
-//     },
-//   });
-// }

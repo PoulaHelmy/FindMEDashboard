@@ -102,7 +102,7 @@
     </div>
     <div class="row justify-content-center">
       <!-- ------------------- Last Items  ------------------------->
-      <div class="col-md-12">
+      <div class="col-md-6">
         <mat-card class="my-3">
           <mat-card-header>
             <mat-card-title>Last Items</mat-card-title>
@@ -154,7 +154,7 @@
       </div>
       <!-- ------------------- Last Persons ------------------------->
 
-      <div class="col-md-12">
+      <div class="col-md-6">
         <mat-card class="my-3">
           <mat-card-header>
             <mat-card-title>Last Persons</mat-card-title>
@@ -207,7 +207,7 @@
       </div>
       <!-- ------------------- Last Users ------------------------->
 
-      <div class="col-md-12">
+      <div class="col-md-6">
         <mat-card class="my-3">
           <mat-card-header>
             <mat-card-title>Last Users</mat-card-title>
@@ -219,32 +219,16 @@
             <mat-selection-list [multiple]="false">
               <mat-list-option *ngFor="let user of users" class="my-3">
                 <div class="items-list-contanier">
-                  <div class="right-content">
-                    <img
-                      [src]="user.photo"
-                      class="rounded-circle m-2"
-                      width="50px"
-                      height="50px"
-                    />
+                  <img
+                    [src]="user.photo"
+                    class="rounded-circle m-2"
+                    width="50px"
+                    height="50px"
+                  />
 
-                    <span class="mx-2"> {{ user.name }}</span>
+                  <span class="mx-2"> {{ user.name }}</span>
 
-                    <span class="badge badge-danger p-2">{{ user.email }}</span>
-                  </div>
-                  <div class="left-content">
-                    <button
-                      class="matBtn"
-                      mat-icon-button
-                      color="primary"
-                      aria-label="Request Item"
-                      matTooltip="Request Item"
-                      matTooltipPosition="left"
-                      [routerLink]="['/dashboard/increquests/view', user.id]"
-                      routerLinkActive="router-link-active"
-                    >
-                      <mat-icon>visibility</mat-icon>
-                    </button>
-                  </div>
+                  <span class="badge badge-danger p-2">{{ user.email }}</span>
                 </div>
               </mat-list-option>
             </mat-selection-list></mat-card-content

@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.authService.setIsAuthenticated(true);
           localStorage.setItem('access_token', res['data']['token']);
           localStorage.setItem('isAuth', 'true');
+          localStorage.setItem('defaultTheme', 'findme-theme');
           this.snackbarService.show(res['message'], 'success');
           this.loading = false;
           this.router.navigate(['']);

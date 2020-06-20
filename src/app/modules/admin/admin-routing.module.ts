@@ -12,6 +12,11 @@ const routes: Routes = [
     resolve: { item: AllSummeryResolver },
   },
   {
+    path: 'account',
+    loadChildren: () =>
+      import('app/modules/account/account.module').then((m) => m.AccountModule),
+  },
+  {
     path: '**',
     component: NotFoundComponent,
   },
