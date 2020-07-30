@@ -8,13 +8,13 @@ import { environment as env } from '../../../../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': 'b95add9ba99a4080909f2c648a091baa',
+    'Ocp-Apim-Subscription-Key': 'c482111b3f50406c9d83ec9a87edcfbe',
   }),
 };
 const httpOptionsOctet = {
   headers: new HttpHeaders({
     'Content-Type': 'application/octet-stream',
-    'Ocp-Apim-Subscription-Key': 'b95add9ba99a4080909f2c648a091baa',
+    'Ocp-Apim-Subscription-Key': 'c482111b3f50406c9d83ec9a87edcfbe',
   }),
 };
 @Injectable({
