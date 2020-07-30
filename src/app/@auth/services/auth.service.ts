@@ -8,6 +8,10 @@ const httpOptions = {
     Authorization: 'Bearer ' + localStorage.getItem('access_token'),
     Accept: 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
+    'Access-Control-Allow-Origin': '*',
+
+    'Access-Control-Allow-Methods': ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
   }),
 };
 @Injectable({
@@ -34,6 +38,11 @@ export class AuthService {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
+        'Access-Control-Allow-Origin': '*',
+
+        'Access-Control-Allow-Methods':
+          ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
       }),
     };
   }
@@ -82,6 +91,12 @@ export class AuthService {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('access_token'),
           Accept: 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+          'Access-Control-Allow-Origin': '*',
+
+          'Access-Control-Allow-Methods':
+            ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
         },
       })
       .pipe(catchError((e) => throwError(e)));
@@ -97,6 +112,11 @@ export class AuthService {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('access_token'),
           Accept: 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods':
+            ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
         },
       })
       .pipe(catchError((e) => throwError(e)));

@@ -8,7 +8,14 @@ import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
 import { Router } from '@angular/router';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest',
+    'Access-Control-Allow-Origin': '*',
+
+    'Access-Control-Allow-Methods': ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
+  }),
 };
 @Injectable({
   providedIn: 'root',
