@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiRoot: 'http://findme.test/api',
+  apiRoot: 'https://findme2030.herokuapp.com/api',
   algolia: {
     appId: 'VNP1XYFNSF',
     apiKey: '43313045a7a3e98b65b0cb53cdc3cfcc',
