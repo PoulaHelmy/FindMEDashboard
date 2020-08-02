@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FaceApiService } from 'app/modules/humans/services/face-api.service';
-import { ToasterService, Toast } from 'angular2-toaster';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FaceApiService} from 'app/modules/humans/services/face-api.service';
+import {ToasterService, Toast} from 'angular2-toaster';
 import {
   FormGroup,
   Validators,
   FormBuilder,
   FormControl,
 } from '@angular/forms';
-import { ItemsService } from '@@core/services/items.service';
-import { delay, switchMap } from 'rxjs/operators';
+import {ItemsService} from '@@core/services/items.service';
+import {delay, switchMap} from 'rxjs/operators';
+
 @Component({
   selector: 'app-update-person-faces',
   templateUrl: './update-person-faces.component.html',
@@ -21,6 +22,7 @@ export class UpdatePersonFacesComponent implements OnInit {
   faceForm: FormGroup;
   selectedPersonId;
   images = [];
+
   constructor(
     private router: Router,
     private faceApi: FaceApiService,
@@ -28,7 +30,8 @@ export class UpdatePersonFacesComponent implements OnInit {
     private actRoute: ActivatedRoute,
     private fb: FormBuilder,
     private itemServ: ItemsService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.item_id = this.actRoute.snapshot.paramMap.get('id1');
@@ -38,6 +41,7 @@ export class UpdatePersonFacesComponent implements OnInit {
       file: new FormControl('', [Validators.required]),
     });
   }
+
   popToast(toast: Toast) {
     this.toasterService.pop(toast);
   }
@@ -55,9 +59,10 @@ export class UpdatePersonFacesComponent implements OnInit {
     };
     for (let i = 0; i < this.images.length; i++) {
       this.faceApi
-        .addPersonFace(3, this.selectedPersonId, this.b64toFile(this.images[i]))
+        .addPersonFace('maingroup', this.selectedPersonId, this.b64toFile(this.images[i]))
         .subscribe(
-          (res) => {},
+          (res) => {
+          },
           (err) => {
             this.popToast({
               type: 'error',
@@ -75,7 +80,8 @@ export class UpdatePersonFacesComponent implements OnInit {
           this.b64toFile(this.images[i])
         )
         .subscribe(
-          (res) => {},
+          (res) => {
+          },
           (err) => {
             this.popToast({
               type: 'error',
@@ -96,6 +102,7 @@ export class UpdatePersonFacesComponent implements OnInit {
         this.router.navigateByUrl(`humans/persons/questions/${this.item_id}`);
       });
   }
+
   /****************** File uploading Function************************/
   onFileChange(event) {
     if (event.target.files && event.target.files[0]) {
@@ -109,6 +116,7 @@ export class UpdatePersonFacesComponent implements OnInit {
       }
     }
   }
+
   b64toFile(dataURI): File {
     // convert the data URL to a byte string
     const byteString = atob(dataURI.split(',')[1]);
@@ -124,7 +132,7 @@ export class UpdatePersonFacesComponent implements OnInit {
     }
 
     // Create a blob that looks like a file.
-    const blob = new Blob([ab], { type: mimeString });
+    const blob = new Blob([ab], {type: mimeString});
     blob['lastModifiedDate'] = new Date().toISOString();
     blob['name'] = 'file';
 
@@ -138,7 +146,7 @@ export class UpdatePersonFacesComponent implements OnInit {
         break;
     }
     // cast to a File
-    return <File>blob;
+    return <File> blob;
   }
 } //end of Class
 

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FaceApiService } from 'app/modules/humans/services/face-api.service';
-import { ToasterService, Toast } from 'angular2-toaster';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FaceApiService} from 'app/modules/humans/services/face-api.service';
+import {ToasterService, Toast} from 'angular2-toaster';
 import {
   FormGroup,
   Validators,
@@ -39,14 +39,15 @@ export class AddFaceComponent implements OnInit {
   personGroups = [];
   selectedFace: any;
   imgFile;
-  fbbb;
+
   constructor(
     private router: Router,
     private faceApi: FaceApiService,
     private toasterService: ToasterService,
     private actRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.selectedGroupId = this.actRoute.snapshot.paramMap.get('group');
@@ -56,6 +57,7 @@ export class AddFaceComponent implements OnInit {
       file: new FormControl('', [Validators.required]),
     });
   }
+
   popToast(toast: Toast) {
     this.toasterService.pop(toast);
   }
@@ -96,6 +98,7 @@ export class AddFaceComponent implements OnInit {
         }
       );
   }
+
   /****************** File uploading Function************************/
   onFileChange(event) {
     if (event.target.files && event.target.files[0]) {
@@ -112,6 +115,7 @@ export class AddFaceComponent implements OnInit {
       }
     }
   }
+
   b64toFile(dataURI): File {
     // convert the data URL to a byte string
     const byteString = atob(dataURI.split(',')[1]);
@@ -127,7 +131,7 @@ export class AddFaceComponent implements OnInit {
     }
 
     // Create a blob that looks like a file.
-    const blob = new Blob([ab], { type: mimeString });
+    const blob = new Blob([ab], {type: mimeString});
     blob['lastModifiedDate'] = new Date().toISOString();
     blob['name'] = 'file';
 
@@ -141,8 +145,9 @@ export class AddFaceComponent implements OnInit {
         break;
     }
     // cast to a File
-    return <File>blob;
+    return <File> blob;
   }
+
   detect() {
     // this.loading = true;
     // this.faceApi.detect(this.imageUrl).subscribe((data) => {

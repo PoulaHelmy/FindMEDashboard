@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FaceApiService } from '../../../services/face-api.service';
-import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
+import {Component, OnInit} from '@angular/core';
+import {FaceApiService} from '../../../services/face-api.service';
+import {ConfirmDialogService} from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
+import {SnackbarService} from '@@shared/pages/snackbar/snackbar.service';
+
 @Component({
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
@@ -15,18 +16,19 @@ export class ConfigurationComponent implements OnInit {
   selectedGroupId = '';
   selectedPerson: any;
   isLoadingResults = false;
-
   options = {
     title: 'Are Sure To Delete This Item',
     message: 'Please Take An Action { You Press Esc or Enter to the Action }',
     cancelText: 'Cancel',
     confirmText: 'Confirm',
   };
+
   constructor(
     private faceApi: FaceApiService,
     private dialogService: ConfirmDialogService,
     private snackbarService: SnackbarService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.faceApi
