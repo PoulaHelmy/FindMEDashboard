@@ -1,28 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler, Injectable } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule, ErrorHandler, Injectable} from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { SharedModule } from '@@shared/shared.module';
-import { AdminModule } from './modules/admin/admin.module';
-import { AuthModule } from 'app/@auth/auth.module';
-import { TagsModule } from 'app/modules/tags/tags.module';
-import { InputsModule } from 'app/modules/inputs/inputs.module';
-import { CategoriesModule } from './modules/categories/categories.module';
-import { AccountModule } from './modules/account/account.module';
-import { MatchingModule } from './modules/matching/matching.module';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { environment } from '@@env/environment';
-import { ToasterModule, ToasterService } from 'angular2-toaster';
-import { ChartsModule } from 'ng2-charts';
+import {SharedModule} from '@@shared/shared.module';
+import {AdminModule} from './modules/admin/admin.module';
+import {AuthModule} from 'app/@auth/auth.module';
+import {TagsModule} from 'app/modules/tags/tags.module';
+import {InputsModule} from 'app/modules/inputs/inputs.module';
+import {CategoriesModule} from './modules/categories/categories.module';
+import {AccountModule} from './modules/account/account.module';
+import {MatchingModule} from './modules/matching/matching.module';
+import {environment} from '@@env/environment';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
+import {ChartsModule} from 'ng2-charts';
 import * as Sentry from '@sentry/browser';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 Sentry.init({
   dsn:
@@ -39,7 +38,8 @@ Sentry.init({
 
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
-  constructor() {}
+  constructor() {
+  }
 
   extractError(error) {
     // Try to unwrap zone.js error.
@@ -90,7 +90,7 @@ export class SentryErrorHandler implements ErrorHandler {
     }
 
     // Optionally show user dialog to provide details on what happened.
-    Sentry.showReportDialog({ eventId });
+    Sentry.showReportDialog({eventId});
   }
 }
 
@@ -108,14 +108,14 @@ export class SentryErrorHandler implements ErrorHandler {
     TagsModule,
     InputsModule,
     CategoriesModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
     ToasterModule.forRoot(),
     ChartsModule,
     AccountModule,
     MatchingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment as env } from '../../../environments/environment';
-import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment as env} from '../../../environments/environment';
+import {map, catchError} from 'rxjs/operators';
+import {throwError} from 'rxjs';
 // import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 const httpOptions = {
   headers: new HttpHeaders({
@@ -10,16 +10,18 @@ const httpOptions = {
     Authorization: `Bearer ${localStorage.getItem('access_token')}`,
     'X-Requested-With': 'XMLHttpRequest',
     'Access-Control-Allow-Origin': '*',
-
     'Access-Control-Allow-Methods': ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
   }),
 };
+
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
+
   getChat(id) {
     return this.http
       .get(`${env.apiRoot}/auth/chat/all/${id}`, httpOptions)
@@ -30,6 +32,7 @@ export class ChatService {
         catchError((e) => throwError(e))
       );
   }
+
   sendMessage(data: object) {
     return this.http
       .post(`${env.apiRoot}/auth/chat/sendmsg`, data, httpOptions)
@@ -40,6 +43,7 @@ export class ChatService {
         catchError((e) => throwError(e))
       );
   }
+
   getAllMessages(data) {
     return this.http
       .post(`${env.apiRoot}/auth/chat/allmsgs`, data, httpOptions)

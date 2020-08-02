@@ -7,8 +7,6 @@ import { HttpClient } from '@angular/common/http';
 export class AcountActivatedResolver implements Resolve<any> {
   constructor(private http: HttpClient) {}
   resolve(next: ActivatedRouteSnapshot): Observable<any> {
-    console.log('dsds :', next);
-    //api/auth/signup/activate/
     const type = next.fragment;
     return type
       ? this.http

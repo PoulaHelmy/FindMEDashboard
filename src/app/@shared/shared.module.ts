@@ -12,8 +12,6 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 import { ConfirmDialogComponent } from '@@shared/pages/dialogs/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
-import { FormDialogComponent } from '@@shared/pages/dialogs/form-dialog/form-dialog.component';
-import { FormDialogService } from '@@shared/pages/dialogs/form-dialog/form-dialog.service';
 
 import { SnackbarComponent } from './pages/snackbar/snackbar.component';
 import { TopBarComponent } from './layouts/top-bar/top-bar.component';
@@ -38,7 +36,6 @@ import { ToasterModule, ToasterService } from 'angular2-toaster';
     NotFoundComponent,
     FilterPipePipe,
     ConfirmDialogComponent,
-    FormDialogComponent,
     SnackbarComponent,
     TopBarComponent,
     SideBarComponent,
@@ -86,7 +83,7 @@ import { ToasterModule, ToasterService } from 'angular2-toaster';
     DynamicFormComponent,
     ImgDefualtPipe,
   ],
-  providers: [ConfirmDialogService, FormDialogService],
+  providers: [ConfirmDialogService],
   entryComponents: [
     InputComponent,
     ButtonComponent,

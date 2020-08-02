@@ -9,7 +9,6 @@ const httpOptions = {
     Accept: 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
     'Access-Control-Allow-Origin': '*',
-
     'Access-Control-Allow-Methods': ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
   }),
@@ -39,9 +38,7 @@ export class AuthService {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
         'Access-Control-Allow-Origin': '*',
-
-        'Access-Control-Allow-Methods':
-          ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Methods': ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
       }),
     };
@@ -93,9 +90,7 @@ export class AuthService {
           Accept: 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
           'Access-Control-Allow-Origin': '*',
-
-          'Access-Control-Allow-Methods':
-            ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Methods': ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
           'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
         },
       })
@@ -114,8 +109,7 @@ export class AuthService {
           Accept: 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods':
-            ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Methods': ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
           'Access-Control-Allow-Headers': ' Origin, Content-Type, X-Auth-Token',
         },
       })

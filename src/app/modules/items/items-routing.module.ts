@@ -12,7 +12,7 @@ import { ItemsQuestionsComponent } from './pages/items-questions/items-questions
 import { UpadteQuestionsComponent } from './pages/upadte-questions/upadte-questions.component';
 import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
 
-import { AllSubCatResolver } from '@@core/guards/resolvers/allSubCats.resolver copy 2';
+import { AllSubCatResolver } from '../../@core/guards/resolvers/allSubCats.resolver';
 import { AllInputsResolver } from '@@core/guards/resolvers/allInptus.resolver';
 import { AllCategoriesResolver } from '@@core/guards/resolvers/allCats.resolver';
 import { ItemUpdateResolver } from '@@core/guards/resolvers/ItemsResolvers/item-update.resolver';

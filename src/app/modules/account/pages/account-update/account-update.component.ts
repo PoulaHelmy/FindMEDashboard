@@ -1,23 +1,25 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
 } from '@angular/forms';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ItemsService } from '@@core/services/items.service';
-import { Subscription } from 'rxjs';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { AuthService } from 'app/@auth/services/auth.service';
+import {SnackbarService} from '@@shared/pages/snackbar/snackbar.service';
+import {ConfirmDialogService} from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {ItemsService} from '@@core/services/items.service';
+import {Subscription} from 'rxjs';
+import {HttpHeaders, HttpClient} from '@angular/common/http';
+import {AuthService} from 'app/@auth/services/auth.service';
+
 const httpOptions = {
   headers: new HttpHeaders({
     'X-Algolia-Application-Id': 'plBIPOQ7X7HA',
     'X-Algolia-API-Key': 'ce287ed40c8a6f4d8579799492461dd7',
   }),
 };
+
 @Component({
   selector: 'app-account-update',
   templateUrl: './account-update.component.html',
@@ -37,6 +39,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
   };
 
   filteredOptions;
+
   /****************** constructor Function************************/
   constructor(
     private fb: FormBuilder,
@@ -45,13 +48,13 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
     private actRoute: ActivatedRoute,
     private authServ: AuthService,
     private dialogService: ConfirmDialogService
-  ) {}
+  ) {
+  }
 
   /****************** ngOnInit Function************************/
   ngOnInit(): void {
     this.actRoute.data.subscribe((res) => {
       this.data = res['item'];
-      console.log(res);
     });
     this.userForm = this.fb.group({
       name: [this.data['name'], [Validators.required, Validators.minLength(3)]],
@@ -60,7 +63,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
         [
           Validators.required,
           Validators.pattern(
-            "[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"
+            '[a-zA-Z0-9!#$%&\'*+/=?^_`{|}~-]+(?:.[a-zA-Z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?'
           ),
         ],
       ],
@@ -102,7 +105,6 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
     this.dialogService.confirmed().subscribe((confirmed) => {
       if (confirmed) {
         this.isLoadingResults = true;
-        console.log('newData', newData);
         this.authServ.updateProfileData(newData).subscribe(
           (next) => {
             this.isLoadingResults = false;
@@ -113,7 +115,6 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/dashboard/account/details');
           },
           (err) => {
-            console.log('err :', err);
             this.isLoadingResults = false;
             this.snackbarService.show(err['error']['errors']['name'], 'danger');
           }
@@ -123,5 +124,6 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
   } //end of submit
 
   /****************** ngOnDestroy Function************************/
-  ngOnDestroy() {} //end of ngOnDestroy
+  ngOnDestroy() {
+  } //end of ngOnDestroy
 } //end of Class
