@@ -8,9 +8,10 @@ import { SharedModule } from '@@shared/shared.module';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './pages/users/users.component';
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
 
 @NgModule({
-  declarations: [UsersComponent],
+  declarations: [UsersComponent, UserDetailsComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ItemsService } from '@@core/services/items.service';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {ItemsService} from '@@core/services/items.service';
+import {SnackbarService} from '@@shared/pages/snackbar/snackbar.service';
+import {ConfirmDialogService} from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
 
 @Component({
   selector: 'app-item-details',
@@ -26,10 +26,11 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     private snackbarService: SnackbarService,
     private router: Router,
     private dialogService: ConfirmDialogService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    this.subscription1$ = this.activatedRoute.data.subscribe((res) => {
+    this.activatedRoute.data.subscribe((res) => {
       this.itemDetails = res['item'];
     });
   }
@@ -54,6 +55,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription1$.unsubscribe();
+    // this.subscription1$.unsubscribe();
   }
 } //end of class

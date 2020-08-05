@@ -1,92 +1,97 @@
 <div class="container my-3">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Item Details</mat-card-title>
+      <mat-card-title>Request Details</mat-card-title>
       <mat-card-subtitle
-        >here all data for this Item and all actions</mat-card-subtitle
+      >here all data for this Request and all actions
+      </mat-card-subtitle
       >
     </mat-card-header>
     <mat-card-content>
       <div class="container my-4">
         <div class="row justify-content-center">
-          <div class="table-tag w-100">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>
+          <div class="col-12">
+            <mat-selection-list [multiple]="false">
+              <mat-list-option class="my-2 py-2">
+                <div class="items-list-contanier">
+                  <div class="right-content">
                     ID
-                  </td>
-                  <td>{{ itemDetails["id"] }}</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>
-                    UserId
-                  </td>
-                  <td>{{ itemDetails["user_id"] }}</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>
+                  </div>
+                  <div class="left-content">
+                    {{ itemDetails["id"] }}
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <div class="items-list-contanier">
+                  <div class="right-content">
                     Item Status
-                  </td>
-                  <td>
+                  </div>
+                  <div class="left-content">
                     {{ itemDetails["status"] === 0 ? "Pending" : "Approved" }}
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <div class="items-list-contanier">
+                  <div class="right-content">
                     Name
-                  </td>
-                  <td>{{ itemDetails["name"] }}</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>
+                  </div>
+                  <div class="left-content">
+                    {{ itemDetails["name"] }}
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <div class="items-list-contanier">
+                  <div class="right-content">
                     Description
-                  </td>
-                  <td>{{ itemDetails["description"] }}</td>
-                </tr>
-
-                <tr
-                  *ngFor="
-                    let question of itemDetails['AllQuestions'];
-                    let i = index
-                  "
-                >
-                  <th scope="row">
-                    #
-                  </th>
-                  <td>Question# {{ i + 1 }}</td>
-                  <td>{{ question["name"] }}</td>
-                </tr>
-
-                <tr>
-                  <th scope="row">
-                    #
-                  </th>
-                  <td>
+                  </div>
+                  <div class="left-content">
+                    {{ itemDetails["description"] }}
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <mat-chip-list aria-label="Items selection" class="text-center">
+                  <mat-chip color="primary" class="m-auto p-2" style="font-size: 20px" selected>Items</mat-chip>
+                </mat-chip-list>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option"
+                               *ngFor="let question of itemDetails['AllQuestions'];let i = index">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    Q#{{ i + 1 }} :{{ question["question"] }}
+                  </div>
+                  <div class="left-content">
+                    {{ question["answer"] }}
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <div class="items-list-contanier">
+                  <div class="right-content">
                     Created_AT
-                  </td>
-                  <td>{{ itemDetails["created_at"] | date }}</td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    #
-                  </th>
-                  <td>
-                    Actions
-                  </td>
-                  <td>
+                  </div>
+                  <div class="left-content">
+                    {{ itemDetails["created_at"] | date }}
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    ACTIONS
+                  </div>
+                  <div class="left-content">
                     <div class="example-flex-container">
                       <button
                         class="matBtn"
@@ -112,13 +117,142 @@
                         <mat-icon>settings</mat-icon>
                       </button>
                     </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+            </mat-selection-list>
           </div>
         </div>
       </div>
+
     </mat-card-content>
   </mat-card>
 </div>
+
+
+<!--<div class="container my-3">-->
+<!--  <mat-card>-->
+<!--    <mat-card-header>-->
+<!--      <mat-card-title>Item Details</mat-card-title>-->
+<!--      <mat-card-subtitle-->
+<!--      >here all data for this Item and all actions-->
+<!--      </mat-card-subtitle-->
+<!--      >-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      <div class="container my-4">-->
+<!--        <div class="row justify-content-center">-->
+<!--          <div class="table-tag w-100">-->
+<!--            <table class="table table-hover">-->
+<!--              <thead>-->
+<!--              <tr>-->
+<!--                <th scope="col">#</th>-->
+<!--                <th scope="col">Name</th>-->
+<!--                <th scope="col">Value</th>-->
+<!--              </tr>-->
+<!--              </thead>-->
+<!--              <tbody>-->
+<!--              <tr>-->
+<!--                <th scope="row">1</th>-->
+<!--                <td>-->
+<!--                  ID-->
+<!--                </td>-->
+<!--                <td>{{ itemDetails["id"] }}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <th scope="row">2</th>-->
+<!--                <td>-->
+<!--                  UserId-->
+<!--                </td>-->
+<!--                <td>{{ itemDetails["user_id"] }}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <th scope="row">3</th>-->
+<!--                <td>-->
+<!--                  Item Status-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                  {{ itemDetails["status"] === 0 ? "Pending" : "Approved" }}-->
+<!--                </td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <th scope="row">4</th>-->
+<!--                <td>-->
+<!--                  Name-->
+<!--                </td>-->
+<!--                <td>{{ itemDetails["name"] }}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <th scope="row">5</th>-->
+<!--                <td>-->
+<!--                  Description-->
+<!--                </td>-->
+<!--                <td>{{ itemDetails["description"] }}</td>-->
+<!--              </tr>-->
+
+<!--              <tr-->
+<!--                *ngFor="-->
+<!--                    let question of itemDetails['AllQuestions'];-->
+<!--                    let i = index-->
+<!--                  "-->
+<!--              >-->
+<!--                <th scope="row">-->
+<!--                  #-->
+<!--                </th>-->
+<!--                <td>Q# {{ i + 1 }} :{{ question["question"] }} </td>-->
+<!--                <td>{{ question["answer"] }}</td>-->
+<!--              </tr>-->
+
+<!--              <tr>-->
+<!--                <th scope="row">-->
+<!--                  #-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                  Created_AT-->
+<!--                </td>-->
+<!--                <td>{{ itemDetails["created_at"] | date }}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <th scope="row">-->
+<!--                  #-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                  Actions-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                  <div class="example-flex-container">-->
+<!--                    <button-->
+<!--                      class="matBtn"-->
+<!--                      color="accent"-->
+<!--                      mat-icon-button-->
+<!--                      aria-label="Delete Item"-->
+<!--                      matTooltip="Delete Item"-->
+<!--                      matTooltipPosition="left"-->
+<!--                      (click)="deleteItem(itemDetails['id'])"-->
+<!--                    >-->
+<!--                      <mat-icon>delete</mat-icon>-->
+<!--                    </button>-->
+<!--                    <button-->
+<!--                      class="matBtn"-->
+<!--                      mat-icon-button-->
+<!--                      color="primary"-->
+<!--                      aria-label="Update Item"-->
+<!--                      matTooltip="Update Item"-->
+<!--                      matTooltipPosition="right"-->
+<!--                      [routerLink]="['/requsts/update', itemDetails['id']]"-->
+<!--                      routerLinkActive="router-link-active"-->
+<!--                    >-->
+<!--                      <mat-icon>settings</mat-icon>-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                </td>-->
+<!--              </tr>-->
+<!--              </tbody>-->
+<!--            </table>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
+<!--</div>-->

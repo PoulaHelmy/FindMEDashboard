@@ -1,0 +1,120 @@
+<div class="container my-3">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Item Details</mat-card-title>
+      <mat-card-subtitle
+      >here all data for this Item and all actions
+      </mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container my-4">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <mat-selection-list [multiple]="false">
+              <mat-list-option class="my-2 py-2">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    Name
+                  </div>
+                  <div class="left-content">
+                    {{ itemDetails["name"] }}
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    Email
+                  </div>
+                  <div class="left-content">
+                    {{ itemDetails["email"] }}
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    Phone
+                  </div>
+                  <div class="left-content">
+                    {{ itemDetails["phone"] }}
+
+                  </div>
+                </div>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <mat-chip-list aria-label="Items selection" class="text-center">
+                  <mat-chip color="primary" class="m-auto p-2" style="font-size: 20px" selected>Items</mat-chip>
+                </mat-chip-list>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option"
+                               *ngFor="let item of itemDetails['items'];let i = index">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    Item # {{ i + 1 }}:
+                  </div>
+                  <div class="left-content">
+                    <button mat-stroked-button
+                            color="primary"
+                            (click)="goto('items',item['id'])">
+                      {{ item["name"] }}</button>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option">
+                <mat-chip-list aria-label="Items selection" class="text-center">
+                  <mat-chip color="accent" class="m-auto p-2" style="font-size: 20px" selected>Requests</mat-chip>
+                </mat-chip-list>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <mat-list-option class="mat-list-option"
+                               *ngFor="let request of itemDetails['requests'];let i = index">
+                <div class="items-list-contanier">
+                  <div class="right-content">
+                    Request #{{ i + 1 }}:
+                  </div>
+                  <div class="left-content">
+                    <button mat-stroked-button
+                            color="accent"
+                            (click)="goto('requests',request['id'])">
+                      {{ request["name"] }}</button>
+
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+            </mat-selection-list>
+          </div>
+        </div>
+      </div>
+      <!--      <div class="container-fluid">-->
+      <!--        <div class="row">-->
+      <!--          <div class="col-12">-->
+      <!--            <owl-carousel-o [options]="customOptions" (initialized)="getData($event)">-->
+      <!--              <ng-container *ngFor="let image of itemDetails['images']">-->
+      <!--                <ng-template carouselSlide [id]="image[0]['id']">-->
+      <!--                  <img-->
+      <!--                    matCardImage-->
+      <!--                    [src]="image[0]['src']"-->
+      <!--                    [alt]=""-->
+      <!--                    [title]=""-->
+      <!--                    class="img-fluid carusel-image"-->
+      <!--                  />-->
+      <!--                </ng-template>-->
+      <!--              </ng-container>-->
+      <!--            </owl-carousel-o>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+    </mat-card-content>
+  </mat-card>
+</div>
+

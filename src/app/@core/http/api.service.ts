@@ -210,4 +210,15 @@ export class ApiService {
         catchError((e) => throwError(e))
       );
   }
+
+  adminGetUserDetails(id) {
+    return this.http
+      .get(`${env.apiRoot}/getuser/${id}`, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError((e) => throwError(e))
+      );
+  }
 } //end of class

@@ -125,12 +125,12 @@
                     <span
                       *ngIf="item.is_found == 1"
                       class="badge badge-danger p-2"
-                    >Founded Item</span
+                    >Found Item</span
                     >
                     <span
                       *ngIf="item.is_found == 0"
                       class="badge badge-info p-2"
-                    >Losted Item</span
+                    >Lost Item</span
                     >
                     <span
                       *ngIf="item.is_found == -1"
@@ -179,18 +179,15 @@
                     <span
                       *ngIf="person.is_found == 1"
                       class="badge badge-danger p-2"
-                    >Founded Person</span
+                    >Found Person</span
                     >
                     <span
                       *ngIf="person.is_found == 0"
                       class="badge badge-info p-2"
-                    >Losted Person</span
-                    >
+                    >Lost Person</span>
                     <span
                       *ngIf="person.is_found == -1"
-                      class="badge badge-warning p-2"
-                    >Returned to Home</span
-                    >
+                      class="badge badge-warning p-2">Returned to Home</span>
                   </div>
                   <div class="left-content">
                     <button
