@@ -1,8 +1,8 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
-import { FieldConfig } from '@@shared/models/field.interface';
-import { DynamicFormComponent } from '@@shared/pages/dynamicForms/dynamic-form/dynamic-form.component';
-import { CoreService } from '@@core/services/core-service.service';
+import {Component, ViewChild, OnInit} from '@angular/core';
+import {Validators} from '@angular/forms';
+import {FieldConfig} from '@@shared/models/field.interface';
+import {DynamicFormComponent} from '@@shared/pages/dynamicForms/dynamic-form/dynamic-form.component';
+import {CoreService} from '@@core/services/core-service.service';
 
 @Component({
   selector: 'app-test-dynamic-form',
@@ -12,7 +12,9 @@ import { CoreService } from '@@core/services/core-service.service';
 export class TestDynamicFormComponent implements OnInit {
   @ViewChild(DynamicFormComponent) formmmmm: DynamicFormComponent;
   rerere = 'required';
-  constructor(private coreService: CoreService) {}
+
+  constructor(private coreService: CoreService) {
+  }
 
   ngOnInit(): void {
     this.getData(this.data);
@@ -148,12 +150,14 @@ export class TestDynamicFormComponent implements OnInit {
       ],
     },
   ];
+
   getData(data: object) {
     for (let item in data) {
-      console.log(item);
+      // console.log(item);
     }
   }
+
   submit(value: any) {
-    console.log('dsd', this.formmmmm.value);
+    // console.log('dsd', this.formmmmm.value);
   }
 } //end of class

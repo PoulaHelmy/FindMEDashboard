@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
-import { UserDetailsResolver } from '@@core/guards/resolvers/UserAuthResolvers/user-details.resolver';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {NotFoundComponent} from '@@shared/pages/not-found/not-found.component';
+import {UserDetailsResolver} from '@@core/guards/resolvers/UserAuthResolvers/user-details.resolver';
 
 const routes: Routes = [
   {
@@ -14,12 +14,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('app/modules/home/home.module').then((m) => m.HomeModule),
   },
-  // {
-  //   path: 'auth',
-  //   loadChildren: () =>
-  //     import('app/@auth/auth.module').then((m) => m.AuthModule),
-  //   canActivateChild: [GuestGuardService],
-  // },
+
   {
     path: 'dashboard',
     loadChildren: () =>
@@ -89,4 +84,12 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
+
+// {
+//   path: 'auth',
+//   loadChildren: () =>
+//     import('app/@auth/auth.module').then((m) => m.AuthModule),
+//   canActivateChild: [GuestGuardService],
+// },

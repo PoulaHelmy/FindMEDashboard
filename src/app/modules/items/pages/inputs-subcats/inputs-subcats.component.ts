@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -6,10 +6,10 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from '@@core/http/api.service';
-import { Subscription } from 'rxjs';
+import {SnackbarService} from '@@shared/pages/snackbar/snackbar.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {ApiService} from '@@core/http/api.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-inputs-subcats',
@@ -25,6 +25,7 @@ export class InputsSubcatsComponent implements OnInit, OnDestroy {
   subscription2$: Subscription;
 
   data: {};
+
   constructor(
     private fb: FormBuilder,
     private snackbarService: SnackbarService,
@@ -48,10 +49,12 @@ export class InputsSubcatsComponent implements OnInit, OnDestroy {
       subcatInputs: this.fb.array([]),
     });
   }
+
   /****************** Get Inputs************************/
   getinputs() {
     return this.inputsForm.get('subcatInputs') as FormArray;
   }
+
   /****************** add Input************************/
   addInput() {
     this.inputItem = this.fb.group({
@@ -59,14 +62,17 @@ export class InputsSubcatsComponent implements OnInit, OnDestroy {
     });
     this.getinputs().push(this.inputItem);
   }
+
   /****************** remove  Input************************/
   removeInput(index: number) {
     this.getinputs().removeAt(index);
   }
+
   /****************** Get One Validator************************/
   getOneInput(index) {
     return this.getinputs().at(index);
   }
+
   /**************** Submit Function************************/
 
   onSubmit() {
@@ -83,7 +89,7 @@ export class InputsSubcatsComponent implements OnInit, OnDestroy {
       .inputsSubcats(this.data)
       .toPromise()
       .then((next) => {
-        console.log('res : :  :', next);
+        // console.log('res : :  :', next);
         this.snackbarService.show(next['message'], 'success');
         this.router.navigate(['subcategories']);
       })
@@ -91,6 +97,7 @@ export class InputsSubcatsComponent implements OnInit, OnDestroy {
         this.snackbarService.show('Error', 'danger');
       });
   }
+
   ngOnDestroy() {
     this.subscription1$.unsubscribe();
     this.subscription2$.unsubscribe();

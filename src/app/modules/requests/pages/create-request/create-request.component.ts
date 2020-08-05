@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -6,9 +6,9 @@ import {
   Validators,
   FormArray,
 } from '@angular/forms';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ItemsService } from '@@core/services/items.service';
+import {SnackbarService} from '@@shared/pages/snackbar/snackbar.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {ItemsService} from '@@core/services/items.service';
 
 @Component({
   selector: 'app-create-request',
@@ -21,13 +21,15 @@ export class CreateRequestComponent implements OnInit, OnDestroy {
   questionItem: FormGroup;
   data: {};
   newData = [];
+
   constructor(
     private fb: FormBuilder,
     private snackbarService: SnackbarService,
     private router: Router,
     private itemsService: ItemsService,
     private actRoute: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.actRoute.data.subscribe((res) => {
@@ -51,10 +53,12 @@ export class CreateRequestComponent implements OnInit, OnDestroy {
 
     this.requestForm.get('questions').patchValue(this.newData);
   }
+
   /****************** Get Questions************************/
   getquestions() {
     return this.requestForm.get('questions') as FormArray;
   }
+
   /****************** add Question************************/
   addQuestion() {
     this.questionItem = this.fb.group({
@@ -63,18 +67,21 @@ export class CreateRequestComponent implements OnInit, OnDestroy {
     });
     this.getquestions().push(this.questionItem);
   }
+
   /****************** remove  Question************************/
   removeQuestion(index: number) {
     this.getquestions().removeAt(index);
   }
+
   /****************** Get One Question************************/
   getOneQuestion(index) {
     return this.getquestions().at(index);
   }
+
   /**************** Submit Function************************/
 
   onSubmit() {
-    console.log('Form Data', this.requestForm.value);
+    // console.log('Form Data', this.requestForm.value);
     this.itemsService
       .addItem(this.requestForm.value, 'requests')
       .toPromise()
@@ -86,5 +93,7 @@ export class CreateRequestComponent implements OnInit, OnDestroy {
         this.snackbarService.show(err['error']['message'], 'danger');
       });
   }
-  ngOnDestroy() {}
+
+  ngOnDestroy() {
+  }
 } //end of Class

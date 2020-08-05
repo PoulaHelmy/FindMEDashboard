@@ -61,8 +61,8 @@ export class PersonsCreateFacesComponent implements OnInit {
         .addPersonFace('maingroup', this.selectedPersonId, this.b64toFile(this.images[i]))
         .subscribe(
           (res) => {
-            console.log('.addPersonFace', res);
-            console.log('.addPersonFac i : ', i);
+            // console.log('.addPersonFace', res);
+            // console.log('.addPersonFac i : ', i);
           },
           (err) => {
             this.popToast({
@@ -82,8 +82,8 @@ export class PersonsCreateFacesComponent implements OnInit {
         )
         .subscribe(
           (res) => {
-            console.log('.addFaceFromLocal', res);
-            console.log('.addFaceFromLocal  i : ', i);
+            // console.log('.addFaceFromLocal', res);
+            // console.log('.addFaceFromLocal  i : ', i);
           },
           (err) => {
             this.popToast({

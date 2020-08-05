@@ -1,6 +1,6 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { FieldConfig } from '@@shared/models/field.interface';
-import { DynamicFormComponent } from '@@shared/pages/dynamicForms/dynamic-form/dynamic-form.component';
+import {Component, ViewChild, OnInit} from '@angular/core';
+import {FieldConfig} from '@@shared/models/field.interface';
+import {DynamicFormComponent} from '@@shared/pages/dynamicForms/dynamic-form/dynamic-form.component';
 import {
   FormGroup,
   FormBuilder,
@@ -9,12 +9,12 @@ import {
   FormControl,
   FormGroupName,
 } from '@angular/forms';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from '@@core/http/api.service';
-import { Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { CoreService } from '@@core/services/core-service.service';
+import {SnackbarService} from '@@shared/pages/snackbar/snackbar.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {ApiService} from '@@core/http/api.service';
+import {Subscription} from 'rxjs';
+import {map, take} from 'rxjs/operators';
+import {CoreService} from '@@core/services/core-service.service';
 
 @Component({
   selector: 'app-inputs-update-dynamcally',
@@ -25,6 +25,7 @@ export class InputsUpdateDynamcallyComponent implements OnInit {
   @ViewChild(DynamicFormComponent) formmmmm: DynamicFormComponent;
   regConfig: FieldConfig[] = [];
   formChilds: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private apiserv: ApiService,
@@ -32,7 +33,8 @@ export class InputsUpdateDynamcallyComponent implements OnInit {
     private router: Router,
     private actRoute: ActivatedRoute,
     private coreService: CoreService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.actRoute.data.subscribe((res) => {
@@ -44,13 +46,13 @@ export class InputsUpdateDynamcallyComponent implements OnInit {
         this.regConfig.push(res['item'][i]);
       }
       this.regConfig.push(btn);
-      console.log('this.regConfig : ', this.regConfig);
+      // console.log('this.regConfig : ', this.regConfig);
     });
   }
 
   submit(value: any) {
-    console.log('form Is :  ', this.formmmmm);
+    // console.log('form Is :  ', this.formmmmm);
 
-    console.log('dsd', value);
+    // console.log('dsd', value);
   }
 }

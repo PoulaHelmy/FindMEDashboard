@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ChartsService } from '@@core/services/charts.service';
-import { ChartType, ChartOptions } from 'chart.js';
-import { Label } from 'ng2-charts';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ChartsService} from '@@core/services/charts.service';
+import {ChartType, ChartOptions} from 'chart.js';
+import {Label} from 'ng2-charts';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,10 +18,12 @@ export class DashboardComponent implements OnInit {
   persons;
   items;
   users;
+
   constructor(
     private chartsServ: ChartsService,
     private actRoute: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.actRoute.data.subscribe((res) => {
@@ -43,6 +45,7 @@ export class DashboardComponent implements OnInit {
       this.pieChartData4.push(res['item']['rejectedRequests']);
     });
   }
+
   /*-----------------------------------------------------*/
   // Pie 1
   pieChartOptions: ChartOptions = {
@@ -114,12 +117,13 @@ export class DashboardComponent implements OnInit {
     },
   ];
   /*-----------------------------------------------------*/
+
   // events
-  chartClicked({ event, active }: { event: MouseEvent; active: {}[] }): void {
-    console.log(event, active);
+  chartClicked({event, active}: { event: MouseEvent; active: {}[] }): void {
+    // console.log(event, active);
   }
 
-  chartHovered({ event, active }: { event: MouseEvent; active: {}[] }): void {
-    console.log(event, active);
+  chartHovered({event, active}: { event: MouseEvent; active: {}[] }): void {
+    // console.log(event, active);
   }
 } //end of Class

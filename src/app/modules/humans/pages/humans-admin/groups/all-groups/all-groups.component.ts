@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FaceApiService } from 'app/modules/humans/services/face-api.service';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FaceApiService} from 'app/modules/humans/services/face-api.service';
+import {SnackbarService} from '@@shared/pages/snackbar/snackbar.service';
 import {
   ToasterModule,
   ToasterService,
   ToasterConfig,
   Toast,
 } from 'angular2-toaster';
-import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
+import {ConfirmDialogService} from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
 
 @Component({
   selector: 'app-all-groups',
@@ -34,24 +34,28 @@ export class AllGroupsComponent implements OnInit {
     cancelText: 'Cancel',
     confirmText: 'Confirm',
   };
+
   constructor(
     private router: Router,
     private faceApi: FaceApiService,
     private snackbarService: SnackbarService,
     private toasterService: ToasterService,
     private dialogService: ConfirmDialogService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.faceApi.getPersonGroups().subscribe((data) => {
       this.allGroups = data;
     });
   }
+
   popToast(toast: Toast) {
     this.toasterService.pop(toast);
   }
+
   trainPersonGroup(personGroupId) {
-    console.log('Hey from trainPersonGroup', personGroupId);
+    // console.log('Hey from trainPersonGroup', personGroupId);
     this.isLoadingResults = true;
     this.popToast({
       type: 'success',
@@ -67,6 +71,7 @@ export class AllGroupsComponent implements OnInit {
       });
     });
   }
+
   deletePersonGroup(personGroupId) {
     this.dialogService.open(this.options);
     this.dialogService.confirmed().subscribe((confirmed) => {
@@ -91,8 +96,9 @@ export class AllGroupsComponent implements OnInit {
       }
     });
   }
+
   getGroupTrainingStatus(personGroupId) {
-    console.log('Hey from getGroupTrainingStatus', personGroupId);
+    // console.log('Hey from getGroupTrainingStatus', personGroupId);
     this.isLoadingResults = true;
     this.faceApi
       .getPersonGroupTrainingStatus(personGroupId)

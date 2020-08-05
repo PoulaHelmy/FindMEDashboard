@@ -36,7 +36,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   deleteItem(id: number) {
-    console.log('id  :', id);
+    // console.log('id  :', id);
     this.dialogService.open(this.options);
     this.dialogService.confirmed().subscribe((confirmed) => {
       if (confirmed) {
