@@ -6,9 +6,9 @@ import {
   OnDestroy,
   ElementRef,
 } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { merge, Observable, of as observableOf, fromEvent } from 'rxjs';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {merge, Observable, of as observableOf, fromEvent} from 'rxjs';
 import {
   catchError,
   map,
@@ -18,11 +18,11 @@ import {
   distinctUntilChanged,
   tap,
 } from 'rxjs/operators';
-import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import { Item } from '@@shared/models/item';
-import { ItemsService } from '@@core/services/items.service';
-import { ApiService } from '@@core/http/api.service';
+import {ConfirmDialogService} from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
+import {SnackbarService} from '@@shared/pages/snackbar/snackbar.service';
+import {Item} from '@@shared/models/item';
+import {ItemsService} from '@@core/services/items.service';
+import {ApiService} from '@@core/http/api.service';
 
 @Component({
   selector: 'app-items-list',
@@ -51,15 +51,18 @@ export class ItemsListComponent implements OnInit, AfterViewInit, OnDestroy {
     cancelText: 'Cancel',
     confirmText: 'Confirm',
   };
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('input') inputSearch: ElementRef;
+
   constructor(
     private dialogService: ConfirmDialogService,
     private snackbarService: SnackbarService,
     private itemService: ItemsService,
     private apiserv: ApiService
-  ) {}
+  ) {
+  }
+
   ngOnInit() {
     this.apiserv
       .getAllInputs('', 'id', 'asc', 0, 0, 'items')
@@ -69,10 +72,10 @@ export class ItemsListComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     this.itemService.getAllItemsAdmin().subscribe((res) => {
       this.data = res['data'];
-
       this.isLoadingResults = false;
     });
   }
+
   deleteItem(id: number) {
     this.dialogService.open(this.options);
     this.dialogService.confirmed().subscribe((confirmed) => {

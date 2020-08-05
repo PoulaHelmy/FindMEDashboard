@@ -63,6 +63,28 @@ export class ItemsService {
       );
   }
 
+  getItemAdmin(id: string) {
+    return this.http
+      .get(`${env.apiRoot}/getitem/${id}`, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError((e) => throwError(e))
+      );
+  }
+
+  getRequestAdmin(id: string) {
+    return this.http
+      .get(`${env.apiRoot}/getreq/${id}`, httpOptions)
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError((e) => throwError(e))
+      );
+  }
+
   getItemQuestions(id: string) {
     return this.http
       .get(`${env.apiRoot}/auth/items/questions/${id}`, httpOptions)
