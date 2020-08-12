@@ -10,9 +10,9 @@
   </div>
   <mat-form-field class="m-3 w-75">
     <mat-label>Filter</mat-label>
-    <input matInput placeholder="Ex..." #input />
+    <input matInput placeholder="Ex..." #input/>
     <mat-hint align="end" style="font-size: 14px;"
-      >Total Results : {{ resultsLength }}</mat-hint
+    >Total Results : {{ resultsLength }}</mat-hint
     >
   </mat-form-field>
   <div class="example-table-container">
@@ -85,19 +85,7 @@
             >
               <mat-icon>delete</mat-icon>
             </button>
-            <button
-              class="matBtn"
-              mat-icon-button
-              color="primary"
-              aria-label="Update Item"
-              matTooltip="Update Item"
-              matTooltipPosition="right"
-              [routerLink]="['/requests/update', row.id]"
-              
-              routerLinkActive="router-link-active"
-            >
-              <mat-icon>settings</mat-icon>
-            </button>
+
           </div>
         </td>
       </ng-container>

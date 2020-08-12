@@ -10,20 +10,9 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
-    loadChildren: () =>
-      import('app/modules/home/home.module').then((m) => m.HomeModule),
-  },
-
-  {
     path: 'dashboard',
     loadChildren: () =>
       import('app/modules/admin/admin.module').then((m) => m.AdminModule),
-  },
-  {
-    path: 'tags',
-    loadChildren: () =>
-      import('app/modules/tags/tags.module').then((m) => m.TagsModule),
   },
   {
     path: 'inputs',
@@ -73,7 +62,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('app/modules/users/users.module').then((m) => m.UsersModule),
   },
-
   {
     path: '**',
     component: NotFoundComponent,
@@ -86,10 +74,3 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 }
-
-// {
-//   path: 'auth',
-//   loadChildren: () =>
-//     import('app/@auth/auth.module').then((m) => m.AuthModule),
-//   canActivateChild: [GuestGuardService],
-// },
