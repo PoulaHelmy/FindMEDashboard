@@ -1,14 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FaceApiService } from 'app/modules/humans/services/face-api.service';
-import { SnackbarService } from '@@shared/pages/snackbar/snackbar.service';
-import {
-  ToasterModule,
-  ToasterService,
-  ToasterConfig,
-  Toast,
-} from 'angular2-toaster';
-import { ConfirmDialogService } from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FaceApiService} from 'app/modules/humans/services/face-api.service';
+import {ToasterService, Toast} from 'angular2-toaster';
+import {ConfirmDialogService} from '@@shared/pages/dialogs/confirm-dialog/confirm.service';
 
 @Component({
   selector: 'app-person-control',
@@ -28,13 +22,15 @@ export class PersonControlComponent implements OnInit {
     cancelText: 'Cancel',
     confirmText: 'Confirm',
   };
+
   constructor(
     private router: Router,
     private faceApi: FaceApiService,
     private toasterService: ToasterService,
     private dialogService: ConfirmDialogService,
     private actRoute: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.selectedGroupId = this.actRoute.snapshot.paramMap.get('group');
@@ -50,14 +46,17 @@ export class PersonControlComponent implements OnInit {
         this.selectedPerson = res;
       });
   }
+
   popToast(toast: Toast) {
     this.toasterService.pop(toast);
   }
+
   addPersonFaceByUrl() {
     this.router.navigateByUrl(
       `/humans/addfaceurl/${this.selectedPersonId}/group/${this.selectedGroupId}`
     );
   }
+
   addPersonFaceFromLocal() {
     this.router.navigateByUrl(
       `/humans/addface/${this.selectedPersonId}/group/${this.selectedGroupId}`

@@ -24,44 +24,67 @@
     <!-------------- SideNav Content List -------------------------->
     <mat-nav-list>
       <mat-list-item routerLink="/dashboard" routerLinkActive="active"
-        ><mat-icon color="primary">dashboard</mat-icon
-        ><span class="mx-2">Dashboard</span></mat-list-item
+      >
+        <mat-icon color="primary">dashboard
+        </mat-icon
+        >
+        <span class="mx-2">Dashboard</span></mat-list-item
       >
       <mat-list-item routerLink="/users" routerLinkActive="active"
-        ><mat-icon color="primary">account_box</mat-icon
-        ><span class="mx-2">Users</span></mat-list-item
+      >
+        <mat-icon color="primary">account_box
+        </mat-icon
+        >
+        <span class="mx-2">Users</span></mat-list-item
       >
       <mat-list-item routerLink="/categories" routerLinkActive="active"
-        ><mat-icon color="primary">category</mat-icon
-        ><span class="mx-2">Categories</span></mat-list-item
+      >
+        <mat-icon color="primary">category
+        </mat-icon
+        >
+        <span class="mx-2">Categories</span></mat-list-item
       >
       <mat-list-item routerLink="/subcategories" routerLinkActive="active"
-        ><mat-icon color="primary">dns</mat-icon
-        ><span class="mx-2">Sub-Categories</span></mat-list-item
       >
-      <mat-list-item routerLink="tags" routerLinkActive="active"
-        ><mat-icon color="primary">local_offer</mat-icon
-        ><span class="mx-2">Tags</span></mat-list-item
+        <mat-icon color="primary">dns
+        </mat-icon
+        >
+        <span class="mx-2">Sub-Categories</span></mat-list-item
       >
       <mat-list-item routerLink="inputs" routerLinkActive="active"
-        ><mat-icon color="primary" class="mx-1">input</mat-icon
-        ><span class="mx-2">Inputs</span></mat-list-item
+      >
+        <mat-icon color="primary" class="mx-1">input
+        </mat-icon
+        >
+        <span class="mx-2">Inputs</span></mat-list-item
       >
       <mat-list-item routerLink="items" routerLinkActive="active"
-        ><mat-icon color="primary" class="mx-1">bookmarks</mat-icon
-        ><span class="mx-2">Items</span></mat-list-item
+      >
+        <mat-icon color="primary" class="mx-1">bookmarks
+        </mat-icon
+        >
+        <span class="mx-2">Items</span></mat-list-item
       >
       <mat-list-item routerLink="requests" routerLinkActive="active"
-        ><mat-icon color="primary">compare_arrows</mat-icon
-        ><span class="mx-2">Requests</span></mat-list-item
+      >
+        <mat-icon color="primary">compare_arrows
+        </mat-icon
+        >
+        <span class="mx-2">Requests</span></mat-list-item
       >
       <mat-list-item routerLink="humans" routerLinkActive="active"
-        ><mat-icon color="primary">supervised_user_circle</mat-icon
-        ><span class="mx-2">Humans</span></mat-list-item
+      >
+        <mat-icon color="primary">supervised_user_circle
+        </mat-icon
+        >
+        <span class="mx-2">Humans</span></mat-list-item
       >
       <mat-list-item routerLink="matching" routerLinkActive="active"
-        ><mat-icon color="primary">close_fullscreen</mat-icon
-        ><span class="mx-2">Matching</span></mat-list-item
+      >
+        <mat-icon color="primary">close_fullscreen
+        </mat-icon
+        >
+        <span class="mx-2">Matching</span></mat-list-item
       >
     </mat-nav-list>
   </mat-sidenav>
@@ -92,7 +115,8 @@
           <mat-icon
             [matBadge]="notificationsNumber != '0' ? notificationsNumber : ''"
             matBadgeColor="warn"
-            >notifications</mat-icon
+          >notifications
+          </mat-icon
           >
         </button>
         <mat-menu #notificationsMenu="matMenu">
@@ -136,21 +160,21 @@
         </mat-menu>
         <!--------------------------For Themeing ------------------------ -->
         <!--------------------------For Account Setting And Loged-Out ------------------------ -->
-<!--        <button-->
-<!--          mat-icon-button-->
-<!--          [matMenuTriggerFor]="menu2"-->
-<!--          aria-label="Example icon-button with a menu"-->
-<!--        >-->
-<!--          <mat-icon>more_vert</mat-icon>-->
-<!--        </button>-->
-<!--        <mat-menu #menu2="matMenu">-->
-<!--          <button mat-menu-item [routerLink]="['/dashboard/account']">-->
-<!--            <span>Account</span>-->
-<!--          </button>-->
-<!--          <button mat-menu-item (click)="logout()">-->
-<!--            <span>Logout</span>-->
-<!--          </button>-->
-<!--        </mat-menu>-->
+        <!--        <button-->
+        <!--          mat-icon-button-->
+        <!--          [matMenuTriggerFor]="menu2"-->
+        <!--          aria-label="Example icon-button with a menu"-->
+        <!--        >-->
+        <!--          <mat-icon>more_vert</mat-icon>-->
+        <!--        </button>-->
+        <!--        <mat-menu #menu2="matMenu">-->
+        <!--          <button mat-menu-item [routerLink]="['/dashboard/account']">-->
+        <!--            <span>Account</span>-->
+        <!--          </button>-->
+        <!--          <button mat-menu-item (click)="logout()">-->
+        <!--            <span>Logout</span>-->
+        <!--          </button>-->
+        <!--        </mat-menu>-->
         <!--------------------------For Account Setting And Loged-Out ------------------------ -->
       </div>
 
