@@ -55,12 +55,7 @@
                   </div>
                 </div>
               </mat-list-option>
-              <mat-divider></mat-divider>
-              <mat-list-option class="mat-list-option">
-                <mat-chip-list aria-label="Items selection" class="text-center">
-                  <mat-chip color="primary" class="m-auto p-2" style="font-size: 20px" selected>Items</mat-chip>
-                </mat-chip-list>
-              </mat-list-option>
+
               <mat-divider></mat-divider>
               <mat-list-option class="mat-list-option"
                                *ngFor="let question of itemDetails['AllQuestions'];let i = index">
@@ -104,7 +99,7 @@
                       >
                         <mat-icon>delete</mat-icon>
                       </button>
-                   
+
                     </div>
                   </div>
                 </div>

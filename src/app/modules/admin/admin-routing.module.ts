@@ -1,20 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
 
-import { AllSummeryResolver } from '@@core/guards/resolvers/Charts/all-summery.resolver';
-import { NotFoundComponent } from '@@shared/pages/not-found/not-found.component';
+import {AllSummeryResolver} from '@@core/guards/resolvers/Charts/all-summery.resolver';
+import {NotFoundComponent} from '@@shared/pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    resolve: { item: AllSummeryResolver },
-  },
-  {
-    path: 'account',
-    loadChildren: () =>
-      import('app/modules/account/account.module').then((m) => m.AccountModule),
+    resolve: {item: AllSummeryResolver},
   },
   {
     path: '**',
@@ -26,4 +21,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule {
+}

@@ -11,17 +11,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {SharedModule} from '@@shared/shared.module';
 import {AdminModule} from './modules/admin/admin.module';
-import {AuthModule} from 'app/@auth/auth.module';
-import {TagsModule} from 'app/modules/tags/tags.module';
 import {InputsModule} from 'app/modules/inputs/inputs.module';
 import {CategoriesModule} from './modules/categories/categories.module';
-import {AccountModule} from './modules/account/account.module';
 import {MatchingModule} from './modules/matching/matching.module';
 import {environment} from '@@env/environment';
-import {ToasterModule, ToasterService} from 'angular2-toaster';
+import {ToasterModule} from 'angular2-toaster';
 import {ChartsModule} from 'ng2-charts';
 import * as Sentry from '@sentry/browser';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import {ServiceWorkerModule} from '@angular/service-worker';
 
 Sentry.init({
   dsn:
@@ -104,15 +101,12 @@ export class SentryErrorHandler implements ErrorHandler {
     NgbModule,
     SharedModule,
     AdminModule,
-    AuthModule,
-    TagsModule,
     InputsModule,
     CategoriesModule,
     ToasterModule.forRoot(),
     ChartsModule,
-    AccountModule,
     MatchingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [],
   bootstrap: [AppComponent],

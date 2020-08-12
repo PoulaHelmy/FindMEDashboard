@@ -26,7 +26,7 @@ import {CheckboxComponent} from './pages/dynamicForms/checkbox.component';
 import {DynamicFieldDirective} from './directives/dynamic-field/dynamic-field.directive';
 import {DynamicFormComponent} from './pages/dynamicForms/dynamic-form/dynamic-form.component';
 import {ImgDefualtPipe} from './pipes/img-defualt.pipe';
-import {ToasterModule, ToasterService} from 'angular2-toaster';
+import {ToasterModule} from 'angular2-toaster';
 
 @NgModule({
   declarations: [

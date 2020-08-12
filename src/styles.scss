@@ -3,36 +3,54 @@
 @import "~@angular/material/theming";
 
 @include mat-core();
-@import "./themes/themes.scss";
-
-@import "./themes/my-light-theme.scss";
-@import "./themes/my-dark-theme.scss";
 @import "./themes/custom-compontent.scss";
-@import "./themes/findme-theme.scss";
 @import "node_modules/angular2-toaster/src/toaster";
+
+//THEME ONE
+$my-theme: mat-light-theme(mat-palette($mat-indigo, 700, 300, 900), mat-palette($mat-pink, A200, A100, A400), mat-palette($mat-red));
 .my-theme {
   @include angular-material-theme($my-theme);
   @include custom-components-theme($my-theme);
 }
 
+//THEME TWO
+///////////////////////////////////////////////////////////////
+$my-light-theme: mat-light-theme(
+    mat-palette($mat-purple, 700, 300, 900),
+    mat-palette($mat-amber),
+    mat-palette($mat-deep-orange, A200)
+);
 .my-light-theme {
   @include angular-material-theme($my-light-theme);
   @include custom-components-theme($my-light-theme);
 }
 
+//THEME THREE
+///////////////////////////////////////////////////////////////
+$my-dark-theme: mat-dark-theme(
+    mat-palette($mat-indigo),
+    mat-palette($mat-amber, A200, A100, A400),
+    $mat-red
+);
 .my-dark-theme {
   @include angular-material-theme($my-dark-theme);
   @include custom-components-theme($my-dark-theme);
 }
+
+//THEME FOUR
+///////////////////////////////////////////////////////////////
+$findme-theme: mat-light-theme(mat-palette($mat-cyan), mat-palette($mat-purple, A200, A100, A400), mat-palette($mat-red));
 .findme-theme {
   @include angular-material-theme($findme-theme);
   @include custom-components-theme($findme-theme);
 }
 
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -48,6 +66,7 @@ body {
     transform: rotate(360deg);
   }
 }
+
 .example-loading-shade {
   position: absolute;
   top: 0;
@@ -60,6 +79,7 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .spinner:before {
   content: "";
   box-sizing: border-box;
@@ -75,17 +95,21 @@ body {
   border-top-color: #000000;
   animation: spinner 0.8s linear infinite;
 }
+
 .mat-form-field {
   font-size: 14px;
   width: 90%;
   margin: 15px;
 }
+
 .mat-form-field-flex {
   width: 100% !important;
 }
+
 .mat-hint {
   font-size: 14px;
 }
+
 .login-btn {
   font-size: 18px !important;
 }
